@@ -1,0 +1,37 @@
+/* Hello World stylesheet */
+#helloworldcachereport {
+    display: inline;
+    float: right;
+    
+    -moz-border-radius: 5px 5px 5px 5px;
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+    background: -moz-linear-gradient(center top , #EAF5FA, #C5E8F1) repeat scroll 0 0 transparent;
+    border: 2px solid #95C9EF;
+    color: #444444;
+    min-height: 1em;
+    margin: 0 2em 2em 2em;
+    padding: 1em 20px 1em 20px;
+    text-align: left;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+#pagenumber {
+    padding: 1em;
+    margin: 1em;
+    border: 1px solid darkmagenta;
+    background-color: lavender;
+    width: 50%;
+}
+#pagenumber span {
+    background-color: #ffffff;
+    padding: .25em;
+    font-weight: bold;
+}
+.hw-statusmsg {
+    background-color: #DFF2BF;
+    border: 1px solid #99CC99;
+    color: #264409;
+    margin: 5px 0 10px 1em;
+    padding: 10px;
+    width: 50%;
+}
