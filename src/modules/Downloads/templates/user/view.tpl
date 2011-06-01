@@ -1,3 +1,4 @@
+{ajaxheader modname='Downloads' ui=true}
 <h3>{gt text='Download Items'}</h3>
 
 {insert name="getstatusmsg"}
@@ -27,8 +28,16 @@
                         {$c.Category.name|safetext}
                     {/foreach}
                 </td>
-                <td><a href="{modurl modname="Downloads" type="user" func="edit" id=$d.lid}">{gt text='Edit'}</a></td>
+                <td>
+                    <a href="{$d.url}">{img modname='core' set='icons/extrasmall' src='download.png' __title='Download' __alt='Download' class='tooltips'}</a>
+                    <a href="{modurl modname="Downloads" type="user" func="edit" id=$d.lid}">{img modname='core' set='icons/extrasmall' src='xedit.png' __title='Edit' __alt='Edit' class='tooltips'}</a>
+                </td>
             </tr>
         {/foreach}
     </tbody>
 </table>
+<script type="text/javascript">
+// <![CDATA[
+    Zikula.UI.Tooltips($$('.tooltips'));
+// ]]>
+</script>
