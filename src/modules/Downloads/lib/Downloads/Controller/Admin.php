@@ -16,15 +16,18 @@ class Downloads_Controller_Admin extends Zikula_AbstractController
 {
 
     /**
-     * the main administration function
-     * This function is the default function, and is called whenever the
-     * module is initiated without defining arguments.
+     * This method provides a generic item list overview.
+     *
+     * @return string|boolean Output.
      */
     public function main()
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
-        return $this->view->fetch('admin/main.tpl');
+        $downloads = Doctrine_Core::getTable('Downloads_Model_Download')->findAll();
+
+        return $this->view->assign('downloads', $downloads)
+                          ->fetch('admin/main.tpl');
     }
 
     /**
@@ -100,7 +103,20 @@ class Downloads_Controller_Admin extends Zikula_AbstractController
         LogUtil::registerStatus($this->__('Done! Updated the Downloads configuration.'));
         return $this->modifyconfig();
     }
+    
+    /**
+     * Create or edit record.
+     *
+     * @return string|boolean Output.
+     */
+    public function edit()
+    {
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADD), LogUtil::getErrorMsgPermission());
 
+        $form = FormUtil::newForm('Downloads', $this);
+        return $form->execute('admin/edit.tpl', new Downloads_Form_Handler_Admin_Edit());
+    }
+    
     /**
      * @desc set caching to false for all admin functions
      * @return      null

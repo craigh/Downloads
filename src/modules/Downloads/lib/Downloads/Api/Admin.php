@@ -33,12 +33,12 @@ class Downloads_Api_Admin extends Zikula_AbstractApi
         if (SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN)) {
             $links[] = array(
                 'url' => ModUtil::url('Downloads', 'admin', 'main'),
-                'text' => $this->__('Module main'),
-                'class' => 'z-icon-es-list');
+                'text' => $this->__('File List'),
+                'class' => 'z-icon-es-view');
         }
 
         $links[] = array(
-            'url' => ModUtil::url('Downloads', 'user', 'edit'),
+            'url' => ModUtil::url('Downloads', 'admin', 'edit'),
             'text' => $this->__('New download'),
             'class' => 'z-icon-es-new');
 

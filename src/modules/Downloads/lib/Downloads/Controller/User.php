@@ -41,19 +41,4 @@ class Downloads_Controller_User extends Zikula_AbstractController
                           ->fetch('user/view.tpl');
     }
     
-    /**
-     * Create or edit record.
-     *
-     * @return string|boolean Output.
-     */
-    public function edit()
-    {
-        if (!SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADD)) {
-            return LogUtil::registerPermissionError(ModUtil::url('Downloads', 'user', 'main'));
-        }
-
-        $form = FormUtil::newForm('Downloads', $this);
-        return $form->execute('user/edit.tpl', new Downloads_Form_Handler_User_Edit());
-    }
-    
 } // end class def
