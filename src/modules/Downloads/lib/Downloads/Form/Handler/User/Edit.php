@@ -102,19 +102,28 @@ class Downloads_Form_Handler_User_Edit extends Zikula_Form_AbstractHandler
         $data['update'] = date("Y-m-d H:i:s");
         $data['date'] = date("Y-m-d H:i:s");
 
-        if ($data['filename']['size'] > 0) {
+        $storage = $this->getVar('upload_folder');
+
+        if ((is_array($data['filename'])) && ($data['filename']['size'] > 0)) {
             $data['filesize'] = $data['filename']['size'];
-            FileUtil::uploadFile($data['filename']['tmp_name'], 'data', $data['filename']['name']);
+            FileUtil::uploadFile('filename', $storage, $data['filename']['name']);
             $name = $data['filename']['name'];
             unset($data['filename']);
             $data['filename'] = $name;
-        } else {
+            $data['url'] = "$storage/$name";
+        } else if (((is_array($data['filename'])) && (!$data['filename']['size'] > 0)) || (!isset($data['filename']))) {
             $data['filename'] = '';
         }
 
         // switch between edit and create mode
         if ($this->id) {
             $file = Doctrine_Core::getTable('Downloads_Model_Download')->find($this->id);
+            // if file is new, delete old one
+            $oldname = $file->get('filename');
+            if ($oldname <> $data['filename']) {
+                $fullpath = DataUtil::formatForOS("$storage/$oldname");
+                @unlink($fullpath);
+            }
         } else {
             $file = new Downloads_Model_Download();
         }
@@ -123,9 +132,10 @@ class Downloads_Form_Handler_User_Edit extends Zikula_Form_AbstractHandler
         
         try {
             $file->save();
-        } catch (Exception $e) {
-            echo "<pre>"; var_dump($data);
-            logUtil::registerError(__('Save failed!'));
+        } catch (Zikula_Exception $e) {
+            echo "<pre>";
+            var_dump($e->getDebug());
+            echo "</pre>";
             die;
         }
 
