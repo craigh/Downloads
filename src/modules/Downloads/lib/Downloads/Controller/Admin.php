@@ -49,6 +49,9 @@ class Downloads_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         $defaults = Downloads_Util::getModuleDefaults();
+        $currentModVars = $this->getVars();
+        $defaults = array_merge($defaults, $currentModVars);
+        
         $modvars = array(
             'perpage' => $this->request->getPost()->get('perpage', $defaults['perpage']),
             'newdownloads' => $this->request->getPost()->get('newdownloads', $defaults['newdownloads']),
