@@ -27,7 +27,7 @@
                         {$c.Category.name|safetext}
                     {/foreach}
                 </td>
-                <td><a href="{modurl modname="ExampleDoctrine" type="user" func="edit" id=$d.lid}">{gt text='Edit'}</a></td>
+                <td><a href="{modurl modname="Downloads" type="user" func="edit" id=$d.lid}">{gt text='Edit'}</a></td>
             </tr>
         {/foreach}
     </tbody>
