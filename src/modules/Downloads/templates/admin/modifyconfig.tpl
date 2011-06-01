@@ -1,6 +1,6 @@
 {include file="admin/menu.tpl"}
 <div class="z-admincontainer">
-    <div class="z-adminpageicon">{img modname='core' set='icons/large' src='agt_internet.png'}</div>
+    <div class="z-adminpageicon">{img modname='core' set='icons/large' src='download_manager.png'}</div>
     <h2>{gt text="Downloads settings"}&nbsp;({gt text="version"}&nbsp;{$modinfo.version})</h2>
     <form class="z-form" action="{modurl modname="Downloads" type="admin" func="updateconfig"}" method="post" enctype="application/x-www-form-urlencoded">
         <div>
@@ -130,12 +130,12 @@
 
                 <div class="z-formrow">
                     <label for="screenshot_folder">{gt text='Screenshot folder path'}</label>
-                    <input id="screenshot_folder" type="text" name="screenshot_folder" value="{$modvars.Downloads.screenshot_folder|safetext}" size="40" maxlength="80" />
+                    <input disabled id="screenshot_folder" type="text" name="screenshot_folder" value="{$modvars.Downloads.screenshot_folder|safetext}" size="40" maxlength="80" />
                 </div>
 
                 <div class="z-formrow">
                     <label for="cache_folder">{gt text='Download cache folder path'}</label>
-                    <input id="cache_folder" type="text" name="cache_folder" value="{$modvars.Downloads.cache_folder|safetext}" size="40" maxlength="80" />
+                    <input disabled id="cache_folder" type="text" name="cache_folder" value="{$modvars.Downloads.cache_folder|safetext}" size="40" maxlength="80" />
                 </div>
 
             </fieldset>
