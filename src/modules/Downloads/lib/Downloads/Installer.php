@@ -88,9 +88,9 @@ class Downloads_Installer extends Zikula_AbstractInstaller
         // clean up associated categories
         DBUtil::deleteWhere('categories_mapobj', "cmo_modname='Downloads'");
         
-        //remove files from data folder?
-        // remove Doctrine entity folder in temp?
-        // /ztemp/doctrinemodels/GeneratedDoctrineModel/Downloads/
+        //remove files from data folder
+        $uploaddir = DataUtil::formatForOS($this->getVar('upload_folder'));
+        FileUtil::deldir($uploaddir, true);
         
         // remove all module vars
         $this->delVars();
@@ -104,7 +104,6 @@ class Downloads_Installer extends Zikula_AbstractInstaller
     private function createUploadDir()
     {
         // upload dir creation
-        // $uploaddir = FileUtil::getDataDirectory().'/Downloads/files';
         $uploaddir = $this->getVar('upload_folder');
 
         if (mkdir($uploaddir, System::getVar('system.chmod_dir', 0777), true)) {

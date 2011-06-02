@@ -51,7 +51,7 @@ class Downloads_Util
             'cclause' => 'ASC',
             'popular' => 10,
             'torrent' => false,
-            'upload_folder' => FileUtil::getDataDirectory().'/Downloads/files',
+            'upload_folder' => FileUtil::getDataDirectory().'/Downloads',
             'screenshot_folder' => '',
             'cache_folder' => '',
             'treeview' => false,
