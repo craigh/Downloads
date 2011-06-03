@@ -60,7 +60,34 @@ class Downloads_Installer extends Zikula_AbstractInstaller
             case '2.4':
             case '2.4.0':
                 // upgrade from old module
-                // convert modvars from yes|no to true|false
+                // convert modvars from yes|no to true|false && be sure all defaults are set
+                $oldVars = ModUtil::getVar('downloads'); // must use lowercase name here for old mod
+                $checkedVars = $this->getCheckedVars();
+                $defaultVars = Downloads_Util::getModuleDefaults();
+                $newVars = array();
+                $this->delVars(); // delete any with current modname
+                ModUtil::delVar('downloads'); // again use lowercase for old mod
+                foreach ($defaultVars as $var => $val) {
+                    if (isset($oldVars[$var])) {
+                        if (in_array($var, $checkedVars)) {
+                            // update value to boolean
+                            $newVars[$var] = ($oldVars[$var] == 'yes') ? true : false;
+                        } else {
+                            // use old value
+                            $newVars[$var] = $oldVars[$var];
+                        }
+                    } else {
+                        // not set
+                        $newVars[$var] = $val;
+                    }
+                }
+                $this->setVars($newVars);
+
+                // convert categories to zikula categories
+                
+                // drop old categories table and old modrequest table
+                DoctrineUtil::dropTable('downloads_categories');
+                DoctrineUtil::dropTable('downloads_modrequest');
                 
             case '3.0.0':
                 //future development
@@ -111,5 +138,28 @@ class Downloads_Installer extends Zikula_AbstractInstaller
         }
 
         return $uploaddir;
+    }
+    
+    /**
+     * List of ModVars that previously (<= v2.4) were stored as strings: Yes/No
+     * @return array
+     */
+    private function getCheckedVars()
+    {
+        return array(
+            'ratexdlsactive',
+            'topxdlsactive',
+            'lastxdlsactive',
+            'allowupload',
+            'securedownload',
+            'sizelimit',
+            'showscreenshot',
+            'limit_extension',
+            'allowscreenshotupload',
+            'frontpagesubcats',
+            'sessionlimit',
+            'inform_user',
+            'torrent', //
+        );
     }
 } // end class def
