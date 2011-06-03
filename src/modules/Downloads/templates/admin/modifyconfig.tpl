@@ -50,7 +50,7 @@
 
                 <div class="z-formrow">
                     <label for="showscreenshot">{gt text='Activate screenshots for downloads'}</label>
-                    <input tdisabled ype="checkbox" value="1" id="showscreenshot" name="showscreenshot"{if $modvars.Downloads.showscreenshot eq true} checked="checked"{/if}/>
+                    <input disabled type="checkbox" value="1" id="showscreenshot" name="showscreenshot"{if $modvars.Downloads.showscreenshot eq true} checked="checked"{/if}/>
                 </div>
 
                 <div class="z-formrow">
