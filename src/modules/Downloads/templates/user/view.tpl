@@ -27,7 +27,7 @@
                     {/foreach}
                 </td>
                 <td>
-                    <a href="{$d.url}">{img modname='core' set='icons/extrasmall' src='download.png' __title='Download' __alt='Download' class='tooltips'}</a>
+                    <a href="{modurl modname="Downloads" type="user" func="prepHandOut" lid=$d.lid}">{img modname='core' set='icons/extrasmall' src='download.png' __title='Download' __alt='Download' class='tooltips'}</a>
                 </td>
             </tr>
         {/foreach}

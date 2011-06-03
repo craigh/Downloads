@@ -85,12 +85,12 @@
 
                 <div class="z-formrow">
                     <label for="sessionlimit">{gt text='Limit downloads per session'}</label>
-                    <input disabled type="checkbox" value="1" id="sessionlimit" name="sessionlimit"{if $modvars.Downloads.sessionlimit eq true} checked="checked"{/if}/>
+                    <input type="checkbox" value="1" id="sessionlimit" name="sessionlimit"{if $modvars.Downloads.sessionlimit eq true} checked="checked"{/if}/>
                 </div>
 
                 <div class="z-formrow">
                     <label for="sessiondownloadlimit">{gt text='Number of downloads per session'}</label>
-                    <input disabled id="sessiondownloadlimit" type="text" name="sessiondownloadlimit" value="{$modvars.Downloads.sessiondownloadlimit|safetext}" size="40" maxlength="80" />
+                    <input id="sessiondownloadlimit" type="text" name="sessiondownloadlimit" value="{$modvars.Downloads.sessiondownloadlimit|safetext}" size="40" maxlength="80" />
                 </div>
 
                 <div class="z-formrow">
