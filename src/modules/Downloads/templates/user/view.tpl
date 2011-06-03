@@ -8,6 +8,7 @@
         <tr>
             <td>{gt text='Title'}</td>
             <td>{gt text='Version'}</td>
+            <td>{gt text='Downloads'}</td>
             <td>{gt text='Description'}</td>
             <td>{gt text='Submittor'}</td>
             <td>{gt text='Categories'}</td>
@@ -19,6 +20,7 @@
             <tr class="{cycle values="z-odd,z-even"}">
                 <td>{$d.title|safetext}</td>
                 <td>{$d.version|safetext}</td>
+                <td>{$d.hits|safetext}</td>
                 <td>{$d.description|safetext}</td>
                 <td>{$d.submitter|safetext}</td>
                 <td>
