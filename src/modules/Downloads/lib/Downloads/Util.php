@@ -633,6 +633,7 @@ class Downloads_Util
         } else {
             $categories = Doctrine_Core::getTable('Downloads_Model_Categories')->findAll()->toArray();
         }
+        $includeRoot = isset($args['includeroot']) ? true : false;
         $result = array();
         $text = array();
         foreach ($categories as $catinfo) {
@@ -642,6 +643,9 @@ class Downloads_Util
                     'text' => self::getCatNavPathArray(array('cid' => $catinfo['cid']))
                 );
             }
+        }
+        if ($includeRoot) {
+            $result[] = array('value' => 0, 'text' => '**' . __('Root') . '**');
         }
         // sort the array by displayed text
         foreach ($result as $key => $row) {

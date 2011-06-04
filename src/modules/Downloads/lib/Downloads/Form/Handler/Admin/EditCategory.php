@@ -49,7 +49,7 @@ class Downloads_Form_Handler_Admin_EditCategory extends Zikula_Form_AbstractHand
 			}
             $view->setStateData('returnurl', $returnurl);
         }
-        $this->view->assign('categories', Downloads_Util::getCatSelectArray(array()));
+        $this->view->assign('categories', Downloads_Util::getCatSelectArray(array('includeroot' => true)));
 
         return true;
     }
