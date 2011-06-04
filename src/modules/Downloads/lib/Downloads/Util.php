@@ -51,13 +51,13 @@ class Downloads_Util
             'cclause' => 'ASC',
             'popular' => 10,
             'torrent' => false,
-            'upload_folder' => FileUtil::getDataDirectory().'/Downloads',
+            'upload_folder' => FileUtil::getDataDirectory() . '/Downloads',
             'screenshot_folder' => '',
             'cache_folder' => '',
             'treeview' => false,
         );
     }
-    
+
     /**
      * Returns content type for the file type
      * @param string extension 
@@ -83,7 +83,7 @@ class Downloads_Util
         }
         return $MIME_type;
     }
-    
+
     /**
      * provide extension map
      *
@@ -548,6 +548,142 @@ class Downloads_Util
         );
 
         return $mime_extension_map;
+    }
+
+    /**
+     * format category list for selectbox
+     * @param       $cid
+     * @return      string		list of categories
+     */
+    public static function getCatSelectList($args)
+    {
+        $cid = (!isset($args['cid']) || !is_numeric($args['cid'])) ? 0 : $args['cid'];
+        $sel = (!isset($args['sel']) || !is_numeric($args['sel'])) ? 0 : $args['sel'];
+        $categories = Doctrine_Core::getTable('Downloads_Model_Categories')->findBy('pid', $cid)->toArray();
+        $categories_list = "";
+        foreach ($categories as $catinfo) {
+            $selected = ($sel == $catinfo['cid']) ? ' selected="selected"' : '';
+            // Security check
+            if (SecurityUtil::checkPermission('Downloads::Category', "Add::" . $catinfo['cid'], ACCESS_ADD)) {
+                $categories_list .= "<option value='$catinfo[cid]'$selected>" . self::getCatNavPath(array('cid' => $catinfo['cid'], 'start' => 0, 'links' => 0, 'linkmyself' => 0)) . "</option>\n";
+                $categories_list .= self::getCatSelectList(array('cid' => $catinfo['cid'], 'sel' => $sel));
+            }
+        }
+        return $categories_list;
+    }
+
+    /**
+     * @param       $cid
+     * @return      string		
+     */
+    public static function getCatNavPath($args)
+    {
+        if (!isset($args['cid']) || !is_numeric($args['cid'])) {
+            throw new Zikula_Exception_Fatal(__f('Error! Missing required argument [%s].', 'cid'));
+        }
+        $cid = $args['cid'];
+        $start = isset($args['start']) ? $args['start'] : 1;
+        $links = isset($args['links']) ? $args['links'] : 1;
+        $linkmyself = isset($args['linkmyself']) ? $args['linkmyself'] : 1;
+        $seperator = ' / ';
+        $admin = SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN);
+
+        $result = Doctrine_Core::getTable('Downloads_Model_Categories')->find($cid)->toArray();
+
+        if ($linkmyself) {
+            $cpath = "<a href='" . DataUtil::formatForDisplay(ModUtil::url('Downloads', 'user', 'view', array('cid' => $cid))) . "'>" . DataUtil::formatForDisplay($result['title']) . "</a>";
+        } else {
+            $cpath = DataUtil::formatForDisplay($result['title']);
+            $cpath .= $admin ? " (ID = " . DataUtil::formatForDisplay($cid) . ")" : '';
+        }
+
+        $pid = $result['pid'];
+        while ($pid != 0) {
+            $resultB = Doctrine_Core::getTable('Downloads_Model_Categories')->find($pid)->toArray();
+            $pid = $resultB['pid'];
+
+            if ($links) {
+                $cpath = "<a href='" . DataUtil::formatForDisplay(ModUtil::url('Downloads', 'user', 'view', array('cid' => $resultB['cid']))) . "'>" . DataUtil::formatForDisplay($resultB['title']) . "</a>{$seperator}{$cpath}";
+            } else {
+                if ($admin) {
+                    $cpath = DataUtil::formatForDisplay($resultB['title']) . " (ID = " . DataUtil::formatForDisplay($resultB['cid']) . ")" . "{$seperator}{$cpath}";
+                } else {
+                    $cpath = DataUtil::formatForDisplay($resultB['title']) . "{$seperator}{$cpath}";
+                }
+            }
+        }
+
+        if ($start) {
+            $cpath = "<a href='" . ModUtil::url('Downloads', 'user', 'main') . "'>" . __('Main') . "</a>{$seperator}{$cpath}";
+        }
+
+        return $cpath;
+    }
+
+    /**
+     * return array of categories for select box
+     * @param array $args
+     * @return array 
+     */
+    public static function getCatSelectArray($args)
+    {
+        $cid = (!isset($args['cid']) || !is_numeric($args['cid'])) ? 0 : $args['cid'];
+        if ($cid) {
+            $categories = Doctrine_Core::getTable('Downloads_Model_Categories')->findBy('pid', $cid)->toArray();
+        } else {
+            $categories = Doctrine_Core::getTable('Downloads_Model_Categories')->findAll()->toArray();
+        }
+        $result = array();
+        $text = array();
+        foreach ($categories as $catinfo) {
+            if (SecurityUtil::checkPermission('Downloads::Category', "Add::" . $catinfo['cid'], ACCESS_ADD)) {
+                $result[] = array(
+                    'value' => $catinfo['cid'],
+                    'text' => self::getCatNavPathArray(array('cid' => $catinfo['cid']))
+                );
+            }
+        }
+        // sort the array by displayed text
+        foreach ($result as $key => $row) {
+            $text[$key] = $row['text'];
+        }
+        array_multisort($text, SORT_ASC, $result);
+
+        return $result;
+    }
+
+    /**
+     * format title string to show category array structure
+     * @param array
+     * @return string		
+     */
+    public static function getCatNavPathArray($args)
+    {
+        if (!isset($args['cid']) || !is_numeric($args['cid'])) {
+            throw new Zikula_Exception_Fatal(__f('Error! Missing required argument [%s].', 'cid'));
+        }
+        $cid = $args['cid'];
+        $seperator = ' / ';
+        $admin = SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN);
+
+        $result = Doctrine_Core::getTable('Downloads_Model_Categories')->find($cid)->toArray();
+
+        $cpath = $result['title'];
+        $cpath .= $admin ? " (ID = $cid)" : '';
+
+        $pid = $result['pid'];
+        while ($pid != 0) {
+            $resultB = Doctrine_Core::getTable('Downloads_Model_Categories')->find($pid)->toArray();
+            $pid = $resultB['pid'];
+
+            if ($admin) {
+                $cpath = $resultB['title'] . " (ID = $resultB[cid])" . "{$seperator}{$cpath}";
+            } else {
+                $cpath = $resultB['title'] . "{$seperator}{$cpath}";
+            }
+        }
+
+        return $cpath;
     }
 
 }
