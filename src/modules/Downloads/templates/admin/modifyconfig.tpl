@@ -1,7 +1,7 @@
 {include file="admin/menu.tpl"}
 <div class="z-admincontainer">
     <div class="z-adminpageicon">{img modname='core' set='icons/large' src='download_manager.png'}</div>
-    <h2>{gt text="Downloads settings"}&nbsp;({gt text="version"}&nbsp;{$modinfo.version})</h2>
+    <h2>{gt text="Downloads settings"}</h2>
     <form class="z-form" action="{modurl modname="Downloads" type="admin" func="updateconfig"}" method="post" enctype="application/x-www-form-urlencoded">
         <div>
             <input type="hidden" name="csrftoken" value="{insert name="csrftoken"}" />
