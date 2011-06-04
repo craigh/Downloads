@@ -117,6 +117,30 @@ class Downloads_Controller_Admin extends Zikula_AbstractController
         return $form->execute('admin/edit.tpl', new Downloads_Form_Handler_Admin_Edit());
     }
     
+    public function categoryList()
+    {
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
+
+        $cats = Doctrine_Core::getTable('Downloads_Model_Categories')->findAll()->toArray();
+        // sort array by title
+        $title = array();
+        foreach ($cats as $key => $cat) {
+            $title[$key] = $cat['title'];
+        }
+        array_multisort($title, SORT_ASC, $cats);
+        
+        return $this->view->assign('cats', $cats)
+                          ->fetch('admin/categories.tpl');
+    }
+    
+    public function editCategory()
+    {
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
+
+        $form = FormUtil::newForm('Downloads', $this);
+        return $form->execute('admin/editcategory.tpl', new Downloads_Form_Handler_Admin_EditCategory());
+    }
+    
     /**
      * @desc set caching to false for all admin functions
      * @return      null

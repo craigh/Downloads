@@ -51,6 +51,7 @@
                 {formlabel for="version" __text="Version"}
                 {formtextinput id="version" maxLength=5}
             </div>
+            
             <div class="z-formrow">
                 {formlabel for="cid" __text="Category"}
                 {formdropdownlist id="cid" items=$categories}

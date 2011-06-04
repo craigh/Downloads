@@ -39,10 +39,25 @@ class Downloads_Api_Admin extends Zikula_AbstractApi
                 'class' => 'z-icon-es-view');
         }
 
-        $links[] = array(
-            'url' => ModUtil::url('Downloads', 'admin', 'edit'),
-            'text' => $this->__('New download'),
-            'class' => 'z-icon-es-new');
+        if (SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN)) {
+            $links[] = array(
+                'url' => ModUtil::url('Downloads', 'admin', 'edit'),
+                'text' => $this->__('New download'),
+                'class' => 'z-icon-es-new');
+        }
+
+        if (SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN)) {
+            $links[] = array(
+                'url' => ModUtil::url('Downloads', 'admin', 'categoryList'),
+                'text' => $this->__('Categories'),
+                'class' => 'z-icon-es-cubes',
+                'links' => array(
+                    array('url' => ModUtil::url('Downloads', 'admin', 'categoryList'),
+                        'text' => $this->__('View/edit Categories')),
+                    array('url' => ModUtil::url('Downloads', 'admin', 'editCategory'),
+                        'text' => $this->__('New category')),
+                ));
+        }
 
         return $links;
     }

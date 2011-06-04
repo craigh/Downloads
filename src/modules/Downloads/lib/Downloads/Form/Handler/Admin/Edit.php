@@ -45,7 +45,7 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
 			$editurl = ModUtil::url('Downloads', 'user', 'edit');
             $returnurl = System::serverGetVar('HTTP_REFERER');
             if (strpos($returnurl, $editurl) === 0) {
-                $returnurl = ModUtil::url('Downloads', 'user', 'view');
+                $returnurl = ModUtil::url('Downloads', 'admin', 'main');
 			}
             $view->setStateData('returnurl', $returnurl);
         }
