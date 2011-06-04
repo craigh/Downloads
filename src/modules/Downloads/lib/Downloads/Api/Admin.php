@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Craig Heydenburg 2010 - Downloads
  *
@@ -13,6 +14,7 @@
  */
 class Downloads_Api_Admin extends Zikula_AbstractApi
 {
+
     /**
      * Get available admin panel links
      *
@@ -22,14 +24,14 @@ class Downloads_Api_Admin extends Zikula_AbstractApi
     {
         // Define an empty array to hold the list of admin links
         $links = array();
-    
+
         if (SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN)) {
             $links[] = array(
                 'url' => ModUtil::url('Downloads', 'admin', 'modifyconfig'),
                 'text' => $this->__('Settings'),
                 'class' => 'z-icon-es-config');
         }
-        
+
         if (SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN)) {
             $links[] = array(
                 'url' => ModUtil::url('Downloads', 'admin', 'main'),
@@ -44,4 +46,5 @@ class Downloads_Api_Admin extends Zikula_AbstractApi
 
         return $links;
     }
-} // end class def
+
+}
