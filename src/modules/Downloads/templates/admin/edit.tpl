@@ -1,20 +1,20 @@
 {include file="admin/menu.tpl"}
 <div class="z-admincontainer">
     <div class="z-adminpageicon">{img modname='core' set='icons/large' src='download_manager.png'}</div>
-    <h2>{gt text="New Download"}&nbsp;({gt text="version"}&nbsp;{$modinfo.version})</h2>
+    <h2>{if isset($lid)}{gt text="Edit Download"}{else}{gt text="New Download"}{/if}</h2>
     {form cssClass="z-form" enctype="multipart/form-data"}
         <fieldset>
-            <legend>{gt text='New Download'}</legend>
+            <legend>{if isset($lid)}{gt text="Edit Download"}{else}{gt text="New Download"}{/if}</legend>
 
             {formvalidationsummary}
 
             <div class="z-formrow">
-                {formlabel for="title" __text="Download title"}
+                {formlabel mandatorysym=true for="title" __text="Download title"}
                 {formtextinput id="title" mandatory=true maxLength=100}
             </div>
 
             <div class="z-formrow">
-                {formlabel for="filename" __text="Choose file for upload"}
+                {formlabel mandatorysym=true for="filename" __text="Choose file for upload"}
                 {formuploadinput id="filename" maxLength=255}
             </div>
 
@@ -23,17 +23,17 @@
             </div>
 
             <div class="z-formrow">
-                {formlabel for="url" __text="Download link"}
+                {formlabel mandatorysym=true for="url" __text="Download link"}
                 {formtextinput id="url" maxLength=254}
             </div>
 
             <div class="z-formrow">
-                {formlabel for="description" __text="Description"}
+                {formlabel mandatorysym=true for="description" __text="Description"}
                 {formtextinput textMode='multiline' id="description" mandatory=true}
             </div>
 
             <div class="z-formrow">
-                {formlabel for="submitter" __text="Submitted by"}
+                {formlabel mandatorysym=true for="submitter" __text="Submitted by"}
                 {formtextinput id="submitter" mandatory=true maxLength=60}
             </div>
 
@@ -61,7 +61,7 @@
         <div class="z-buttons z-formbuttons">
             {formbutton class='z-bt-ok' commandName='create' __text='Save'}
             {formbutton class='z-bt-cancel' commandName='cancel' __text='Cancel'}
-            {formbutton class="z-bt-delete z-btred" commandName="delete" __text="Delete" __confirmMessage='Delete'}
+            {if isset($lid)}{formbutton class="z-bt-delete z-btred" commandName="delete" __text="Delete" __confirmMessage='Delete'}{/if}
         </div>
     {/form}
 </div>
