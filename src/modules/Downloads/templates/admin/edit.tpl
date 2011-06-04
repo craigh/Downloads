@@ -53,19 +53,6 @@
             </div>
         </fieldset>
 
-        {if $registries}
-        <fieldset>
-            <legend>{gt text='Categories'}</legend>
-
-            {foreach from=$registries item="registryCid" key="property"}
-                <div class="z-formrow">
-                    {formlabel for="category_`$property`" __text="Category"}
-                    {formcategoryselector id="category_`$property`" category=$registryCid dataField=$property enableDoctrine=true editLink=false}
-                </div>
-            {/foreach}
-        </fieldset>
-        {/if}
-
         <div class="z-buttons z-formbuttons">
             {formbutton class='z-bt-ok' commandName='create' __text='Save'}
             {formbutton class='z-bt-cancel' commandName='cancel' __text='Cancel'}

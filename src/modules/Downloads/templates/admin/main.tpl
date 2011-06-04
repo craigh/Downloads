@@ -25,11 +25,7 @@
                         <td>{$d.version|safetext}</td>
                         <td>{$d.description|safetext}</td>
                         <td>{$d.submitter|safetext}</td>
-                        <td>
-                            {foreach from=$d.Categories item='c'}
-                                {$c.Category.name|safetext}
-                            {/foreach}
-                        </td>
+                        <td>{$d.category.title|safetext}</td>
                         <td>
                             <a href="{modurl modname="Downloads" type="user" func="prepHandOut" lid=$d.lid}">{img modname='core' set='icons/extrasmall' src='download.png' __title='Download' __alt='Download' class='tooltips'}</a>
                             <a href="{modurl modname="Downloads" type="admin" func="edit" id=$d.lid}">{img modname='core' set='icons/extrasmall' src='xedit.png' __title='Edit' __alt='Edit' class='tooltips'}</a>

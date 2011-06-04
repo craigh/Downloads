@@ -176,7 +176,9 @@ class Downloads_Model_Download extends Doctrine_Record
 
     public function setUp()
     {
-        // doctrine templates provided by zikula
-        $this->actAs('Zikula_Doctrine_Template_Categorisable');
+        $this->hasOne('Downloads_Model_Categories as category', array(
+              'local' => 'cid',
+              'foreign' => 'cid'
+        ));
     }
 }

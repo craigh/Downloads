@@ -26,11 +26,6 @@ class Downloads_Installer extends Zikula_AbstractInstaller
         // create the table
         try {
             DoctrineUtil::createTablesFromModels('Downloads');
-            // create category relationship
-            $rootcat = CategoryUtil::getCategoryByPath('/__SYSTEM__/Modules/Global');
-            if ($rootcat) {
-                CategoryRegistryUtil::insertEntry ('Downloads', 'downloads_downloads', 'Main', $rootcat['id']);
-            }
         } catch (Exception $e) {
             return false;
         }
@@ -83,10 +78,8 @@ class Downloads_Installer extends Zikula_AbstractInstaller
                 }
                 $this->setVars($newVars);
 
-                // convert categories to zikula categories
                 
-                // drop old categories table and old modrequest table
-                DoctrineUtil::dropTable('downloads_categories');
+                // drop old modrequest table
                 DoctrineUtil::dropTable('downloads_modrequest');
                 
             case '3.0.0':
@@ -109,11 +102,7 @@ class Downloads_Installer extends Zikula_AbstractInstaller
     {
         // drop table
         DoctrineUtil::dropTable('downloads_downloads');
-        
-        // Delete entries from category registry
-        CategoryRegistryUtil::deleteEntry('Downloads');
-        // clean up associated categories
-        DBUtil::deleteWhere('categories_mapobj', "cmo_modname='Downloads'");
+        DoctrineUtil::dropTable('downloads_categories');
         
         //remove files from data folder
         $uploaddir = DataUtil::formatForOS($this->getVar('upload_folder'));

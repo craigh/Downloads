@@ -26,15 +26,6 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
      */
     public function initialize(Zikula_Form_View $view)
     {
-        // load and assign registred categories
-        $registryCategories = CategoryRegistryUtil::getRegisteredModuleCategories('Downloads', 'downloads_downloads');
-        $categories = array();
-        foreach ($registryCategories as $property => $cid) {
-            $categories[$property] = (int)$cid;
-        }
-
-        $view->assign('registries', $categories);
-
         $id = FormUtil::getPassedValue('id', null, 'GET', FILTER_SANITIZE_NUMBER_INT);
         if ($id) {
             // load record with id
