@@ -559,6 +559,7 @@ class Downloads_Util
     {
         $cid = (!isset($args['cid']) || !is_numeric($args['cid'])) ? 0 : $args['cid'];
         $sel = (!isset($args['sel']) || !is_numeric($args['sel'])) ? 0 : $args['sel'];
+        $includeAll = isset($args['includeall']) ? true : false;
         $categories = Doctrine_Core::getTable('Downloads_Model_Categories')->findBy('pid', $cid)->toArray();
         $categories_list = "";
         foreach ($categories as $catinfo) {
@@ -568,6 +569,10 @@ class Downloads_Util
                 $categories_list .= "<option value='$catinfo[cid]'$selected>" . self::getCatNavPath(array('cid' => $catinfo['cid'], 'start' => 0, 'links' => 0, 'linkmyself' => 0)) . "</option>\n";
                 $categories_list .= self::getCatSelectList(array('cid' => $catinfo['cid'], 'sel' => $sel));
             }
+        }
+        if ($includeAll) {
+            $selected = ($sel == 0) ? ' selected="selected"' : '';
+            $categories_list = "<option value='0'$selected>" . __('All Categories') . "</option>\n" . $categories_list;
         }
         return $categories_list;
     }

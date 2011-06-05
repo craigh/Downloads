@@ -35,8 +35,55 @@ class Downloads_Controller_User extends Zikula_AbstractController
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_READ), LogUtil::getErrorMsgPermission());
 
-        $downloads = Doctrine_Core::getTable('Downloads_Model_Download')->findAll();
 
+        // initialize sort array - used to display sort classes and urls
+        $sort = array();
+        $fields = array('title', 'submitter', 'hits'); // possible sort fields
+        foreach ($fields as $field) {
+            $sort['class'][$field] = 'z-order-unsorted'; // default values
+        }
+
+        // Get parameters from whatever input we need.
+        $startnum = (int)$this->request->getGet()->get('startnum', $this->request->getPost()->get('startnum', isset($args['startnum']) ? $args['startnum'] : null));
+        $orderby = $this->request->getGet()->get('orderby', $this->request->getPost()->get('orderby', isset($args['orderby']) ? $args['orderby'] : 'title'));
+        $original_sdir = $this->request->getGet()->get('sdir', $this->request->getPost()->get('sdir', isset($args['sdir']) ? $args['sdir'] : 0));
+        $category = $this->request->getPost()->get('category', $this->request->getGet()->get('category', isset($args['category']) ? $args['category'] : 0));
+
+        $this->view->assign('startnum', $startnum);
+        $this->view->assign('orderby', $orderby);
+        $this->view->assign('sdir', $original_sdir);
+        $this->view->assign('rowcount', ModUtil::apiFunc('Downloads', 'user', 'countQuery', array('category' => $category)));
+        $this->view->assign('catselectoptions', Downloads_Util::getCatSelectList(array('sel' => $category, 'includeall' => true)));
+        $this->view->assign('cid', $category);
+        $this->view->assign('filter_active', false);
+
+        $sdir = $original_sdir ? 0 : 1; //if true change to false, if false change to true
+        // change class for selected 'orderby' field to asc/desc
+        if ($sdir == 0) {
+            $sort['class'][$orderby] = 'z-order-desc';
+            $orderdir = 'DESC';
+        }
+        if ($sdir == 1) {
+            $sort['class'][$orderby] = 'z-order-asc';
+            $orderdir = 'ASC';
+        }
+        // complete initialization of sort array, adding urls
+        foreach ($fields as $field) {
+            $sort['url'][$field] = ModUtil::url('Downloads', 'user', 'view', array(
+                        'orderby' => $field,
+                        'sdir' => $sdir,
+                        'category' => $category));
+        }
+        $this->view->assign('sort', $sort);
+        $this->view->assign('filter_active', (empty($category)) ? false : true);
+
+        $downloads = ModUtil::apiFunc('Downloads', 'user', 'getall', array(
+                    'startnum' => $startnum,
+                    'orderby' => $orderby,
+                    'orderdir' => $orderdir,
+                    'category' => $category,
+                ));
+        
         return $this->view->assign('downloads', $downloads)
                 ->fetch('user/view.tpl');
     }
