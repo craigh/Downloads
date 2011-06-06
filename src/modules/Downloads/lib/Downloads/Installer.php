@@ -33,6 +33,8 @@ class Downloads_Installer extends Zikula_AbstractInstaller
         // Set up config variables
         $this->setVars(Downloads_Util::getModuleDefaults());
         $this->createUploadDir();
+        $cid = $this->createSampleCategory();
+        $this->createSampleDownload($cid);
 
         return true;
     }
@@ -78,7 +80,6 @@ class Downloads_Installer extends Zikula_AbstractInstaller
                 }
                 $this->setVars($newVars);
 
-                
                 // drop old modrequest table
                 DoctrineUtil::dropTable('downloads_modrequest');
                 
@@ -150,5 +151,40 @@ class Downloads_Installer extends Zikula_AbstractInstaller
             'inform_user',
             'torrent', //
         );
+    }
+    
+    private function createSampleCategory()
+    {
+        $data = array(
+            "title" => $this->__("SampleCategory"),
+            "description" => $this->__("This category is provided as a sample and can be safely deleted."),
+            "pid" => 0
+        );
+
+        $cat = new Downloads_Model_Categories();
+        $cat->merge($data);
+        $cat->save();
+        return $cat['cid'];
+    }
+    
+    private function createSampleDownload($cid)
+    {
+        $data = array(
+            "title" => $this->__("Sample download"),
+            "filename" => "",
+            "url" => "modules/Downloads/docs/sampledownload.txt",
+            "description" => "This file is provided as a sample and this entry can be safely deleted.",
+            "submitter" => "admin",
+            "email" => "",
+            "homepage" => "",
+            "version" => "1",
+            "cid" => $cid,
+            "update" => date("Y-m-d H:i:s"),
+            "date" => date("Y-m-d H:i:s"),
+        );
+        
+        $file = new Downloads_Model_Download();
+        $file->merge($data);
+        $file->save();
     }
 } // end class def
