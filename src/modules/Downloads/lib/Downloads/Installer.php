@@ -172,7 +172,7 @@ class Downloads_Installer extends Zikula_AbstractInstaller
         $data = array(
             "title" => $this->__("Sample download"),
             "filename" => "",
-            "url" => "modules/Downloads/docs/sampledownload.txt",
+            "url" => "modules/Downloads/docs/en/sampledownload.txt",
             "description" => "This file is provided as a sample and this entry can be safely deleted.",
             "submitter" => "admin",
             "email" => "",
