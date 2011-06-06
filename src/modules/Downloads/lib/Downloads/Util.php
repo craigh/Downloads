@@ -76,8 +76,10 @@ class Downloads_Util
             return 'application/octet-stream';
         }
 
-        if (array_key_exists($args['extension'], $mime_extension_map)) {
-            $MIME_type = $mime_extension_map[$args['extension']];
+        $ext = '.' . $args['extension']; // add dot
+        
+        if (array_key_exists($ext, $mime_extension_map)) {
+            $MIME_type = $mime_extension_map[$ext];
         } else {
             $MIME_type = 'application/octet-stream';
         }
