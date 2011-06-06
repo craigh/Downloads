@@ -1,10 +1,10 @@
 <?php
-
 /**
- * Description of Edit
+ * Downloads
  *
- * @author craig
+ * @license GNU/LGPLv3 (or at your option, any later version).
  */
+
 class Downloads_Form_Handler_Admin_EditCategory extends Zikula_Form_AbstractHandler
 {
 

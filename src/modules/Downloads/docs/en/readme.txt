@@ -16,4 +16,5 @@ This is a 'blind' rewrite with no actual base in the old code*. It just begins
 with the data and seeks to manage it with the new tools available in
 Zikula 1.3.x
 
-*The original license is maintained as there is a few bits of code retained.
+*The original license is upgraded from LGPLv2 to LGPLv3+ as there is a few bits
+of code retained.

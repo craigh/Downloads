@@ -1,10 +1,6 @@
 <?php
-
 /**
- * Copyright Craig Heydenburg 2010 - Downloads
- *
  * Downloads
- * Demonstration of Zikula Module
  *
  * @license GNU/LGPLv3 (or at your option, any later version).
  */

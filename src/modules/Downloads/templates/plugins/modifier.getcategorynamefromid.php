@@ -1,4 +1,9 @@
 <?php
+/**
+ * Downloads
+ *
+ * @license GNU/LGPLv3 (or at your option, any later version).
+ */
 
 function smarty_modifier_getcategorynamefromid($id)
 {
