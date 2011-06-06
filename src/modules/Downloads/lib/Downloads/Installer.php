@@ -76,7 +76,15 @@ class Downloads_Installer extends Zikula_AbstractInstaller
                         $newVars[$var] = $val;
                     }
                 }
+                if (substr($newVars['upload_folder'], -1) == '/') {
+                    // remove trailing slash
+                    $newVars['upload_folder'] = substr($newVars['upload_folder'], 0, -1);
+                }
                 $this->setVars($newVars);
+                
+                // update url field for each row to include upload dir
+                // and rename from ID to name
+                $this->updateRows();
 
                 // drop old modrequest table
                 DoctrineUtil::dropTable('downloads_modrequest');
@@ -151,6 +159,10 @@ class Downloads_Installer extends Zikula_AbstractInstaller
         );
     }
     
+    /**
+     * Create a sample category
+     * @return int created category id
+     */
     private function createSampleCategory()
     {
         $data = array(
@@ -165,6 +177,10 @@ class Downloads_Installer extends Zikula_AbstractInstaller
         return $cat['cid'];
     }
     
+    /**
+     * Create a sample download
+     * @param type $cid 
+     */
     private function createSampleDownload($cid)
     {
         $data = array(
@@ -184,5 +200,56 @@ class Downloads_Installer extends Zikula_AbstractInstaller
         $file = new Downloads_Model_Download();
         $file->merge($data);
         $file->save();
+    }
+    
+    /**
+     * Update all rows so url is properly formatted
+     */
+    private function updateRows()
+    {
+        $path = $this->getVar('upload_folder');
+        $tbl = Doctrine_Core::getTable('Downloads_Model_Download');
+        $rows = $tbl->findAll()->toArray();
+        foreach ($rows as $row) {
+            $parts = explode('.', $row['url']);
+            if (is_numeric($parts[0]) && ((int)$parts[0] == (int)$row['lid'])) {
+                // this section renames numeric filenames to strings and attempts to
+                // rename the actual file it also corrects the url for local files
+                $filenameParts = explode('.', $row['filename']);
+                $newname = DataUtil::formatForURL($filenameParts[0]) . '.' . array_pop($filenameParts);
+                $newurl = "$path/$newname";
+                $oldurl = $path . '/' .$row['url'];
+                if (@rename(DataUtil::formatForOS($oldurl), DataUtil::formatForOS($newurl))) {
+                    // update DB
+                    $tbl->createQuery()
+                        ->update()
+                        ->set('url', '?', $newurl)
+                        ->set('filename', '?', $newname)
+                        ->where('lid = ?', $row['lid'])
+                        ->execute();
+                } else {
+                    // update DB
+                    $tbl->createQuery()
+                        ->update()
+                        ->set('url', '?', $oldurl)
+                        ->set('filename', '?', $newname)
+                        ->where('lid = ?', $row['lid'])
+                        ->execute();
+                }
+            } else {
+                // this section simply renames filenames to only have one extension
+                // old versions of the module somehow added double extensions
+                $filenameParts = explode('.', $row['filename']);
+                if (count($filenameParts) > 2) {
+                    $newname = DataUtil::formatForURL($filenameParts[0]) . '.' . array_pop($filenameParts);
+                    // update DB
+                    $tbl->createQuery()
+                        ->update()
+                        ->set('filename', '?', $newname)
+                        ->where('lid = ?', $row['lid'])
+                        ->execute();
+                }
+            }
+        }
     }
 } // end class def
