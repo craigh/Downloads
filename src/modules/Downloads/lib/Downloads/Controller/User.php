@@ -154,7 +154,7 @@ class Downloads_Controller_User extends Zikula_AbstractController
             $filepointer = is_file($myfile['url']);
 
             // last file type check
-            if ($filepointer && !preg_match('.php[[:space:]]*$', $filename)) {
+            if ($filepointer && !preg_match('#\.php\s+$#', $filename)) {
 
                 // increment hit count
                 $tbl->createQuery()
@@ -176,8 +176,7 @@ class Downloads_Controller_User extends Zikula_AbstractController
                 // remove bad characters from title in a cross-platform manner by replacing 
                 // the union of characters not allowed by *nix, Mac and Windows (which is the most restrictive)
                 // with an underscore.
-                // use DataUtil::formatForURL() here?
-                $myfile['filename'] = preg_replace('![\x00-\x1f\x7f*:\\\\/<>|"?]!', '_', $myfile['filename']);
+                $filename = preg_replace('#[!@&$\x00-\x1f\x7f+:\\\\/<>|"?]#', '_', $filename);
 
                 $UseCompression = System::getVar('UseCompression');
 
@@ -193,9 +192,9 @@ class Downloads_Controller_User extends Zikula_AbstractController
                 header('Content-Description: File Transfer');
                 header("Content-Type:$contenttype");
                 // Properly quote the filename parameter per RFC2616 section 19.5.1, which allows spaces and other international characters
-                header('Content-Disposition: attachment; filename="' . $myfile['filename'] . '"');
+                header("Content-Disposition: attachment; filename=$filename");
                 header('Content-Transfer-Encoding: binary');
-                header("Content-Length:" . $fsize);
+                header("Content-Length:$fsize");
 
                 // wonder if readfile wouldn't be a better solution here
                 // http://de.php.net/manual/en/function.readfile.php
