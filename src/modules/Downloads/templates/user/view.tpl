@@ -17,7 +17,7 @@
             </span>
             <span class="z-nowrap z-buttons">
                 <input class='z-bt-filter' name="submit" type="submit" value="{gt text='Filter'}" />
-                <a href="{modurl modname="Downloads" type='admin' func='main'}" title="{gt text="Clear"}">{img modname='core' src="button_cancel.png" set="icons/extrasmall" __alt="Clear" __title="Clear"} {gt text="Clear"}</a>
+                <a href="{modurl modname="Downloads" type='user' func='view'}" title="{gt text="Clear"}">{img modname='core' src="button_cancel.png" set="icons/extrasmall" __alt="Clear" __title="Clear"} {gt text="Clear"}</a>
             </span>
         </div>
     </fieldset>
