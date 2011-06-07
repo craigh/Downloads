@@ -559,8 +559,7 @@ class Downloads_Util
         $categories_list = "";
         foreach ($categories as $catinfo) {
             $selected = ($sel == $catinfo['cid']) ? ' selected="selected"' : '';
-            // Security check
-            if (SecurityUtil::checkPermission('Downloads::Category', "Add::" . $catinfo['cid'], ACCESS_ADD)) {
+            if (SecurityUtil::checkPermission('Downloads::Category', $catinfo['cid'] . '::', ACCESS_READ)) {
                 $categories_list .= "<option value='$catinfo[cid]'$selected>" . self::getCatNavPath(array('cid' => $catinfo['cid'], 'start' => 0, 'links' => 0, 'linkmyself' => 0)) . "</option>\n";
                 $categories_list .= self::getCatSelectList(array('cid' => $catinfo['cid'], 'sel' => $sel));
             }
@@ -637,7 +636,7 @@ class Downloads_Util
         $result = array();
         $text = array();
         foreach ($categories as $catinfo) {
-            if (SecurityUtil::checkPermission('Downloads::Category', "Add::" . $catinfo['cid'], ACCESS_ADD)) {
+            if (SecurityUtil::checkPermission('Downloads::Category', $catinfo['cid'] . '::', ACCESS_READ)) {
                 $result[] = array(
                     'value' => $catinfo['cid'],
                     'text' => self::getCatNavPathArray(array('cid' => $catinfo['cid']))
