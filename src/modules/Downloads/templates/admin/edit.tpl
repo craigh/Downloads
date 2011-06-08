@@ -14,6 +14,11 @@
             </div>
 
             <div class="z-formrow">
+                {formlabel for="status" __text="Download active"}
+                {formcheckbox id="status"}
+            </div>
+
+            <div class="z-formrow">
                 {formlabel mandatorysym=true for="filename" __text="Choose file for upload"}
                 {formuploadinput id="filename" maxLength=255}
             </div>

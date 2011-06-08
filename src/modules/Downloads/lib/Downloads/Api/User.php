@@ -11,6 +11,12 @@
  */
 class Downloads_Api_User extends Zikula_AbstractApi
 {
+    /**
+     * Download Item status
+     */
+    const STATUS_ALL = -1;
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
 
     /**
      * get downloads filtered as requested
@@ -25,6 +31,7 @@ class Downloads_Api_User extends Zikula_AbstractApi
         $orderby = isset($args['orderby']) ? $args['orderby'] : 'title';
         $orderdir = isset($args['orderdir']) ? $args['orderdir'] : 'ASC';
         $limit = isset($args['limit']) ? $args['limit'] : $this->getVar('perpage');
+        $status = isset($args['status']) ? $args['status'] : 1;
 
         $tbl = Doctrine_Core::getTable('Downloads_Model_Download');
         $q = $tbl->createQuery('d')
@@ -32,11 +39,14 @@ class Downloads_Api_User extends Zikula_AbstractApi
                 ->expireResultCache()
                 ->orderBy("$orderby $orderdir")
                 ->offset($startnum);
-        if ($limit > 0) {
-            $q->limit($limit);
-        }
         if (!empty($category)) {
             $q->where("d.cid = ?", $category);
+        }
+        if (($status == self::STATUS_ACTIVE) || ($status == self::STATUS_INACTIVE)) {
+            $q->andWhere("d.status = ?", $status);
+        }
+        if ($limit > 0) {
+            $q->limit($limit);
         }
         $downloads = $q->execute();
 

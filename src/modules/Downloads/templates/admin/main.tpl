@@ -30,6 +30,7 @@
             <thead>
                 <tr>
                     <td><a class='{$sort.class.title}' href='{$sort.url.title|safetext}'>{gt text='Title'}</a></td>
+                    <td><a class='{$sort.class.status}' href='{$sort.url.status|safetext}'>{gt text='Status'}</a></td>
                     <td>{gt text='Version'}</td>
                     <td>{gt text='Description'}</td>
                     <td><a class='{$sort.class.submitter}' href='{$sort.url.submitter|safetext}'>{gt text='Submitter'}</a></td>
@@ -41,6 +42,7 @@
                 {foreach from=$downloads item='d'}
                 <tr class="{cycle values="z-odd,z-even"}">
                     <td>{$d.title|safetext}</td>
+                    <td>{if $d.status}{img src='greenled.png' modname='core' set='icons/extrasmall' __title="Active" __alt="Active" class="tooltips"}{else}{img src='redled.png' modname='core' set='icons/extrasmall' __title="Inactive" __alt="Inactive" class="tooltips"}{/if}</td>
                     <td>{$d.version|safetext}</td>
                     <td>{$d.description|safetext}</td>
                     <td>{$d.submitter|safetext}</td>

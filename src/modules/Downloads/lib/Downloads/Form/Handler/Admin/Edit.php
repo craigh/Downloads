@@ -117,6 +117,8 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             $data['filename'] = '';
         }
 
+        $data['status'] = (int)$data['status'];
+
         // switch between edit and create mode
         if ($this->id) {
             $file = Doctrine_Core::getTable('Downloads_Model_Download')->find($this->id);

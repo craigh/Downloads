@@ -22,7 +22,7 @@ class Downloads_Controller_Admin extends Zikula_AbstractController
 
         // initialize sort array - used to display sort classes and urls
         $sort = array();
-        $fields = array('title', 'submitter'); // possible sort fields
+        $fields = array('title', 'submitter', 'status'); // possible sort fields
         foreach ($fields as $field) {
             $sort['class'][$field] = 'z-order-unsorted'; // default values
         }
@@ -66,6 +66,7 @@ class Downloads_Controller_Admin extends Zikula_AbstractController
                     'orderby' => $orderby,
                     'orderdir' => $orderdir,
                     'category' => $category,
+                    'status' => Downloads_Api_User::STATUS_ALL,
                 ));
 
         return $this->view->assign('downloads', $downloads)
