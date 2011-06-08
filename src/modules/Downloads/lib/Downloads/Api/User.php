@@ -12,6 +12,11 @@
 class Downloads_Api_User extends Zikula_AbstractApi
 {
 
+    /**
+     * get downloads filtered as requested
+     * @param type $args
+     * @return Doctrine_Collection object
+     */
     public function getall($args)
     {
         // declare args
@@ -37,13 +42,18 @@ class Downloads_Api_User extends Zikula_AbstractApi
 
         foreach ($downloads as $key => $download) {
             if ((!SecurityUtil::checkPermission('Downloads::Item', $download['lid'] . '::', ACCESS_READ)) ||
-                (!SecurityUtil::checkPermission('Downloads::Category', $download['cid'] . '::', ACCESS_READ))) {
+                    (!SecurityUtil::checkPermission('Downloads::Category', $download['cid'] . '::', ACCESS_READ))) {
                 unset($downloads[$key]);
             }
         }
         return $downloads;
     }
 
+    /**
+     * cound the number of results in the query
+     * @param array $args
+     * @return integer
+     */
     public function countQuery($args)
     {
         $args['limit'] = -1;
