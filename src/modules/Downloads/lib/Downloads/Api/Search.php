@@ -95,7 +95,6 @@ class Downloads_Api_Search extends Zikula_AbstractApi
             if ($args['searchtype'] !== 'EXACT') {
                 $searchwords = Search_Api_User::split_query($q);
                 $method = $args['searchtype'] == 'AND' ? 'andWhere' : 'orWhere';
-                //$method = 'orWhere';
             } else {
                 $searchwords = array("%{$q}%");
                 $method = 'where';
