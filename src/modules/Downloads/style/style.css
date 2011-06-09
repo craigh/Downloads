@@ -25,3 +25,9 @@ div#downloads_item_details {
     margin: 2em auto 2em auto;
     width: 90%;
 }
+.z-datatable .downloads-parent {
+    background-color: #C5E8F1;
+}
+.z-datatable .downloads-rootparent {
+    background-color: #FFB3B3;
+}

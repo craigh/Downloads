@@ -18,14 +18,18 @@
             </thead>
             <tbody>
                 {foreach from=$cats item='c'}
-                    <tr class="{cycle values="z-odd,z-even"}">
-                        <td>{$c.title|safetext}</td>
-                        <td>{$c.description|truncate:60|safetext}</td>
-                        <td>{$c.pid|getcategorynamefromid|safetext}</td>
-                        <td>
-                            <a href="{modurl modname="Downloads" type="admin" func="editCategory" id=$c.cid}">{img modname='core' set='icons/extrasmall' src='xedit.png' __title='Edit' __alt='Edit' class='tooltips'}</a>
-                        </td>
-                    </tr>
+                <tr class="{cycle values="z-odd,z-even"}">
+                    <td>{$c.title|safetext}</td>
+                    <td>{$c.description|truncate:60|safetext}</td>
+                    <td>{$c.pid|getcategorynamefromid|safetext}</td>
+                    <td>
+                        <a href="{modurl modname="Downloads" type="admin" func="editCategory" id=$c.cid}">{img modname='core' set='icons/extrasmall' src='xedit.png' __title='Edit' __alt='Edit' class='tooltips'}</a>
+                    </td>
+                </tr>
+                {foreachelse}
+                <tr class='z-datatableempty'>
+                    <td colspan='4'>{gt text='There are no categories to display.'}</td>
+                </tr>
                 {/foreach}
             </tbody>
         </table>

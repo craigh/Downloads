@@ -54,7 +54,7 @@
                     </td>
                 </tr>
                 {foreachelse}
-                <tr><td colspan='6' class='z-center'>{gt text='No records in category "%1$s". Try a sub-category, or a different category.' tag1=$cid|getcategorynamefromid}</td></tr>
+                <tr class='z-datatableempty'><td colspan='6' class='z-center'>{gt text='No records in category "%1$s". Try a sub-category, or a different category.' tag1=$cid|getcategorynamefromid}</td></tr>
                 {/foreach}
             </tbody>
         </table>

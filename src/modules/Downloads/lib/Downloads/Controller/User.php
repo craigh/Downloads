@@ -80,8 +80,13 @@ class Downloads_Controller_User extends Zikula_AbstractController
                     'orderdir' => $orderdir,
                     'category' => $category,
                 ));
+        
+        $tbl = Doctrine_Core::getTable('Downloads_Model_Categories');
 
-        return $this->view->assign('downloads', $downloads)
+        return $this->view
+                ->assign('categoryinfo', $tbl->findBy('cid', $category))
+                ->assign('subcategories', $tbl->findBy('pid', $category))
+                ->assign('downloads', $downloads)
                 ->fetch('user/view.tpl');
     }
 
