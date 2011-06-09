@@ -44,7 +44,7 @@
                     <td>{$d.title|safetext}</td>
                     <td>{if $d.status}{img src='greenled.png' modname='core' set='icons/extrasmall' __title="Active" __alt="Active" class="tooltips"}{else}{img src='redled.png' modname='core' set='icons/extrasmall' __title="Inactive" __alt="Inactive" class="tooltips"}{/if}</td>
                     <td>{$d.version|safetext}</td>
-                    <td>{$d.description|safetext}</td>
+                    <td>{$d.description|truncate:60|safetext}</td>
                     <td>{$d.submitter|safetext}</td>
                     <td>{$d.category.title|safetext}</td>
                     <td class="z-nowrap">
