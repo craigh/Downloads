@@ -105,7 +105,7 @@
 
                 <div class="z-formrow">
                     <label for="allowupload">{gt text='Allow file upload'}</label>
-                    <input type="checkbox" value="1" id="allowupload" name="allowupload"{if $modvars.Downloads.allowupload eq true} checked="checked"{/if}/>
+                    <input disabled type="checkbox" value="1" id="allowupload" name="allowupload"{if $modvars.Downloads.allowupload eq true} checked="checked"{/if}/>
                 </div>
 
                 <div class="z-formrow">
@@ -115,12 +115,12 @@
 
                 <div class="z-formrow">
                     <label for="sizelimit">{gt text='Limit file size'}</label>
-                    <input type="checkbox" value="1" id="sizelimit" name="sizelimit"{if $modvars.Downloads.sizelimit eq true} checked="checked"{/if}/>
+                    <input disabled type="checkbox" value="1" id="sizelimit" name="sizelimit"{if $modvars.Downloads.sizelimit eq true} checked="checked"{/if}/>
                 </div>
 
                 <div class="z-formrow">
                     <label for="limitsize">{gt text='Maximum file size'}</label>
-                    <input id="limitsize" type="text" name="limitsize" value="{$modvars.Downloads.limitsize|safetext}" size="40" maxlength="80" />
+                    <input disabled id="limitsize" type="text" name="limitsize" value="{$modvars.Downloads.limitsize|safetext}" size="40" maxlength="80" />
                 </div>
 
                 <div class="z-formrow">

@@ -20,7 +20,7 @@
                 {foreach from=$cats item='c'}
                     <tr class="{cycle values="z-odd,z-even"}">
                         <td>{$c.title|safetext}</td>
-                        <td>{$c.description|safetext}</td>
+                        <td>{$c.description|truncate:60|safetext}</td>
                         <td>{$c.pid|getcategorynamefromid|safetext}</td>
                         <td>
                             <a href="{modurl modname="Downloads" type="admin" func="editCategory" id=$c.cid}">{img modname='core' set='icons/extrasmall' src='xedit.png' __title='Edit' __alt='Edit' class='tooltips'}</a>
