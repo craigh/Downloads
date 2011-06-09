@@ -40,10 +40,11 @@
             <td>{$d.title|safetext}</td>
             <td>{$d.version|safetext}</td>
             <td>{$d.hits|safetext}</td>
-            <td>{$d.description|safetext}</td>
+            <td>{$d.description|truncate:60|safetext}</td>
             <td>{$d.submitter|safetext}</td>
             <td>{$d.category.title|safetext}</td>
             <td>
+                <a href="{modurl modname="Downloads" type="user" func="display" lid=$d.lid}">{img modname='core' set='icons/extrasmall' src='14_layer_visible.png' __title='View' __alt='View' class='tooltips'}</a>
                 <a href="{modurl modname="Downloads" type="user" func="prepHandOut" lid=$d.lid}">{img modname='core' set='icons/extrasmall' src='download.png' __title='Download' __alt='Download' class='tooltips'}</a>
             </td>
         </tr>

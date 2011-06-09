@@ -59,8 +59,6 @@ class Downloads_Api_Search extends Zikula_AbstractApi
             }
         }
 
-
-
         return true;
     }
 

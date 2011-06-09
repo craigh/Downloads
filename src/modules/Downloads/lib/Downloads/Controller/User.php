@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Downloads
  *
@@ -79,9 +80,26 @@ class Downloads_Controller_User extends Zikula_AbstractController
                     'orderdir' => $orderdir,
                     'category' => $category,
                 ));
-        
+
         return $this->view->assign('downloads', $downloads)
                 ->fetch('user/view.tpl');
+    }
+
+    public function display($args)
+    {
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_READ), LogUtil::getErrorMsgPermission());
+        $lid = isset($args['lid']) ? $args['lid'] : (int)$this->request->getGet()->get('lid', null);
+        if (!isset($lid)) {
+            throw new Zikula_Exception_Fatal($this->__f('Error! Could not find download for ID #%s.', $lid));
+        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::Item', $lid . '::', ACCESS_READ), LogUtil::getErrorMsgPermission());
+        $item = Doctrine_Core::getTable('Downloads_Model_Download')->find($lid);
+        $item['filesize'] = round((int)$item['filesize'] / 1024, 2);
+        //$item['filetype'] = FileUtil::getExtension($item['filename']);
+        $filetype = (!empty($item['filename'])) ? FileUtil::getExtension($item['filename']) : $this->__('unknown');
+        return $this->view->assign('item', $item)
+                ->assign('filetype', $filetype)
+                ->fetch('user/display.tpl');
     }
 
     public function prepHandOut($args)
@@ -134,10 +152,10 @@ class Downloads_Controller_User extends Zikula_AbstractController
         if (stristr($myfile['url'], 'http:') || stristr($myfile['url'], 'ftp:') || stristr($myfile['url'], 'https:')) {
             // increment hit count
             $tbl->createQuery()
-                ->update()
-                ->set('hits', 'hits + 1')
-                ->where('lid = ?', $args['lid'])
-                ->execute();
+                    ->update()
+                    ->set('hits', 'hits + 1')
+                    ->where('lid = ?', $args['lid'])
+                    ->execute();
 
             // redirect to external link 
             $this->redirect($myfile['url']);
@@ -154,10 +172,10 @@ class Downloads_Controller_User extends Zikula_AbstractController
 
                 // increment hit count
                 $tbl->createQuery()
-                    ->update()
-                    ->set('hits', 'hits + 1')
-                    ->where('lid = ?', $args['lid'])
-                    ->execute();
+                        ->update()
+                        ->set('hits', 'hits + 1')
+                        ->where('lid = ?', $args['lid'])
+                        ->execute();
 
                 // get file size
                 $fsize = filesize($myfile['url']);
