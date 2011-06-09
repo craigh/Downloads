@@ -7,19 +7,19 @@
         {if ($cid <> 0)}
         <tr class='downloads-rootparent'>
             <td><a href="{modurl modname="Downloads" type="user" func="view" category=0}">{img modname='core' set='icons/medium' src='folder_red.png' __title='View root category' __alt='View root category' class='tooltips'}</a></td>
-            <td colspan='2'>{gt text='Back to'} <strong>{gt text='Root'}</strong></td>
+            <td colspan='2'><a href="{modurl modname="Downloads" type="user" func="view" category=0}">{gt text='Back to'} <strong>{gt text='Root'}</strong></a></td>
         </tr>
         {/if}
         {if ($categoryinfo.0.pid <> 0)}
         <tr class='downloads-parent'>
             <td><a href="{modurl modname="Downloads" type="user" func="view" category=$categoryinfo.0.pid}">{img modname='core' set='icons/medium' src='folder_blue.png' __title='View parent category' __alt='View parent category' class='tooltips'}</a></td>
-            <td colspan='2'>{gt text='Back to parent: '} <strong>{$categoryinfo.0.pid|getcategorynamefromid|safetext}</strong></td>
+            <td colspan='2'><a href="{modurl modname="Downloads" type="user" func="view" category=$categoryinfo.0.pid}">{gt text='Back to parent: '} <strong>{$categoryinfo.0.pid|getcategorynamefromid|safetext}</strong></a></td>
         </tr>
         {/if}
         {foreach from=$subcategories item='sc'}
         <tr class="{cycle values="z-odd,z-even"}">
             <td><a href="{modurl modname="Downloads" type="user" func="view" category=$sc.cid}">{img modname='core' set='icons/medium' src='folder_green.png' __title='View subcategory' __alt='View subcategory' class='tooltips'}</a></td>
-            <td>{$sc.title|safetext}</td>
+            <td><a href="{modurl modname="Downloads" type="user" func="view" category=$sc.cid}">{$sc.title|safetext}</a></td>
             <td>{$sc.description|truncate:60|safetext}</td>
         </tr>
         {foreachelse}
