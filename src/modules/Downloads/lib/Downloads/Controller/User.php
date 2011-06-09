@@ -13,10 +13,7 @@ class Downloads_Controller_User extends Zikula_AbstractController
 {
 
     /**
-     * main
-     *
-     * main view function for end user
-     * @access public
+     * main (default) method
      */
     public function main()
     {
@@ -41,18 +38,16 @@ class Downloads_Controller_User extends Zikula_AbstractController
         }
 
         // Get parameters from whatever input we need.
-        $startnum = (int)$this->request->getGet()->get('startnum', $this->request->getPost()->get('startnum', isset($args['startnum']) ? $args['startnum'] : null));
-        $orderby = $this->request->getGet()->get('orderby', $this->request->getPost()->get('orderby', isset($args['orderby']) ? $args['orderby'] : 'title'));
-        $original_sdir = $this->request->getGet()->get('sdir', $this->request->getPost()->get('sdir', isset($args['sdir']) ? $args['sdir'] : 0));
-        $category = $this->request->getPost()->get('category', $this->request->getGet()->get('category', isset($args['category']) ? $args['category'] : 0));
+        $startnum = (int)$this->request->getGet()->get('startnum', isset($args['startnum']) ? $args['startnum'] : null);
+        $orderby = $this->request->getGet()->get('orderby', isset($args['orderby']) ? $args['orderby'] : 'title');
+        $original_sdir = $this->request->getGet()->get('sdir', isset($args['sdir']) ? $args['sdir'] : 0);
+        $category = $this->request->getGet()->get('category', isset($args['category']) ? $args['category'] : 0);
 
-        $this->view->assign('startnum', $startnum);
-        $this->view->assign('orderby', $orderby);
-        $this->view->assign('sdir', $original_sdir);
-        $this->view->assign('rowcount', ModUtil::apiFunc('Downloads', 'user', 'countQuery', array('category' => $category)));
-        $this->view->assign('catselectoptions', Downloads_Util::getCatSelectList(array('sel' => $category, 'includeall' => true)));
-        $this->view->assign('cid', $category);
-        $this->view->assign('filter_active', false);
+        $this->view
+            ->assign('startnum', $startnum)
+            ->assign('orderby', $orderby)
+            ->assign('sdir', $original_sdir)
+            ->assign('cid', $category);
 
         $sdir = $original_sdir ? 0 : 1; //if true change to false, if false change to true
         // change class for selected 'orderby' field to asc/desc
@@ -72,24 +67,35 @@ class Downloads_Controller_User extends Zikula_AbstractController
                         'category' => $category));
         }
         $this->view->assign('sort', $sort);
-        $this->view->assign('filter_active', (empty($category)) ? false : true);
 
-        $downloads = ModUtil::apiFunc('Downloads', 'user', 'getall', array(
-                    'startnum' => $startnum,
-                    'orderby' => $orderby,
-                    'orderdir' => $orderdir,
-                    'category' => $category,
-                ));
+        if (!empty($category)) {
+            $downloads = ModUtil::apiFunc('Downloads', 'user', 'getall', array(
+                        'startnum' => $startnum,
+                        'orderby' => $orderby,
+                        'orderdir' => $orderdir,
+                        'category' => $category,
+                    ));
+            $rowcount = ModUtil::apiFunc('Downloads', 'user', 'countQuery', array('category' => $category));
+        } else {
+            $downloads = array();
+            $rowcount = 0;
+        }
         
         $tbl = Doctrine_Core::getTable('Downloads_Model_Categories');
 
         return $this->view
-                ->assign('categoryinfo', $tbl->findBy('cid', $category))
-                ->assign('subcategories', $tbl->findBy('pid', $category))
-                ->assign('downloads', $downloads)
-                ->fetch('user/view.tpl');
+            ->assign('categoryinfo', $tbl->findBy('cid', $category))
+            ->assign('subcategories', $tbl->findBy('pid', $category))
+            ->assign('downloads', $downloads)
+            ->assign('rowcount', $rowcount)
+            ->fetch('user/view.tpl');
     }
 
+    /**
+     * Display one item
+     * @param type $args
+     * @return string|boolean
+     */
     public function display($args)
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_READ), LogUtil::getErrorMsgPermission());
@@ -102,11 +108,17 @@ class Downloads_Controller_User extends Zikula_AbstractController
         $item['filesize'] = round((int)$item['filesize'] / 1024, 2);
         //$item['filetype'] = FileUtil::getExtension($item['filename']);
         $filetype = (!empty($item['filename'])) ? FileUtil::getExtension($item['filename']) : $this->__('unknown');
-        return $this->view->assign('item', $item)
+        return $this->view
+                ->assign('item', $item)
                 ->assign('filetype', $filetype)
                 ->fetch('user/display.tpl');
     }
 
+    /**
+     * prepare to handout the file
+     * @param type $args
+     * @return mixed 
+     */
     public function prepHandOut($args)
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_READ), LogUtil::getErrorMsgPermission());

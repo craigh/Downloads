@@ -1,27 +1,7 @@
 {ajaxheader modname='Downloads' ui=true}
-<h3>{gt text='Download Items'} :: {gt text='Category'}: {$cid|getcategorynamefromid}</h3>
+<h3>{gt text='Download Items'} :: {gt text='Category'}: {$cid|getcategorynamefromid|safetext}</h3>
 
 {insert name="getstatusmsg"}
-<form class="z-form" action="{modurl modname='Downloads' type='user' func='view'}" method="post" enctype="application/x-www-form-urlencoded">
-    <fieldset{if $filter_active} class='filteractive'{/if}>
-        {if $filter_active}{gt text='active' assign='filteractive'}{else}{gt text='inactive' assign='filteractive'}{/if}
-        <legend>{gt text='Filter %1$s, %2$s item listed' plural='Filter %1$s, %2$s items listed' count=$rowcount tag1=$filteractive tag2=$rowcount}</legend>
-        <input type="hidden" name="startnum" value="{$startnum}" />
-        <input type="hidden" name="orderby" value="{$orderby}" />
-        <input type="hidden" name="sdir" value="{$sdir}" />
-        <div id="pages_multicategory_filter">
-            <span id='categoryfilter'>
-                <select id='category' name='category'>
-                    {$catselectoptions}
-                </select>
-            </span>
-            <span class="z-nowrap z-buttons">
-                <input class='z-bt-filter' name="submit" type="submit" value="{gt text='Filter'}" />
-                <a href="{modurl modname="Downloads" type='user' func='view'}" title="{gt text="Clear"}">{img modname='core' src="button_cancel.png" set="icons/extrasmall" __alt="Clear" __title="Clear"} {gt text="Clear"}</a>
-            </span>
-        </div>
-    </fieldset>
-</form>
 <table class="z-datatable">
     <tbody>
         {if ($cid <> 0)}
@@ -43,10 +23,11 @@
             <td>{$sc.description|truncate:60|safetext}</td>
         </tr>
         {foreachelse}
-        <tr class='z-datatableempty'><td colspan='3' class='z-center'>{gt text='No subcategories in category "%1$s".' tag1=$cid|getcategorynamefromid}</td></tr>
+        <tr class='z-datatableempty'><td colspan='3' class='z-center'>{gt text='No subcategories in category "%1$s".' tag1=$cid|getcategorynamefromid|safetext}</td></tr>
         {/foreach}
     </tbody>
 </table>
+{if ($cid <> 0)}
 <table class="z-datatable">
     <thead>
         <tr>
@@ -74,11 +55,12 @@
             </td>
         </tr>
         {foreachelse}
-        <tr class='z-datatableempty'><td colspan='6' class='z-center'>{gt text='No records in category "%1$s". Try a sub-category, or a different category.' tag1=$cid|getcategorynamefromid}</td></tr>
+        <tr class='z-datatableempty'><td colspan='6' class='z-center'>{gt text='No records in category "%1$s". Try a sub-category, or a different category.' tag1=$cid|getcategorynamefromid|safetext}</td></tr>
         {/foreach}
     </tbody>
 </table>
 {pager rowcount=$rowcount limit=$modvars.Downloads.perpage posvar='startnum'}
+{/if}
 <script type="text/javascript">
 // <![CDATA[
     Zikula.UI.Tooltips($$('.tooltips'));

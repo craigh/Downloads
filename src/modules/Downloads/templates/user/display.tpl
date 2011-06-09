@@ -7,7 +7,7 @@
     &nbsp;&nbsp;{$item.title|safetext}</a></h3>
 </div>
 <div id='downloads_item_details'>
-    <h4>{gt text='Category'}: {$item.category.title|safetext}</h4>
+    <h4>{gt text='Category'}: <a href="{modurl modname="Downloads" type="user" func="view" cid=$item.cid}">{$item.category.title|safetext}</a></h4>
     <p><strong>{gt text='Description'}</strong>: {$item.description|safehtml}</p>
     <ul>
         <li><strong>{gt text='Filetype'}</strong>: {$filetype}</li>
@@ -23,7 +23,8 @@
         </li>
     </ul>
     <br />
-    <a href="{modurl modname="Downloads" type="user" func="view"}">{img modname='core' set='icons/large' src='windowlist.png' __title='Listview' __alt='Listview' class='z-middle tooltips'}&nbsp;&nbsp;{gt text='Back to list view'}</a>
+    <a href="{modurl modname="Downloads" type="user" func="view"}">{img modname='core' set='icons/medium' src='folder_red.png' __title='Root category' __alt='Root category' class='z-middle tooltips'}&nbsp;&nbsp;{gt text='Back to Root category'}</a>
+    <a href="{modurl modname="Downloads" type="user" func="view" cid=$item.cid}">{img modname='core' set='icons/medium' src='folder_blue.png' __title='Category' __alt='Category' class='z-middle tooltips'}&nbsp;&nbsp;{gt text="Back to category '%s'" tag1=$item.cid|getcategorynamefromid|safetext}</a>
 </div>
 <script type="text/javascript">
 // <![CDATA[
