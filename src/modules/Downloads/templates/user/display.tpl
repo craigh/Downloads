@@ -24,8 +24,9 @@
     </ul>
     <br />
     <a href="{modurl modname="Downloads" type="user" func="view"}">{img modname='core' set='icons/medium' src='folder_red.png' __title='Root category' __alt='Root category' class='z-middle tooltips'}&nbsp;&nbsp;{gt text='Back to Root category'}</a>
-    <a href="{modurl modname="Downloads" type="user" func="view" cid=$item.cid}">{img modname='core' set='icons/medium' src='folder_blue.png' __title='Category' __alt='Category' class='z-middle tooltips'}&nbsp;&nbsp;{gt text="Back to category '%s'" tag1=$item.cid|getcategorynamefromid|safetext}</a>
+    <a href="{modurl modname="Downloads" type="user" func="view" category=$item.cid}">{img modname='core' set='icons/medium' src='folder_blue.png' __title='Category' __alt='Category' class='z-middle tooltips'}&nbsp;&nbsp;{gt text="Back to category '%s'" tag1=$item.cid|getcategorynamefromid|safetext}</a>
 </div>
+{notifydisplayhooks eventname='downloads.ui_hooks.downloads.display_view' id=$item.lid}
 <script type="text/javascript">
 // <![CDATA[
     Zikula.UI.Tooltips($$('.tooltips'));

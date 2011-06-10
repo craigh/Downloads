@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Downloads
  *
@@ -10,6 +11,7 @@
  */
 class Downloads_Installer extends Zikula_AbstractInstaller
 {
+
     /**
      * Initializes a new install
      *
@@ -27,16 +29,18 @@ class Downloads_Installer extends Zikula_AbstractInstaller
         } catch (Exception $e) {
             return false;
         }
-        
+
         // Set up config variables
         $this->setVars(Downloads_Util::getModuleDefaults());
         $this->createUploadDir();
         $cid = $this->createSampleCategory();
         $this->createSampleDownload($cid);
 
+        HookUtil::registerSubscriberBundles($this->version->getHookSubscriberBundles());
+
         return true;
     }
-    
+
     /**
      * Upgrades an old install
      *
@@ -50,7 +54,7 @@ class Downloads_Installer extends Zikula_AbstractInstaller
     public function upgrade($oldversion)
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-    
+
         switch ($oldversion) {
             case '2.4':
             case '2.4.0':
@@ -81,21 +85,23 @@ class Downloads_Installer extends Zikula_AbstractInstaller
                     $newVars['upload_folder'] = substr($newVars['upload_folder'], 0, -1);
                 }
                 $this->setVars($newVars);
-                
+
                 // update url field for each row to include upload dir
                 // and rename from ID to name
                 $this->updateRows();
 
                 // drop old modrequest table
                 DoctrineUtil::dropTable('downloads_modrequest');
-                
+
+                HookUtil::registerSubscriberBundles($this->version->getHookSubscriberBundles());
+
             case '3.0.0':
-                //future development
+            //future development
         }
-    
+
         return true;
     }
-    
+
     /**
      * removes an install
      *
@@ -110,17 +116,19 @@ class Downloads_Installer extends Zikula_AbstractInstaller
         // drop table
         DoctrineUtil::dropTable('downloads_downloads');
         DoctrineUtil::dropTable('downloads_categories');
-        
+
         //remove files from data folder
         $uploaddir = DataUtil::formatForOS($this->getVar('upload_folder'));
         FileUtil::deldir($uploaddir, true);
-        
+
         // remove all module vars
         $this->delVars();
+        
+        HookUtil::unregisterSubscriberBundles($this->version->getHookSubscriberBundles());
 
         return true;
     }
-    
+
     /**
      * Upload directory creation
      */
@@ -135,7 +143,7 @@ class Downloads_Installer extends Zikula_AbstractInstaller
 
         return $uploaddir;
     }
-    
+
     /**
      * List of ModVars that previously (<= v2.4) were stored as strings: Yes/No
      * @return array
@@ -158,7 +166,7 @@ class Downloads_Installer extends Zikula_AbstractInstaller
             'torrent', //
         );
     }
-    
+
     /**
      * Create a sample category
      * @return int created category id
@@ -176,7 +184,7 @@ class Downloads_Installer extends Zikula_AbstractInstaller
         $cat->save();
         return $cat['cid'];
     }
-    
+
     /**
      * Create a sample download
      * @param type $cid 
@@ -196,12 +204,12 @@ class Downloads_Installer extends Zikula_AbstractInstaller
             "update" => date("Y-m-d H:i:s"),
             "date" => date("Y-m-d H:i:s"),
         );
-        
+
         $file = new Downloads_Model_Download();
         $file->merge($data);
         $file->save();
     }
-    
+
     /**
      * Update all rows so url is properly formatted
      */
@@ -218,23 +226,23 @@ class Downloads_Installer extends Zikula_AbstractInstaller
                 $filenameParts = explode('.', $row['filename']);
                 $newname = DataUtil::formatForURL($filenameParts[0]) . '.' . array_pop($filenameParts);
                 $newurl = "$path/$newname";
-                $oldurl = $path . '/' .$row['url'];
+                $oldurl = $path . '/' . $row['url'];
                 if (@rename(DataUtil::formatForOS($oldurl), DataUtil::formatForOS($newurl))) {
                     // update DB
                     $tbl->createQuery()
-                        ->update()
-                        ->set('url', '?', $newurl)
-                        ->set('filename', '?', $newname)
-                        ->where('lid = ?', $row['lid'])
-                        ->execute();
+                            ->update()
+                            ->set('url', '?', $newurl)
+                            ->set('filename', '?', $newname)
+                            ->where('lid = ?', $row['lid'])
+                            ->execute();
                 } else {
                     // update DB
                     $tbl->createQuery()
-                        ->update()
-                        ->set('url', '?', $oldurl)
-                        ->set('filename', '?', $newname)
-                        ->where('lid = ?', $row['lid'])
-                        ->execute();
+                            ->update()
+                            ->set('url', '?', $oldurl)
+                            ->set('filename', '?', $newname)
+                            ->where('lid = ?', $row['lid'])
+                            ->execute();
                 }
             } else {
                 // this section simply renames filenames to only have one extension
@@ -244,12 +252,15 @@ class Downloads_Installer extends Zikula_AbstractInstaller
                     $newname = DataUtil::formatForURL($filenameParts[0]) . '.' . array_pop($filenameParts);
                     // update DB
                     $tbl->createQuery()
-                        ->update()
-                        ->set('filename', '?', $newname)
-                        ->where('lid = ?', $row['lid'])
-                        ->execute();
+                            ->update()
+                            ->set('filename', '?', $newname)
+                            ->where('lid = ?', $row['lid'])
+                            ->execute();
                 }
             }
         }
     }
-} // end class def
+
+}
+
+// end class def
