@@ -27,6 +27,7 @@ class Downloads_Controller_User extends Zikula_AbstractController
      */
     public function view()
     {
+        // check module permissions
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_READ), LogUtil::getErrorMsgPermission());
 
 
@@ -42,6 +43,9 @@ class Downloads_Controller_User extends Zikula_AbstractController
         $orderby = $this->request->getGet()->get('orderby', isset($args['orderby']) ? $args['orderby'] : 'title');
         $original_sdir = $this->request->getGet()->get('sdir', isset($args['sdir']) ? $args['sdir'] : 0);
         $category = $this->request->getGet()->get('category', isset($args['category']) ? $args['category'] : 0);
+
+        // check  category permissions
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::Category', "$category::", ACCESS_READ), LogUtil::getErrorMsgPermission());
 
         $this->view
             ->assign('startnum', $startnum)
@@ -85,7 +89,7 @@ class Downloads_Controller_User extends Zikula_AbstractController
 
         return $this->view
             ->assign('categoryinfo', $tbl->findBy('cid', $category))
-            ->assign('subcategories', $tbl->findBy('pid', $category))
+            ->assign('subcategories', ModUtil::apiFunc('Downloads', 'user', 'getSubCategories', array('category' => $category)))
             ->assign('downloads', $downloads)
             ->assign('rowcount', $rowcount)
             ->fetch('user/view.tpl');

@@ -70,5 +70,21 @@ class Downloads_Api_User extends Zikula_AbstractApi
         $items = $this->getall($args);
         return count($items);
     }
+    
+    public function getSubCategories($args)
+    {
+        $category = isset($args['category']) ? $args['category'] : 0;
+        
+        $tbl = Doctrine_Core::getTable('Downloads_Model_Categories');
+        $subcategories = $tbl->findBy('pid', $category);
+        
+        foreach($subcategories as $key => $subcategory) {
+            if (!SecurityUtil::checkPermission('Downloads::Category', $subcategory['cid'] . '::', ACCESS_READ)) {
+                unset($subcategories[$key]);
+            }
+        }
+        
+        return $subcategories;
+    }
 
 }
