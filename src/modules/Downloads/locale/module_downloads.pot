@@ -1,0 +1,572 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Zikula 1.x\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-06-21 20:16+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/plugins/modifier.getcategorynamefromid.php:12
+#: lib/Downloads/Util.php:647 templates/user/view.tpl:10
+msgid "Root"
+msgstr ""
+
+#: lib/Downloads/Util.php:569
+msgid "All Categories"
+msgstr ""
+
+#: lib/Downloads/Util.php:581 lib/Downloads/Util.php:666
+#, php-format
+msgid "Error! Missing required argument [%s]."
+msgstr ""
+
+#: lib/Downloads/Util.php:616
+msgid "Main"
+msgstr ""
+
+#: lib/Downloads/Api/Admin.php:27
+msgid "Settings"
+msgstr ""
+
+#: lib/Downloads/Api/Admin.php:34
+msgid "File List"
+msgstr ""
+
+#: lib/Downloads/Api/Admin.php:41
+msgid "New download"
+msgstr ""
+
+#: lib/Downloads/Api/Admin.php:48 templates/admin/main.tpl:37
+#: templates/user/view.tpl:39
+msgid "Categories"
+msgstr ""
+
+#: lib/Downloads/Api/Admin.php:52
+msgid "View/edit Categories"
+msgstr ""
+
+#: lib/Downloads/Api/Admin.php:54
+msgid "New category"
+msgstr ""
+
+#: lib/Downloads/Api/Search.php:58
+msgid "Error! Could not save the search results."
+msgstr ""
+
+#: lib/Downloads/Installer.php:141
+#, php-format
+msgid ""
+"Created the file storage directory successfully at [%s]. Be sure that this "
+"directory is accessible via web and writable by the webserver."
+msgstr ""
+
+#: lib/Downloads/Installer.php:177
+msgid "SampleCategory"
+msgstr ""
+
+#: lib/Downloads/Installer.php:178
+msgid "This category is provided as a sample and can be safely deleted."
+msgstr ""
+
+#: lib/Downloads/Installer.php:195
+msgid "Sample download"
+msgstr ""
+
+#: lib/Downloads/Form/Handler/Admin/Edit.php:40
+#, php-format
+msgid "File with id %s not found"
+msgstr ""
+
+#: lib/Downloads/Form/Handler/Admin/Edit.php:82
+#, php-format
+msgid "Item [id# %s] deleted!"
+msgstr ""
+
+#: lib/Downloads/Form/Handler/Admin/Edit.php:97
+msgid "You must upload a filename"
+msgstr ""
+
+#: lib/Downloads/Form/Handler/Admin/Edit.php:99
+msgid "OR specify a download url."
+msgstr ""
+
+#: lib/Downloads/Form/Handler/Admin/EditCategory.php:40
+#, php-format
+msgid "Category with id %s not found"
+msgstr ""
+
+#: lib/Downloads/Form/Handler/Admin/EditCategory.php:77
+#, php-format
+msgid "Category [id# %s] deleted!"
+msgstr ""
+
+#: lib/Downloads/Controller/User.php:108
+#, php-format
+msgid "Error! Could not find download for ID #%s."
+msgstr ""
+
+#: lib/Downloads/Controller/User.php:114
+msgid "unknown"
+msgstr ""
+
+#: lib/Downloads/Controller/User.php:205
+#, php-format
+msgid "Error! Could not determine filesize for %s."
+msgstr ""
+
+#: lib/Downloads/Controller/User.php:253
+#, php-format
+msgid "Error! Could not read file %s."
+msgstr ""
+
+#: lib/Downloads/Controller/Admin.php:146
+msgid "Done! Updated the Downloads configuration."
+msgstr ""
+
+#: lib/Downloads/Version.php:18 templates/admin/menu.tpl:3
+#: templates/user/view.tpl:36 templates/search/options.tpl:3
+msgid "Downloads"
+msgstr ""
+
+#. !used in URL - nospaces, no special chars, lcase
+#: lib/Downloads/Version.php:19
+msgid "downloads"
+msgstr ""
+
+#: lib/Downloads/Version.php:20
+msgid "Zikula file download manager"
+msgstr ""
+
+#: lib/Downloads/Version.php:34
+msgid "Downloads Hooks"
+msgstr ""
+
+#: templates/admin/categories.tpl:5
+msgid "Downloads Category list"
+msgstr ""
+
+#: templates/admin/categories.tpl:13 templates/admin/main.tpl:32
+#: templates/admin/modifyconfig.tpl:20 templates/user/view.tpl:34
+msgid "Title"
+msgstr ""
+
+#: templates/admin/categories.tpl:14 templates/admin/edit.tpl:36
+#: templates/admin/editcategory.tpl:17 templates/admin/main.tpl:35
+#: templates/user/display.tpl:11 templates/user/view.tpl:37
+msgid "Description"
+msgstr ""
+
+#: templates/admin/categories.tpl:15
+msgid "Parent"
+msgstr ""
+
+#: templates/admin/categories.tpl:16
+msgid "Action"
+msgstr ""
+
+#: templates/admin/categories.tpl:26 templates/admin/main.tpl:53
+msgid "Edit"
+msgstr ""
+
+#: templates/admin/categories.tpl:31
+msgid "There are no categories to display."
+msgstr ""
+
+#: templates/admin/edit.tpl:4 templates/admin/edit.tpl:7
+msgid "Edit Download"
+msgstr ""
+
+#: templates/admin/edit.tpl:4 templates/admin/edit.tpl:7
+msgid "New Download"
+msgstr ""
+
+#: templates/admin/edit.tpl:12
+msgid "Download title"
+msgstr ""
+
+#: templates/admin/edit.tpl:17
+msgid "Download active"
+msgstr ""
+
+#: templates/admin/edit.tpl:22
+msgid "Choose file for upload"
+msgstr ""
+
+#: templates/admin/edit.tpl:27
+msgid "OR"
+msgstr ""
+
+#: templates/admin/edit.tpl:31
+msgid "Download link"
+msgstr ""
+
+#: templates/admin/edit.tpl:41
+msgid "Submitted by"
+msgstr ""
+
+#: templates/admin/edit.tpl:46
+msgid "Email address"
+msgstr ""
+
+#: templates/admin/edit.tpl:51
+msgid "Homepage"
+msgstr ""
+
+#: templates/admin/edit.tpl:56 templates/admin/main.tpl:34
+#: templates/user/display.tpl:15 templates/user/view.tpl:35
+msgid "Version"
+msgstr ""
+
+#: templates/admin/edit.tpl:61 templates/user/display.tpl:10
+#: templates/user/display.tpl:27 templates/user/view.tpl:2
+msgid "Category"
+msgstr ""
+
+#: templates/admin/edit.tpl:67 templates/admin/editcategory.tpl:29
+#: templates/admin/modifyconfig.tpl:212
+msgid "Save"
+msgstr ""
+
+#: templates/admin/edit.tpl:68 templates/admin/editcategory.tpl:30
+#: templates/admin/modifyconfig.tpl:213
+msgid "Cancel"
+msgstr ""
+
+#: templates/admin/edit.tpl:69 templates/admin/editcategory.tpl:31
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/editcategory.tpl:4 templates/admin/editcategory.tpl:7
+msgid "Edit Category"
+msgstr ""
+
+#: templates/admin/editcategory.tpl:4 templates/admin/editcategory.tpl:7
+msgid "New Category"
+msgstr ""
+
+#: templates/admin/editcategory.tpl:12
+msgid "Category title"
+msgstr ""
+
+#: templates/admin/editcategory.tpl:22
+msgid "Child of:"
+msgstr ""
+
+#: templates/admin/menu.tpl:3
+msgid "version"
+msgstr ""
+
+#: templates/admin/main.tpl:5
+msgid "Downloads Main"
+msgstr ""
+
+#: templates/admin/main.tpl:11
+msgid "active"
+msgstr ""
+
+#: templates/admin/main.tpl:11
+msgid "inactive"
+msgstr ""
+
+#: templates/admin/main.tpl:12
+#, php-format
+msgid "Filter %1$s, %2$s item listed"
+msgid_plural "Filter %1$s, %2$s items listed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/main.tpl:23
+msgid "Filter"
+msgstr ""
+
+#: templates/admin/main.tpl:24
+msgid "Clear"
+msgstr ""
+
+#: templates/admin/main.tpl:33
+msgid "Status"
+msgstr ""
+
+#: templates/admin/main.tpl:36 templates/user/display.tpl:18
+#: templates/user/view.tpl:38
+msgid "Submitter"
+msgstr ""
+
+#: templates/admin/main.tpl:38 templates/user/view.tpl:40
+msgid "Actions"
+msgstr ""
+
+#: templates/admin/main.tpl:45
+msgid "Active"
+msgstr ""
+
+#: templates/admin/main.tpl:45
+msgid "Inactive"
+msgstr ""
+
+#: templates/admin/main.tpl:51 templates/user/view.tpl:53
+msgid "View"
+msgstr ""
+
+#: templates/admin/main.tpl:52 templates/user/display.tpl:6
+#: templates/user/view.tpl:54
+msgid "Download"
+msgstr ""
+
+#: templates/admin/main.tpl:57 templates/user/view.tpl:58
+#, php-format
+msgid ""
+"No records in category \"%1$s\". Try a sub-category, or a different category."
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:4
+msgid "Downloads settings"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:9
+msgid "General settings"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:12
+msgid "Use full text search"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:17
+msgid "Sort downloads by"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:21 templates/user/display.tpl:17
+msgid "Hits"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:22
+msgid "Date"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:25
+msgid "Ascending"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:26
+msgid "Descending"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:32
+msgid "Downloads per page"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:37
+msgid "Number of latest downloads"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:42
+msgid "Number of top rated downloads"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:47
+msgid "Number of popular download"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:52
+msgid "Activate screenshots for downloads"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:57
+msgid "Maximum filesize for screenshots"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:62
+msgid "Maximum filesize for thumbnails"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:67
+msgid "Maximum thumbnail width (pixels)"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:72
+msgid "Maximum thumbnail height (pixels)"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:79
+msgid "Upload/Download settings"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:82
+msgid "Activate torrent for downloads"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:87
+msgid "Limit downloads per session"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:92
+msgid "Number of downloads per session"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:97
+msgid "Use captcha to secure downloads"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:102
+msgid "Number of characters for captcha"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:107
+msgid "Allow file upload"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:112
+msgid "Allow screenshot upload"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:117
+msgid "Limit file size"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:122
+msgid "Maximum file size"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:127
+msgid "Upload folder path"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:132
+msgid "Screenshot folder path"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:137
+msgid "Download cache folder path"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:143
+msgid "Main page settings"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:146
+msgid "Use treeview on start page"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:151
+msgid "Show latest downloads"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:156
+msgid "Number of latest downloads on start page"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:161
+msgid "Show popular downloads"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:166
+msgid "Number of popular downloads on start page"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:171
+msgid "Show top-rated downloads"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:176
+msgid "Number of top-rated downloads on start page"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:182
+msgid "Notification settings"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:185
+msgid "Send email to this address (blank for admin)"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:190
+msgid "Send email to submittor"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:197
+msgid "Allowed Extension settings"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:200
+msgid "limit_extension"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:205
+msgid "importfrommod"
+msgstr ""
+
+#: templates/user/display.tpl:2 templates/user/view.tpl:2
+msgid "Download Items"
+msgstr ""
+
+#: templates/user/display.tpl:13
+msgid "Filetype"
+msgstr ""
+
+#: templates/user/display.tpl:14
+msgid "Filesize"
+msgstr ""
+
+#: templates/user/display.tpl:14
+msgid "Kilobytes (Kb)"
+msgstr ""
+
+#: templates/user/display.tpl:16
+msgid "Creation date"
+msgstr ""
+
+#: templates/user/display.tpl:20
+msgid "Email"
+msgstr ""
+
+#: templates/user/display.tpl:21
+msgid "homepage"
+msgstr ""
+
+#: templates/user/display.tpl:26
+msgid "Root category"
+msgstr ""
+
+#: templates/user/display.tpl:26
+msgid "Back to Root category"
+msgstr ""
+
+#: templates/user/display.tpl:27
+#, php-format
+msgid "Back to category '%s'"
+msgstr ""
+
+#: templates/user/view.tpl:9
+msgid "View root category"
+msgstr ""
+
+#: templates/user/view.tpl:10
+msgid "Back to"
+msgstr ""
+
+#: templates/user/view.tpl:15
+msgid "View parent category"
+msgstr ""
+
+#: templates/user/view.tpl:16
+msgid "Back to parent: "
+msgstr ""
+
+#: templates/user/view.tpl:21
+msgid "View subcategory"
+msgstr ""
+
+#: templates/user/view.tpl:26
+#, php-format
+msgid "No subcategories in category \"%1$s\"."
+msgstr ""
