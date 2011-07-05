@@ -9,7 +9,9 @@ class Downloads_Model_Download extends Doctrine_Record
 {
     public function setTableDefinition()
     {
-        $this->setTableName('downloads_downloads');
+        $sm = ServiceUtil::getManager();
+        $prefix = $sm['prefix'];
+        $this->setTableName($prefix . '_downloads_downloads');
         $this->hasColumn('pn_lid as lid', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,

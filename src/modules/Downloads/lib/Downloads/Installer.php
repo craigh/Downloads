@@ -91,7 +91,8 @@ class Downloads_Installer extends Zikula_AbstractInstaller
                 $this->updateRows();
 
                 // drop old modrequest table
-                DoctrineUtil::dropTable('downloads_modrequest');
+                $prefix = $this->serviceManager['prefix'];
+                DoctrineUtil::dropTable($prefix . '_downloads_modrequest');
 
                 HookUtil::registerSubscriberBundles($this->version->getHookSubscriberBundles());
 

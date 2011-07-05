@@ -10,7 +10,9 @@ class Downloads_Model_Categories extends Doctrine_Record
 
     public function setTableDefinition()
     {
-        $this->setTableName('downloads_categories');
+        $sm = ServiceUtil::getManager();
+        $prefix = $sm['prefix'];
+        $this->setTableName($prefix . '_downloads_categories');
         $this->hasColumn('pn_cid as cid', 'integer', 4, array(
             'type' => 'integer',
             'length' => 4,
