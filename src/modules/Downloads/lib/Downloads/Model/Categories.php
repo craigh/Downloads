@@ -12,7 +12,12 @@ class Downloads_Model_Categories extends Doctrine_Record
     {
         $sm = ServiceUtil::getManager();
         $prefix = $sm['prefix'];
-        $this->setTableName($prefix . '_downloads_categories');
+        if (!empty($prefix)) {
+            $tableName = $prefix . '_downloads_categories';
+        } else {
+            $tableName = 'downloads_categories';
+        }
+        $this->setTableName($tableName);
         $this->hasColumn('pn_cid as cid', 'integer', 4, array(
             'type' => 'integer',
             'length' => 4,
