@@ -9,15 +9,8 @@ class Downloads_Model_Download extends Doctrine_Record
 {
     public function setTableDefinition()
     {
-        $sm = ServiceUtil::getManager();
-        $prefix = $sm['prefix'];
-        if (!empty($prefix)) {
-            $tableName = $prefix . '_downloads_downloads';
-        } else {
-            $tableName = 'downloads_downloads';
-        }
-        $this->setTableName($tableName);
-        $this->hasColumn('pn_lid as lid', 'integer', 4, array(
+        $this->setTableName('downloads_downloads');
+        $this->hasColumn('lid', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
              'fixed' => false,
@@ -25,7 +18,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'primary' => true,
              'autoincrement' => true,
              ));
-        $this->hasColumn('pn_cid as cid', 'integer', 4, array(
+        $this->hasColumn('cid', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
              'fixed' => false,
@@ -35,7 +28,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_status as status', 'integer', 2, array(
+        $this->hasColumn('status', 'integer', 2, array(
              'type' => 'integer',
              'length' => 2,
              'fixed' => false,
@@ -45,7 +38,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_update as update', 'timestamp', null, array(
+        $this->hasColumn('uupdate as update', 'timestamp', null, array(
              'type' => 'timestamp',
              'fixed' => false,
              'unsigned' => false,
@@ -54,7 +47,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_title as title', 'string', 100, array(
+        $this->hasColumn('title', 'string', 100, array(
              'type' => 'string',
              'length' => 100,
              'fixed' => false,
@@ -64,7 +57,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_url as url', 'string', 254, array(
+        $this->hasColumn('url', 'string', 254, array(
              'type' => 'string',
              'length' => 254,
              'fixed' => false,
@@ -74,7 +67,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_filename as filename', 'string', null, array(
+        $this->hasColumn('filename', 'string', null, array(
              'type' => 'string',
              'fixed' => false,
              'unsigned' => false,
@@ -82,7 +75,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_description as description', 'string', null, array(
+        $this->hasColumn('description', 'string', null, array(
              'type' => 'string',
              'fixed' => false,
              'unsigned' => false,
@@ -90,7 +83,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => false,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_date as date', 'timestamp', null, array(
+        $this->hasColumn('ddate as date', 'timestamp', null, array(
              'type' => 'timestamp',
              'fixed' => false,
              'unsigned' => false,
@@ -99,7 +92,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_email as email', 'string', 100, array(
+        $this->hasColumn('email', 'string', 100, array(
              'type' => 'string',
              'length' => 100,
              'fixed' => false,
@@ -109,7 +102,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_hits as hits', 'integer', 4, array(
+        $this->hasColumn('hits', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
              'fixed' => false,
@@ -119,7 +112,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_submitter as submitter', 'string', 60, array(
+        $this->hasColumn('submitter', 'string', 60, array(
              'type' => 'string',
              'length' => 60,
              'fixed' => false,
@@ -129,7 +122,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_filesize as filesize', 'float', null, array(
+        $this->hasColumn('filesize', 'float', null, array(
              'type' => 'float',
              'fixed' => false,
              'unsigned' => false,
@@ -138,7 +131,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_version as version', 'string', 5, array(
+        $this->hasColumn('version', 'string', 5, array(
              'type' => 'string',
              'length' => 5,
              'fixed' => false,
@@ -148,7 +141,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_homepage as homepage', 'string', 200, array(
+        $this->hasColumn('homepage', 'string', 200, array(
              'type' => 'string',
              'length' => 200,
              'fixed' => false,
@@ -158,7 +151,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_modid as modid', 'integer', 4, array(
+        $this->hasColumn('modid', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
              'fixed' => false,
@@ -168,7 +161,7 @@ class Downloads_Model_Download extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('pn_objectid as objectid', 'string', 5, array(
+        $this->hasColumn('objectid', 'string', 5, array(
              'type' => 'string',
              'length' => 5,
              'fixed' => false,

@@ -10,15 +10,8 @@ class Downloads_Model_Categories extends Doctrine_Record
 
     public function setTableDefinition()
     {
-        $sm = ServiceUtil::getManager();
-        $prefix = $sm['prefix'];
-        if (!empty($prefix)) {
-            $tableName = $prefix . '_downloads_categories';
-        } else {
-            $tableName = 'downloads_categories';
-        }
-        $this->setTableName($tableName);
-        $this->hasColumn('pn_cid as cid', 'integer', 4, array(
+        $this->setTableName('downloads_categories');
+        $this->hasColumn('cid', 'integer', 4, array(
             'type' => 'integer',
             'length' => 4,
             'fixed' => false,
@@ -26,7 +19,7 @@ class Downloads_Model_Categories extends Doctrine_Record
             'primary' => true,
             'autoincrement' => true,
         ));
-        $this->hasColumn('pn_pid as pid', 'integer', 4, array(
+        $this->hasColumn('pid', 'integer', 4, array(
             'type' => 'integer',
             'length' => 4,
             'fixed' => false,
@@ -36,7 +29,7 @@ class Downloads_Model_Categories extends Doctrine_Record
             'notnull' => true,
             'autoincrement' => false,
         ));
-        $this->hasColumn('pn_title as title', 'string', 100, array(
+        $this->hasColumn('title', 'string', 100, array(
             'type' => 'string',
             'length' => 100,
             'fixed' => false,
@@ -46,7 +39,7 @@ class Downloads_Model_Categories extends Doctrine_Record
             'notnull' => false,
             'autoincrement' => false,
         ));
-        $this->hasColumn('pn_description as description', 'string', 254, array(
+        $this->hasColumn('description', 'string', 254, array(
             'type' => 'string',
             'length' => 254,
             'fixed' => false,
