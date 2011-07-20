@@ -86,16 +86,7 @@ class Downloads_Installer extends Zikula_AbstractInstaller
                 }
                 $this->setVars($newVars);
 
-                // update url field for each row to include upload dir
-                // and rename from ID to name
-                $this->updateRows();
-
-                // drop old modrequest table
                 $prefix = $this->serviceManager['prefix'];
-                DoctrineUtil::dropTable($prefix . '_downloads_modrequest');
-
-                HookUtil::registerSubscriberBundles($this->version->getHookSubscriberBundles());
-
                 $connection = Doctrine_Manager::getInstance()->getConnection('default');
                 $sqlStatements = array();
                 // N.B. statements generated with PHPMyAdmin
@@ -135,6 +126,14 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
                     } catch (Exception $e) {
                     }   
                 }
+                // update url field for each row to include upload dir
+                // and rename from ID to name
+                $this->updateRows();
+
+                // drop old modrequest table
+                DoctrineUtil::dropTable($prefix . '_downloads_modrequest');
+
+                HookUtil::registerSubscriberBundles($this->version->getHookSubscriberBundles());
 
             case '3.0.0':
             //future development
