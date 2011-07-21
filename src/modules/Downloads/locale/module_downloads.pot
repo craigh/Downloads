@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Zikula 1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-21 20:16+0000\n"
+"POT-Creation-Date: 2011-07-21 21:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,50 +35,50 @@ msgid "Main"
 msgstr ""
 
 #: lib/Downloads/Api/Admin.php:27
-msgid "Settings"
-msgstr ""
-
-#: lib/Downloads/Api/Admin.php:34
 msgid "File List"
 msgstr ""
 
-#: lib/Downloads/Api/Admin.php:41
+#: lib/Downloads/Api/Admin.php:34
 msgid "New download"
 msgstr ""
 
-#: lib/Downloads/Api/Admin.php:48 templates/admin/main.tpl:37
+#: lib/Downloads/Api/Admin.php:41 templates/admin/main.tpl:37
 #: templates/user/view.tpl:39
 msgid "Categories"
 msgstr ""
 
-#: lib/Downloads/Api/Admin.php:52
+#: lib/Downloads/Api/Admin.php:45
 msgid "View/edit Categories"
 msgstr ""
 
-#: lib/Downloads/Api/Admin.php:54
+#: lib/Downloads/Api/Admin.php:47
 msgid "New category"
+msgstr ""
+
+#: lib/Downloads/Api/Admin.php:54
+msgid "Settings"
 msgstr ""
 
 #: lib/Downloads/Api/Search.php:58
 msgid "Error! Could not save the search results."
 msgstr ""
 
-#: lib/Downloads/Installer.php:141
+#: lib/Downloads/Installer.php:181
 #, php-format
 msgid ""
 "Created the file storage directory successfully at [%s]. Be sure that this "
 "directory is accessible via web and writable by the webserver."
 msgstr ""
 
-#: lib/Downloads/Installer.php:177
+#: lib/Downloads/Installer.php:217
 msgid "SampleCategory"
 msgstr ""
 
-#: lib/Downloads/Installer.php:178
+#: lib/Downloads/Installer.php:218
 msgid "This category is provided as a sample and can be safely deleted."
 msgstr ""
 
-#: lib/Downloads/Installer.php:195
+#: lib/Downloads/Installer.php:235
 msgid "Sample download"
 msgstr ""
 
@@ -133,8 +133,8 @@ msgstr ""
 msgid "Done! Updated the Downloads configuration."
 msgstr ""
 
-#: lib/Downloads/Version.php:18 templates/admin/menu.tpl:3
-#: templates/user/view.tpl:36 templates/search/options.tpl:3
+#: lib/Downloads/Version.php:18 templates/user/view.tpl:36
+#: templates/search/options.tpl:3
 msgid "Downloads"
 msgstr ""
 
@@ -152,16 +152,16 @@ msgid "Downloads Hooks"
 msgstr ""
 
 #: templates/admin/categories.tpl:5
-msgid "Downloads Category list"
+msgid "Downloads category list"
 msgstr ""
 
 #: templates/admin/categories.tpl:13 templates/admin/main.tpl:32
-#: templates/admin/modifyconfig.tpl:20 templates/user/view.tpl:34
+#: templates/admin/modifyconfig.tpl:22 templates/user/view.tpl:34
 msgid "Title"
 msgstr ""
 
-#: templates/admin/categories.tpl:14 templates/admin/edit.tpl:36
-#: templates/admin/editcategory.tpl:17 templates/admin/main.tpl:35
+#: templates/admin/categories.tpl:14 templates/admin/edit.tpl:39
+#: templates/admin/editcategory.tpl:20 templates/admin/main.tpl:35
 #: templates/user/display.tpl:11 templates/user/view.tpl:37
 msgid "Description"
 msgstr ""
@@ -182,92 +182,88 @@ msgstr ""
 msgid "There are no categories to display."
 msgstr ""
 
-#: templates/admin/edit.tpl:4 templates/admin/edit.tpl:7
+#: templates/admin/edit.tpl:5 templates/admin/edit.tpl:10
 msgid "Edit Download"
 msgstr ""
 
-#: templates/admin/edit.tpl:4 templates/admin/edit.tpl:7
+#: templates/admin/edit.tpl:5 templates/admin/edit.tpl:10
 msgid "New Download"
 msgstr ""
 
-#: templates/admin/edit.tpl:12
+#: templates/admin/edit.tpl:15
 msgid "Download title"
 msgstr ""
 
-#: templates/admin/edit.tpl:17
+#: templates/admin/edit.tpl:20
 msgid "Download active"
 msgstr ""
 
-#: templates/admin/edit.tpl:22
+#: templates/admin/edit.tpl:25
 msgid "Choose file for upload"
 msgstr ""
 
-#: templates/admin/edit.tpl:27
+#: templates/admin/edit.tpl:30
 msgid "OR"
 msgstr ""
 
-#: templates/admin/edit.tpl:31
+#: templates/admin/edit.tpl:34
 msgid "Download link"
 msgstr ""
 
-#: templates/admin/edit.tpl:41
+#: templates/admin/edit.tpl:44
 msgid "Submitted by"
 msgstr ""
 
-#: templates/admin/edit.tpl:46
+#: templates/admin/edit.tpl:49
 msgid "Email address"
 msgstr ""
 
-#: templates/admin/edit.tpl:51
+#: templates/admin/edit.tpl:54
 msgid "Homepage"
 msgstr ""
 
-#: templates/admin/edit.tpl:56 templates/admin/main.tpl:34
+#: templates/admin/edit.tpl:59 templates/admin/main.tpl:34
 #: templates/user/display.tpl:15 templates/user/view.tpl:35
 msgid "Version"
 msgstr ""
 
-#: templates/admin/edit.tpl:61 templates/user/display.tpl:10
+#: templates/admin/edit.tpl:64 templates/user/display.tpl:10
 #: templates/user/display.tpl:27 templates/user/view.tpl:2
 msgid "Category"
 msgstr ""
 
-#: templates/admin/edit.tpl:67 templates/admin/editcategory.tpl:29
-#: templates/admin/modifyconfig.tpl:212
+#: templates/admin/edit.tpl:70 templates/admin/editcategory.tpl:32
+#: templates/admin/modifyconfig.tpl:214
 msgid "Save"
 msgstr ""
 
-#: templates/admin/edit.tpl:68 templates/admin/editcategory.tpl:30
-#: templates/admin/modifyconfig.tpl:213
+#: templates/admin/edit.tpl:71 templates/admin/editcategory.tpl:33
+#: templates/admin/modifyconfig.tpl:215
 msgid "Cancel"
 msgstr ""
 
-#: templates/admin/edit.tpl:69 templates/admin/editcategory.tpl:31
+#: templates/admin/edit.tpl:72 templates/admin/editcategory.tpl:34
 msgid "Delete"
 msgstr ""
 
-#: templates/admin/editcategory.tpl:4 templates/admin/editcategory.tpl:7
+#: templates/admin/editcategory.tpl:5 templates/admin/editcategory.tpl:10
 msgid "Edit Category"
 msgstr ""
 
-#: templates/admin/editcategory.tpl:4 templates/admin/editcategory.tpl:7
+#: templates/admin/editcategory.tpl:5 templates/admin/editcategory.tpl:10
 msgid "New Category"
 msgstr ""
 
-#: templates/admin/editcategory.tpl:12
+#: templates/admin/editcategory.tpl:15
 msgid "Category title"
 msgstr ""
 
-#: templates/admin/editcategory.tpl:22
+#: templates/admin/editcategory.tpl:25
 msgid "Child of:"
 msgstr ""
 
-#: templates/admin/menu.tpl:3
-msgid "version"
-msgstr ""
-
 #: templates/admin/main.tpl:5
-msgid "Downloads Main"
+msgid "Downloads main"
 msgstr ""
 
 #: templates/admin/main.tpl:11
@@ -333,175 +329,175 @@ msgstr ""
 msgid "Downloads settings"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:9
+#: templates/admin/modifyconfig.tpl:11
 msgid "General settings"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:12
+#: templates/admin/modifyconfig.tpl:14
 msgid "Use full text search"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:17
+#: templates/admin/modifyconfig.tpl:19
 msgid "Sort downloads by"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:21 templates/user/display.tpl:17
+#: templates/admin/modifyconfig.tpl:23 templates/user/display.tpl:17
 msgid "Hits"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:22
+#: templates/admin/modifyconfig.tpl:24
 msgid "Date"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:25
+#: templates/admin/modifyconfig.tpl:27
 msgid "Ascending"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:26
+#: templates/admin/modifyconfig.tpl:28
 msgid "Descending"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:32
+#: templates/admin/modifyconfig.tpl:34
 msgid "Downloads per page"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:37
+#: templates/admin/modifyconfig.tpl:39
 msgid "Number of latest downloads"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:42
+#: templates/admin/modifyconfig.tpl:44
 msgid "Number of top rated downloads"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:47
+#: templates/admin/modifyconfig.tpl:49
 msgid "Number of popular download"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:52
+#: templates/admin/modifyconfig.tpl:54
 msgid "Activate screenshots for downloads"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:57
+#: templates/admin/modifyconfig.tpl:59
 msgid "Maximum filesize for screenshots"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:62
+#: templates/admin/modifyconfig.tpl:64
 msgid "Maximum filesize for thumbnails"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:67
+#: templates/admin/modifyconfig.tpl:69
 msgid "Maximum thumbnail width (pixels)"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:72
+#: templates/admin/modifyconfig.tpl:74
 msgid "Maximum thumbnail height (pixels)"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:79
+#: templates/admin/modifyconfig.tpl:81
 msgid "Upload/Download settings"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:82
+#: templates/admin/modifyconfig.tpl:84
 msgid "Activate torrent for downloads"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:87
+#: templates/admin/modifyconfig.tpl:89
 msgid "Limit downloads per session"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:92
+#: templates/admin/modifyconfig.tpl:94
 msgid "Number of downloads per session"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:97
+#: templates/admin/modifyconfig.tpl:99
 msgid "Use captcha to secure downloads"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:102
+#: templates/admin/modifyconfig.tpl:104
 msgid "Number of characters for captcha"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:107
+#: templates/admin/modifyconfig.tpl:109
 msgid "Allow file upload"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:112
+#: templates/admin/modifyconfig.tpl:114
 msgid "Allow screenshot upload"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:117
+#: templates/admin/modifyconfig.tpl:119
 msgid "Limit file size"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:122
+#: templates/admin/modifyconfig.tpl:124
 msgid "Maximum file size"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:127
+#: templates/admin/modifyconfig.tpl:129
 msgid "Upload folder path"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:132
+#: templates/admin/modifyconfig.tpl:134
 msgid "Screenshot folder path"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:137
+#: templates/admin/modifyconfig.tpl:139
 msgid "Download cache folder path"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:143
+#: templates/admin/modifyconfig.tpl:145
 msgid "Main page settings"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:146
+#: templates/admin/modifyconfig.tpl:148
 msgid "Use treeview on start page"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:151
+#: templates/admin/modifyconfig.tpl:153
 msgid "Show latest downloads"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:156
+#: templates/admin/modifyconfig.tpl:158
 msgid "Number of latest downloads on start page"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:161
+#: templates/admin/modifyconfig.tpl:163
 msgid "Show popular downloads"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:166
+#: templates/admin/modifyconfig.tpl:168
 msgid "Number of popular downloads on start page"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:171
+#: templates/admin/modifyconfig.tpl:173
 msgid "Show top-rated downloads"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:176
+#: templates/admin/modifyconfig.tpl:178
 msgid "Number of top-rated downloads on start page"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:182
+#: templates/admin/modifyconfig.tpl:184
 msgid "Notification settings"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:185
+#: templates/admin/modifyconfig.tpl:187
 msgid "Send email to this address (blank for admin)"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:190
+#: templates/admin/modifyconfig.tpl:192
 msgid "Send email to submittor"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:197
+#: templates/admin/modifyconfig.tpl:199
 msgid "Allowed Extension settings"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:200
+#: templates/admin/modifyconfig.tpl:202
 msgid "limit_extension"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:205
+#: templates/admin/modifyconfig.tpl:207
 msgid "importfrommod"
 msgstr ""
 
