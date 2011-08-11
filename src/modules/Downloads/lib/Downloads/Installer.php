@@ -236,7 +236,7 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
             "filename" => "",
             "status" => 1,
             "url" => "modules/Downloads/docs/en/sampledownload.txt",
-            "description" => "This file is provided as a sample and this entry can be safely deleted.",
+            "description" => $this->__("This file is provided as a sample and this entry can be safely deleted."),
             "submitter" => "admin",
             "email" => "",
             "homepage" => "",

@@ -20,8 +20,8 @@
                 </select>
             </span>
             <span class="z-nowrap z-buttons">
-                <input class='z-bt-filter' name="submit" type="submit" value="{gt text='Filter'}" />
-                <a href="{modurl modname="Downloads" type='admin' func='main'}" title="{gt text="Clear"}">{img modname='core' src="button_cancel.png" set="icons/extrasmall" __alt="Clear" __title="Clear"} {gt text="Clear"}</a>
+                <input class='z-bt-filter z-bt-small' name="submit" type="submit" value="{gt text='Filter'}" />
+                <a class="z-bt-small" href="{modurl modname="Downloads" type='admin' func='main'}" title="{gt text="Clear"}">{img modname='core' src="button_cancel.png" set="icons/extrasmall" __alt="Clear" __title="Clear"} {gt text="Clear"}</a>
             </span>
         </div>
     </fieldset>
@@ -29,13 +29,13 @@
 <table class="z-datatable">
     <thead>
         <tr>
-            <td><a class='{$sort.class.title}' href='{$sort.url.title|safetext}'>{gt text='Title'}</a></td>
-            <td><a class='{$sort.class.status}' href='{$sort.url.status|safetext}'>{gt text='Status'}</a></td>
-            <td>{gt text='Version'}</td>
-            <td>{gt text='Description'}</td>
-            <td><a class='{$sort.class.submitter}' href='{$sort.url.submitter|safetext}'>{gt text='Submitter'}</a></td>
-            <td>{gt text='Categories'}</td>
-            <td>{gt text='Actions'}</td>
+            <th><a class='{$sort.class.title}' href='{$sort.url.title|safetext}'>{gt text='Title'}</a></th>
+            <th><a class='{$sort.class.status}' href='{$sort.url.status|safetext}'>{gt text='Status'}</a></th>
+            <th>{gt text='Version'}</th>
+            <th>{gt text='Description'}</th>
+            <th><a class='{$sort.class.submitter}' href='{$sort.url.submitter|safetext}'>{gt text='Submitter'}</a></th>
+            <th>{gt text='Categories'}</th>
+            <th class="z-nowrap z-right">{gt text='Actions'}</th>
         </tr>
     </thead>
     <tbody>
@@ -47,7 +47,7 @@
             <td>{$d.description|truncate:60|safetext}</td>
             <td>{$d.submitter|safetext}</td>
             <td>{$d.category.title|safetext}</td>
-            <td class="z-nowrap">
+            <td class="z-nowrap z-right">
                 <a href="{modurl modname="Downloads" type="user" func="display" lid=$d.lid}">{img modname='core' set='icons/extrasmall' src='14_layer_visible.png' __title='View' __alt='View' class='tooltips'}</a>
                 <a href="{modurl modname="Downloads" type="user" func="prepHandOut" lid=$d.lid}">{img modname='core' set='icons/extrasmall' src='download.png' __title='Download' __alt='Download' class='tooltips'}</a>
                 <a href="{modurl modname="Downloads" type="admin" func="edit" id=$d.lid}">{img modname='core' set='icons/extrasmall' src='xedit.png' __title='Edit' __alt='Edit' class='tooltips'}</a>
