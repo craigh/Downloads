@@ -552,6 +552,7 @@ class Downloads_Util
      */
     public static function getCatSelectList($args)
     {
+        $dom    = ZLanguage::getModuleDomain('Downloads');
         $cid = (!isset($args['cid']) || !is_numeric($args['cid'])) ? 0 : $args['cid'];
         $sel = (!isset($args['sel']) || !is_numeric($args['sel'])) ? 0 : $args['sel'];
         $includeAll = isset($args['includeall']) ? true : false;
@@ -566,7 +567,7 @@ class Downloads_Util
         }
         if ($includeAll) {
             $selected = ($sel == 0) ? ' selected="selected"' : '';
-            $categories_list = "<option value='0'$selected>" . __('All Categories') . "</option>\n" . $categories_list;
+            $categories_list = "<option value='0'$selected>" . __('All Categories', $dom) . "</option>\n" . $categories_list;
         }
         return $categories_list;
     }
@@ -577,8 +578,9 @@ class Downloads_Util
      */
     public static function getCatNavPath($args)
     {
+        $dom    = ZLanguage::getModuleDomain('Downloads');
         if (!isset($args['cid']) || !is_numeric($args['cid'])) {
-            throw new Zikula_Exception_Fatal(__f('Error! Missing required argument [%s].', 'cid'));
+            throw new Zikula_Exception_Fatal(__f('Error! Missing required argument [%s].', 'cid', $dom));
         }
         $cid = $args['cid'];
         $start = isset($args['start']) ? $args['start'] : 1;
@@ -613,7 +615,7 @@ class Downloads_Util
         }
 
         if ($start) {
-            $cpath = "<a href='" . ModUtil::url('Downloads', 'user', 'main') . "'>" . __('Main') . "</a>{$seperator}{$cpath}";
+            $cpath = "<a href='" . ModUtil::url('Downloads', 'user', 'main') . "'>" . __('Main', $dom) . "</a>{$seperator}{$cpath}";
         }
 
         return $cpath;
@@ -626,6 +628,7 @@ class Downloads_Util
      */
     public static function getCatSelectArray($args)
     {
+        $dom    = ZLanguage::getModuleDomain('Downloads');
         $cid = (!isset($args['cid']) || !is_numeric($args['cid'])) ? 0 : $args['cid'];
         if ($cid) {
             $categories = Doctrine_Core::getTable('Downloads_Model_Categories')->findBy('pid', $cid)->toArray();
@@ -644,7 +647,7 @@ class Downloads_Util
             }
         }
         if ($includeRoot) {
-            $result[] = array('value' => 0, 'text' => '**' . __('Root') . '**');
+            $result[] = array('value' => 0, 'text' => '**' . __('Root', $dom) . '**');
         }
         // sort the array by displayed text
         foreach ($result as $key => $row) {
@@ -662,8 +665,10 @@ class Downloads_Util
      */
     public static function getCatNavPathArray($args)
     {
+        $dom    = ZLanguage::getModuleDomain('Downloads');
+        
         if (!isset($args['cid']) || !is_numeric($args['cid'])) {
-            throw new Zikula_Exception_Fatal(__f('Error! Missing required argument [%s].', 'cid'));
+            throw new Zikula_Exception_Fatal(__f('Error! Missing required argument [%s].', 'cid', $dom));
         }
         $cid = $args['cid'];
         $seperator = ' / ';

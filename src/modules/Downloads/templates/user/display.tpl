@@ -16,10 +16,16 @@
         <li><strong>{gt text='Creation date'}</strong>: {$item.date|dateformat|safetext}</li>
         <li><strong>{gt text='Hits'}</strong>: {$item.hits}</li>
         <li><strong>{gt text='Submitter'}</strong>: {$item.submitter|safetext}
+            <!--[if $item.homepage && $item.email]-->
             <ul>
+                <!--[if $item.email]-->
                 <li>{gt text='Email'}: {$item.email|safehtml}</li>
+                <!--[/if]-->
+                <!--[if $item.homepage]-->
                 <li>{gt text='homepage'}: <a href='{$item.homepage|safehtml}'>{$item.homepage|safehtml}</a></li>
+                <!--[/if]-->
             </ul>
+            <!--[/if]-->
         </li>
     </ul>
     <br />
@@ -28,7 +34,7 @@
 </div>
 {notifydisplayhooks eventname='downloads.ui_hooks.downloads.display_view' id=$item.lid}
 <script type="text/javascript">
-// <![CDATA[
+    // <![CDATA[
     Zikula.UI.Tooltips($$('.tooltips'));
-// ]]>
+    // ]]>
 </script>
