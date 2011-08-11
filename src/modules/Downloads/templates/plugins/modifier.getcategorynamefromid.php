@@ -7,9 +7,10 @@
 
 function smarty_modifier_getcategorynamefromid($id)
 {
+    $dom    = ZLanguage::getModuleDomain('Downloads');
     $id = (int)$id;
     if ($id == 0) {
-        return __('Root');
+        return __('Root', $dom);
     }
     $category = Doctrine_Core::getTable('Downloads_Model_Categories')->find($id)->toArray();
     return $category['title'];
