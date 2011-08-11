@@ -10,10 +10,10 @@
 <table class="z-datatable">
     <thead>
         <tr>
-            <td>{gt text='Title'}</td>
-            <td>{gt text='Description'}</td>
-            <td>{gt text='Parent'}</td>
-            <td>{gt text='Action'}</td>
+            <th>{gt text='Title'}</th>
+            <th>{gt text='Description'}</th>
+            <th>{gt text='Parent'}</th>
+            <th class="z-nowrap z-right">{gt text='Action'}</th>
         </tr>
     </thead>
     <tbody>
@@ -22,7 +22,7 @@
             <td>{$c.title|safetext}</td>
             <td>{$c.description|truncate:60|safetext}</td>
             <td>{$c.pid|getcategorynamefromid|safetext}</td>
-            <td>
+            <td class="z-nowrap z-right">
                 <a href="{modurl modname="Downloads" type="admin" func="editCategory" id=$c.cid}">{img modname='core' set='icons/extrasmall' src='xedit.png' __title='Edit' __alt='Edit' class='tooltips'}</a>
             </td>
         </tr>

@@ -23,7 +23,7 @@
 
         <div class="z-formrow">
             {formlabel mandatorysym=true for="filename" __text="Choose file for upload"}
-            {formuploadinput id="filename" maxLength=255}
+            {formuploadinput id="filename"}
         </div>
 
         <div class="z-formnote">
@@ -37,7 +37,7 @@
 
         <div class="z-formrow">
             {formlabel mandatorysym=true for="description" __text="Description"}
-            {formtextinput textMode='multiline' id="description" mandatory=true}
+            {formtextinput textMode='multiline' id="description" rows='6' cols='50' mandatory=true}
         </div>
 
         <div class="z-formrow">
