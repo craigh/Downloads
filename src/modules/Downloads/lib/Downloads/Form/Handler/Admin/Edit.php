@@ -158,7 +158,7 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
         $cache_ids = array();
         $cache_ids[] = 'display|lid_'.$item['lid'];
         $cache_ids[] = 'view|cid_'.$item['cid'];
-        $view = Zikula_View::getInstance();
+        $view = Zikula_View::getInstance('Downloads');
         foreach ($cache_ids as $cache_id) {
             $view->clear_cache(null, $cache_id);
         }
