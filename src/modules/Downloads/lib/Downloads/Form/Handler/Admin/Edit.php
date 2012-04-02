@@ -79,6 +79,7 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             $fullpath = DataUtil::formatForOS("$storage/$oldname");
             @unlink($fullpath);
             $file->delete();
+            $this->clearItemCache($file);
             LogUtil::registerStatus($this->__f('Item [id# %s] deleted!', $this->id));
             return $view->redirect($returnurl);            
         }
@@ -143,7 +144,39 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             die;
         }
 
+        $this->clearItemCache($file);
+
         return $view->redirect($returnurl);
+    }
+
+    /**
+     * Clear cache for given item.
+     */
+    private function clearItemCache($item)
+    {
+        // Clear View_cache
+        $cache_ids = array();
+        $cache_ids[] = 'display|lid_'.$item['lid'];
+        $cache_ids[] = 'view|cid_'.$item['cid'];
+        $view = Zikula_View::getInstance();
+        foreach ($cache_ids as $cache_id) {
+            $view->clear_cache(null, $cache_id);
+        }
+        // clear Theme_cache
+        $cache_ids = array();
+        $cache_ids[] = 'Downloads|user|display|lid_'.$item['lid'];
+        $cache_ids[] = 'Downloads|user|view|category_'.$item['cid']; // view function (item list by category)
+        $cache_ids[] = 'homepage'; // for homepage (it can be adjustment in module settings)
+        $theme = Zikula_View_Theme::getInstance();
+        //if (Zikula_Core::VERSION_NUM > '1.3.2') {
+        if (method_exists($theme, 'clear_cacheid_allthemes')) {
+            $theme->clear_cacheid_allthemes($cache_ids);
+        } else {
+            // clear cache for current theme only
+            foreach ($cache_ids as $cache_id) {
+                $theme->clear_cache(null, $cache_id);
+            }
+        }
     }
 
 }
