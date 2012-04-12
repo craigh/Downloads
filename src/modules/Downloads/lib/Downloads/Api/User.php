@@ -96,7 +96,9 @@ class Downloads_Api_User extends Zikula_AbstractApi
     {
         if ($item && !is_array($item)) {
             $item = Doctrine_Core::getTable('Downloads_Model_Download')->find($item);
-            if ($item) $item = $item->toArray();
+            if ($item) {
+                $item = $item->toArray();
+            }
         }
         if ($item) {
             // Clear View_cache
