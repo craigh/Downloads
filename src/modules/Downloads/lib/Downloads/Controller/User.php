@@ -47,6 +47,8 @@ class Downloads_Controller_User extends Zikula_AbstractController
         // check  category permissions
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::Category', "$category::", ACCESS_READ), LogUtil::getErrorMsgPermission());
 
+        $this->view->setCacheId('view|cid_'.$category . '|ord_'.$orderby.'_'.$original_sdir . '_stnum_'.$startnum);
+
         $this->view
             ->assign('startnum', $startnum)
             ->assign('orderby', $orderby)
@@ -112,6 +114,9 @@ class Downloads_Controller_User extends Zikula_AbstractController
         $item['filesize'] = round((int)$item['filesize'] / 1024, 2);
         //$item['filetype'] = FileUtil::getExtension($item['filename']);
         $filetype = (!empty($item['filename'])) ? FileUtil::getExtension($item['filename']) : $this->__('unknown');
+
+        $this->view->setCacheId('display|lid_'.$lid);
+
         return $this->view
                 ->assign('item', $item)
                 ->assign('filetype', $filetype)

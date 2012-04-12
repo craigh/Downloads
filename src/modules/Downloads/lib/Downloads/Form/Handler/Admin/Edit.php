@@ -79,6 +79,7 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             $fullpath = DataUtil::formatForOS("$storage/$oldname");
             @unlink($fullpath);
             $file->delete();
+            ModUtil::apiFunc('Downloads', 'user', 'clearItemCache', $file->toArray());
             LogUtil::registerStatus($this->__f('Item [id# %s] deleted!', $this->id));
             return $view->redirect($returnurl);            
         }
@@ -142,6 +143,8 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             echo "</pre>";
             die;
         }
+
+        ModUtil::apiFunc('Downloads', 'user', 'clearItemCache', $file->toArray());
 
         return $view->redirect($returnurl);
     }
