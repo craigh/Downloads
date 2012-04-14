@@ -22,7 +22,7 @@ class Downloads_Api_User extends Zikula_AbstractApi
     /**
      * get downloads filtered as requested
      * @param type $args
-     * @return Doctrine_Collection object
+     * @return array of objects
      */
     public function getall($args)
     {
@@ -34,30 +34,19 @@ class Downloads_Api_User extends Zikula_AbstractApi
         $limit = isset($args['limit']) ? $args['limit'] : $this->getVar('perpage');
         $status = isset($args['status']) ? $args['status'] : self::STATUS_ACTIVE;
 
-        $tbl = Doctrine_Core::getTable('Downloads_Model_Download');
-        $q = $tbl->createQuery('d')
-                ->expireQueryCache()
-                ->expireResultCache()
-                ->orderBy("$orderby $orderdir")
-                ->offset($startnum);
-        if (!empty($category)) {
-            $q->where("d.cid = ?", $category);
-        }
-        if (($status == self::STATUS_ACTIVE) || ($status == self::STATUS_INACTIVE)) {
-            $q->andWhere("d.status = ?", $status);
-        }
-        if ($limit > 0) {
-            $q->limit($limit);
-        }
-        $downloads = $q->execute();
+        $downloads = $this->entityManager->getRepository('Downloads_Entity_Download')
+                ->getCollection($orderby, $orderdir, $startnum, $category, $status, $limit);
 
+        $result = array();
         foreach ($downloads as $key => $download) {
             if ((!SecurityUtil::checkPermission('Downloads::Item', $download['lid'] . '::', ACCESS_READ)) ||
                     (!SecurityUtil::checkPermission('Downloads::Category', $download['cid'] . '::', ACCESS_READ))) {
-                unset($downloads[$key]);
+                continue;
+            } else {
+                $result[$key] = $download;
             }
         }
-        return $downloads;
+        return $result;
     }
 
     /**
@@ -76,8 +65,7 @@ class Downloads_Api_User extends Zikula_AbstractApi
     {
         $category = isset($args['category']) ? $args['category'] : 0;
 
-        $tbl = Doctrine_Core::getTable('Downloads_Model_Categories');
-        $subcategories = $tbl->findBy('pid', $category);
+        $subcategories = $this->entityManager->getRepository('Downloads_Entity_Categories')->findBy(array('pid' => $category));
 
         foreach ($subcategories as $key => $subcategory) {
             if (!SecurityUtil::checkPermission('Downloads::Category', $subcategory['cid'] . '::', ACCESS_READ)) {
@@ -96,7 +84,7 @@ class Downloads_Api_User extends Zikula_AbstractApi
     public function clearItemCache($item)
     {
         if ($item && !is_array($item)) {
-            $item = Doctrine_Core::getTable('Downloads_Model_Download')->find($item);
+            $item = $this->entityManager->getRepository('Downloads_Entity_Download')->find($item);
             if ($item) {
                 $item = $item->toArray();
             }

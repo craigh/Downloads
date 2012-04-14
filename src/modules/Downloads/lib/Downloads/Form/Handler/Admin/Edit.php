@@ -29,13 +29,14 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
         $id = FormUtil::getPassedValue('id', null, 'GET', FILTER_SANITIZE_NUMBER_INT);
         if ($id) {
             // load record with id
-            $file = Doctrine_Core::getTable('Downloads_Model_Download')->find($id);
+            $file = $this->entityManager->getRepository('Downloads_Entity_Download')->find($id);
 
             if ($file) {
                 // switch to edit mode
                 $this->id = $id;
                 // assign current values to form fields
                 $view->assign($file->toArray());
+                $view->assign('category', $file->getCategory()->getCid());
             } else {
                 return LogUtil::registerError($this->__f('File with id %s not found', $id));
             }
@@ -49,7 +50,7 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             }
             $view->setStateData('returnurl', $returnurl);
         }
-        $this->view->assign('categories', Downloads_Util::getCatSelectArray(array()));
+        $view->assign('categories', Downloads_Util::getCatSelectArray(array()));
 
         return true;
     }
@@ -74,12 +75,13 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
         $storage = $this->getVar('upload_folder');
 
         if ($args['commandName'] == 'delete') {
-            $file = Doctrine_Core::getTable('Downloads_Model_Download')->find($this->id);
+            $file = $this->entityManager->getRepository('Downloads_Entity_Download')->find($this->id);
             $oldname = $file->get('filename');
             $fullpath = DataUtil::formatForOS("$storage/$oldname");
             @unlink($fullpath);
-            $file->delete();
-            ModUtil::apiFunc('Downloads', 'user', 'clearItemCache', $file->toArray());
+            $this->entityManager->remove($file);
+            $this->entityManager->flush();
+            ModUtil::apiFunc('Downloads', 'user', 'clearItemCache', $file);
             LogUtil::registerStatus($this->__f('Item [id# %s] deleted!', $this->id));
             return $view->redirect($returnurl);
         }
@@ -101,11 +103,10 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             return false;
         }
 
-        // format data as required for table
-        // shouldn't this be automatic?
-        // Mateo: if using standard fields
-        $data['update'] = date("Y-m-d H:i:s");
-        $data['date'] = date("Y-m-d H:i:s");
+        $data['update'] = new DateTime();
+        $data['date'] = new DateTime();
+        $data['status'] = (int)$data['status'];
+        $data['category'] = $this->entityManager->getRepository('Downloads_Entity_Categories')->find($data['category']);
 
         if ((is_array($data['filename'])) && ($data['filename']['size'] > 0)) {
             $data['filesize'] = $data['filename']['size'];
@@ -118,25 +119,23 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             $data['filename'] = '';
         }
 
-        $data['status'] = (int)$data['status'];
-
         // switch between edit and create mode
         if ($this->id) {
-            $file = Doctrine_Core::getTable('Downloads_Model_Download')->find($this->id);
+            $file = $this->entityManager->getRepository('Downloads_Entity_Download')->find($this->id);
             // if file is new, delete old one
-            $oldname = $file->get('filename');
+            $oldname = $file->getFilename();
             if ($oldname <> $data['filename']) {
                 $fullpath = DataUtil::formatForOS("$storage/$oldname");
                 @unlink($fullpath);
             }
         } else {
-            $file = new Downloads_Model_Download();
+            $file = new Downloads_Entity_Download();
         }
 
-        $file->merge($data);
-
         try {
-            $file->save();
+            $file->merge($data);
+            $this->entityManager->persist($file);
+            $this->entityManager->flush();
         } catch (Zikula_Exception $e) {
             echo "<pre>";
             var_dump($e->getDebug());
@@ -144,7 +143,7 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             die;
         }
 
-        ModUtil::apiFunc('Downloads', 'user', 'clearItemCache', $file->toArray());
+        ModUtil::apiFunc('Downloads', 'user', 'clearItemCache', $file);
 
         return $view->redirect($returnurl);
     }

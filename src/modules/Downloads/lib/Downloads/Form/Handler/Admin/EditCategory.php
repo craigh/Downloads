@@ -29,7 +29,7 @@ class Downloads_Form_Handler_Admin_EditCategory extends Zikula_Form_AbstractHand
         $id = FormUtil::getPassedValue('id', null, 'GET', FILTER_SANITIZE_NUMBER_INT);
         if ($id) {
             // load record with id
-            $cat = Doctrine_Core::getTable('Downloads_Model_Categories')->find($id);
+            $cat = $this->entityManager->getRepository('Downloads_Entity_Categories')->find($id);
 
             if ($cat) {
                 // switch to edit mode
@@ -72,9 +72,14 @@ class Downloads_Form_Handler_Admin_EditCategory extends Zikula_Form_AbstractHand
         }
 
         if ($args['commandName'] == 'delete') {
-            $cat = Doctrine_Core::getTable('Downloads_Model_Categories')->find($this->id);
-            $cat->delete();
-            LogUtil::registerStatus($this->__f('Category [id# %s] deleted!', $this->id));
+            $cat = $this->entityManager->getRepository('Downloads_Entity_Categories')->find($this->id);
+            try {
+                $this->entityManager->remove($cat);
+                $this->entityManager->flush();
+                LogUtil::registerStatus($this->__f('Category [id# %s] deleted!', $this->id));
+            } catch (Exception $e) {
+                return LogUtil::registerError($e->getMessage());
+            }
             return $view->redirect($returnurl);            
         }
 
@@ -88,15 +93,15 @@ class Downloads_Form_Handler_Admin_EditCategory extends Zikula_Form_AbstractHand
 
         // switch between edit and create mode
         if ($this->id) {
-            $cat = Doctrine_Core::getTable('Downloads_Model_Categories')->find($this->id);
+            $cat = $this->entityManager->getRepository('Downloads_Entity_Categories')->find($this->id);
         } else {
-            $cat = new Downloads_Model_Categories();
+            $cat = new Downloads_Entity_Categories();
         }
 
-        $cat->merge($data);
-        
         try {
-            $cat->save();
+            $cat->merge($data);
+            $this->entityManager->persist($cat);
+            $this->entityManager->flush();
         } catch (Zikula_Exception $e) {
             echo "<pre>";
             var_dump($e->getDebug());

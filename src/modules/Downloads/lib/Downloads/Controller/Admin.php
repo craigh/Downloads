@@ -164,7 +164,7 @@ class Downloads_Controller_Admin extends Zikula_AbstractController
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
-        $cats = Doctrine_Core::getTable('Downloads_Model_Categories')->findAll()->toArray();
+        $cats = $this->entityManager->getRepository('Downloads_Entity_Categories')->findAll();
         // sort array by title
         $title = array();
         foreach ($cats as $key => $cat) {

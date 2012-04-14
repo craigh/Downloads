@@ -25,7 +25,8 @@ class Downloads_Installer extends Zikula_AbstractInstaller
     {
         // create the table
         try {
-            DoctrineUtil::createTablesFromModels('Downloads');
+            DoctrineHelper::createSchema($this->entityManager, array('Downloads_Entity_Download',
+                'Downloads_Entity_Categories'));
         } catch (Exception $e) {
             return false;
         }
@@ -87,7 +88,7 @@ class Downloads_Installer extends Zikula_AbstractInstaller
                 $this->setVars($newVars);
 
                 $prefix = $this->serviceManager['prefix'];
-                $connection = Doctrine_Manager::getInstance()->getConnection('default');
+                $connection = $this->entityManager->getConnection();
                 $sqlStatements = array();
                 // N.B. statements generated with PHPMyAdmin
                 $sqlStatements[] = 'RENAME TABLE ' . $prefix . '_downloads_downloads' . " TO downloads_downloads";
@@ -124,19 +125,22 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
                     try {
                         $stmt->execute();
                     } catch (Exception $e) {
-                    }   
+                        
+                    }
                 }
                 // update url field for each row to include upload dir
                 // and rename from ID to name
                 $this->updateRows();
 
                 // drop old modrequest table
-                DoctrineUtil::dropTable($prefix . '_downloads_modrequest');
+                $sql = "DROP TABLE `{$prefix}_downloads_modrequest`";
+                $stmt = $connection->prepare($sql);
+                $stmt->execute();
 
                 HookUtil::registerSubscriberBundles($this->version->getHookSubscriberBundles());
 
             case '3.0.0':
-                // no changes
+            // no changes
             case '3.1.0':
             //future development
         }
@@ -155,9 +159,9 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
      */
     public function uninstall()
     {
-        // drop table
-        DoctrineUtil::dropTable('downloads_downloads');
-        DoctrineUtil::dropTable('downloads_categories');
+        // drop tables
+        DoctrineHelper::dropSchema($this->entityManager, array('Downloads_Entity_Download',
+            'Downloads_Entity_Categories'));
 
         //remove files from data folder
         $uploaddir = DataUtil::formatForOS($this->getVar('upload_folder'));
@@ -165,7 +169,7 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
 
         // remove all module vars
         $this->delVars();
-        
+
         HookUtil::unregisterSubscriberBundles($this->version->getHookSubscriberBundles());
 
         return true;
@@ -205,7 +209,7 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
             'frontpagesubcats',
             'sessionlimit',
             'inform_user',
-            'torrent', //
+            'torrent',
         );
     }
 
@@ -259,8 +263,8 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
     private function updateRows()
     {
         $path = $this->getVar('upload_folder');
-        $tbl = Doctrine_Core::getTable('Downloads_Model_Download');
-        $rows = $tbl->findAll()->toArray();
+        $rows = $this->entityManager->getRepository('Downloads_Entity_Download')->findAll();
+        $count = 0;
         foreach ($rows as $row) {
             $parts = explode('.', $row['url']);
             if (is_numeric($parts[0]) && ((int)$parts[0] == (int)$row['lid'])) {
@@ -272,20 +276,12 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
                 $oldurl = $path . '/' . $row['url'];
                 if (@rename(DataUtil::formatForOS($oldurl), DataUtil::formatForOS($newurl))) {
                     // update DB
-                    $tbl->createQuery()
-                            ->update()
-                            ->set('url', '?', $newurl)
-                            ->set('filename', '?', $newname)
-                            ->where('lid = ?', $row['lid'])
-                            ->execute();
+                    $row->setUrl($newurl);
+                    $row->setFilename($newname);
                 } else {
                     // update DB
-                    $tbl->createQuery()
-                            ->update()
-                            ->set('url', '?', $oldurl)
-                            ->set('filename', '?', $newname)
-                            ->where('lid = ?', $row['lid'])
-                            ->execute();
+                    $row->setUrl($oldurl);
+                    $row->setFilname($newname);
                 }
             } else {
                 // this section simply renames filenames to only have one extension
@@ -294,16 +290,17 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
                 if (count($filenameParts) > 2) {
                     $newname = DataUtil::formatForURL($filenameParts[0]) . '.' . array_pop($filenameParts);
                     // update DB
-                    $tbl->createQuery()
-                            ->update()
-                            ->set('filename', '?', $newname)
-                            ->where('lid = ?', $row['lid'])
-                            ->execute();
+                    $row->setFilename($newname);
                 }
+            }
+            $this->entityManager->persist($row);
+            if ($count > 20) {
+                $this->entityManager->flush();
+                $count = 0;
+            } else {
+                $count++;
             }
         }
     }
 
 }
-
-// end class def

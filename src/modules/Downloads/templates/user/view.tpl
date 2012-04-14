@@ -10,7 +10,7 @@
             <td colspan='2'><a href="{modurl modname="Downloads" type="user" func="view" category=0}">{gt text='Back to'} <strong>{gt text='Root'}</strong></a></td>
         </tr>
         {/if}
-        {if ($categoryinfo.0.pid <> 0)}
+        {if (isset($categoryinfo.0)) && ($categoryinfo.0.pid <> 0)}
         <tr class='downloads-parent'>
             <td><a href="{modurl modname="Downloads" type="user" func="view" category=$categoryinfo.0.pid}">{img modname='core' set='icons/medium' src='folder_blue.png' __title='View parent category' __alt='View parent category' class='tooltips'}</a></td>
             <td colspan='2'><a href="{modurl modname="Downloads" type="user" func="view" category=$categoryinfo.0.pid}">{gt text='Back to parent: '} <strong>{$categoryinfo.0.pid|getcategorynamefromid|safetext}</strong></a></td>

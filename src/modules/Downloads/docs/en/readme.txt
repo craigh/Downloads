@@ -18,3 +18,19 @@ Zikula 1.3.x
 
 *The original license is upgraded from LGPLv2 to LGPLv3+ as there is a few bits
 of code retained.
+
+
+Version 3.1.0
+
+_Unreleased_
+
+Corrections to caching (contributed by nmpetkov)
+Addition of List block (supported by M. Doucha [mdee28])
+Conversion from Doctrine 1.2 to Doctrine 2.1
+
+
+Version 3.0.0
+
+_21 July 2011_
+
+Initial release as stated above.

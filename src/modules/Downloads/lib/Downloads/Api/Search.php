@@ -37,12 +37,17 @@ class Downloads_Api_Search extends Zikula_AbstractApi
 
         $whereArray = $this->constructDoctrineWhere($args, array('title', 'description'));
 
-        $q = Doctrine_Core::getTable('Downloads_Model_Download')->createQuery();
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select('a')
+            ->from('Downloads_Entity_Download');
+        $s = 1;
         foreach ($whereArray as $where) {
-            $q->$where['method']("{$where['field']}", $where['value']);
+            $qb->$where['method']("a.{$where['field']}", "?$s");
+            $qb->setParameter($s, $where['value']);
+            $s++;
         }
-        $results = $q->execute()
-                    ->toArray();
+        $query = $qb->getQuery();
+        $results = $query->getResult();
 
         foreach ($results as $result) {
             $record = array(

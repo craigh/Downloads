@@ -556,7 +556,8 @@ class Downloads_Util
         $cid = (!isset($args['cid']) || !is_numeric($args['cid'])) ? 0 : $args['cid'];
         $sel = (!isset($args['sel']) || !is_numeric($args['sel'])) ? 0 : $args['sel'];
         $includeAll = isset($args['includeall']) ? true : false;
-        $categories = Doctrine_Core::getTable('Downloads_Model_Categories')->findBy('pid', $cid)->toArray();
+        $em = ServiceUtil::getService('doctrine.entitymanager');
+        $categories = $em->getRepository('Downloads_Entity_Categories')->findBy(array('pid' => $cid));
         $categories_list = "";
         foreach ($categories as $catinfo) {
             $selected = ($sel == $catinfo['cid']) ? ' selected="selected"' : '';
@@ -579,6 +580,7 @@ class Downloads_Util
     public static function getCatNavPath($args)
     {
         $dom    = ZLanguage::getModuleDomain('Downloads');
+        $em = ServiceUtil::getService('doctrine.entitymanager');
         if (!isset($args['cid']) || !is_numeric($args['cid'])) {
             throw new Zikula_Exception_Fatal(__f('Error! Missing required argument [%s].', 'cid', $dom));
         }
@@ -589,7 +591,7 @@ class Downloads_Util
         $seperator = ' / ';
         $admin = SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN);
 
-        $result = Doctrine_Core::getTable('Downloads_Model_Categories')->find($cid)->toArray();
+        $result = $em->getRepository('Downloads_Entity_Categories')->find($cid);
 
         if ($linkmyself) {
             $cpath = "<a href='" . DataUtil::formatForDisplay(ModUtil::url('Downloads', 'user', 'view', array('cid' => $cid))) . "'>" . DataUtil::formatForDisplay($result['title']) . "</a>";
@@ -600,7 +602,7 @@ class Downloads_Util
 
         $pid = $result['pid'];
         while ($pid != 0) {
-            $resultB = Doctrine_Core::getTable('Downloads_Model_Categories')->find($pid)->toArray();
+            $resultB = $em->getRepository('Downloads_Entity_Categories')->find($pid);
             $pid = $resultB['pid'];
 
             if ($links) {
@@ -629,11 +631,12 @@ class Downloads_Util
     public static function getCatSelectArray($args)
     {
         $dom    = ZLanguage::getModuleDomain('Downloads');
+        $em = ServiceUtil::getService('doctrine.entitymanager');
         $cid = (!isset($args['cid']) || !is_numeric($args['cid'])) ? 0 : $args['cid'];
         if ($cid) {
-            $categories = Doctrine_Core::getTable('Downloads_Model_Categories')->findBy('pid', $cid)->toArray();
+            $categories = $em->getRepository('Downloads_Entity_Categories')->findBy(array('pid' => $cid));
         } else {
-            $categories = Doctrine_Core::getTable('Downloads_Model_Categories')->findAll()->toArray();
+            $categories = $em->getRepository('Downloads_Entity_Categories')->findAll();
         }
         $includeRoot = isset($args['includeroot']) ? true : false;
         $result = array();
@@ -666,7 +669,8 @@ class Downloads_Util
     public static function getCatNavPathArray($args)
     {
         $dom    = ZLanguage::getModuleDomain('Downloads');
-        
+        $em = ServiceUtil::getService('doctrine.entitymanager');
+
         if (!isset($args['cid']) || !is_numeric($args['cid'])) {
             throw new Zikula_Exception_Fatal(__f('Error! Missing required argument [%s].', 'cid', $dom));
         }
@@ -674,14 +678,14 @@ class Downloads_Util
         $seperator = ' / ';
         $admin = SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN);
 
-        $result = Doctrine_Core::getTable('Downloads_Model_Categories')->find($cid)->toArray();
+        $result = $em->getRepository('Downloads_Entity_Categories')->find($cid);
 
         $cpath = $result['title'];
         $cpath .= $admin ? " (ID = $cid)" : '';
 
         $pid = $result['pid'];
         while ($pid != 0) {
-            $resultB = Doctrine_Core::getTable('Downloads_Model_Categories')->find($pid)->toArray();
+            $resultB = $em->getRepository('Downloads_Entity_Categories')->find($pid);
             $pid = $resultB['pid'];
 
             if ($admin) {

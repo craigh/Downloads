@@ -61,8 +61,8 @@
         </div>
 
         <div class="z-formrow">
-            {formlabel for="cid" __text="Category"}
-            {formdropdownlist id="cid" items=$categories}
+            {formlabel for="category" __text="Category"}
+            {formdropdownlist id="category" items=$categories}
         </div>
     </fieldset>
 

@@ -87,10 +87,8 @@ class Downloads_Controller_User extends Zikula_AbstractController
             $rowcount = 0;
         }
 
-        $tbl = Doctrine_Core::getTable('Downloads_Model_Categories');
-
         return $this->view
-                        ->assign('categoryinfo', $tbl->findBy('cid', $category))
+                        ->assign('categoryinfo', $this->entityManager->getRepository('Downloads_Entity_Categories')->findBy(array('cid' => $category)))
                         ->assign('subcategories', ModUtil::apiFunc('Downloads', 'user', 'getSubCategories', array('category' => $category)))
                         ->assign('downloads', $downloads)
                         ->assign('rowcount', $rowcount)
@@ -110,7 +108,7 @@ class Downloads_Controller_User extends Zikula_AbstractController
             throw new Zikula_Exception_Fatal($this->__f('Error! Could not find download for ID #%s.', $lid));
         }
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::Item', $lid . '::', ACCESS_READ), LogUtil::getErrorMsgPermission());
-        $item = Doctrine_Core::getTable('Downloads_Model_Download')->find($lid);
+        $item = $this->entityManager->getRepository('Downloads_Entity_Download')->find($lid);
         $item['filesize'] = round((int)$item['filesize'] / 1024, 2);
         //$item['filetype'] = FileUtil::getExtension($item['filename']);
         $filetype = (!empty($item['filename'])) ? FileUtil::getExtension($item['filename']) : $this->__('unknown');
@@ -172,16 +170,11 @@ class Downloads_Controller_User extends Zikula_AbstractController
             return LogUtil::registerArgsError(ModUtil::url('Downloads', 'user', 'main'));
         }
 
-        $tbl = Doctrine_Core::getTable('Downloads_Model_Download');
-        $myfile = $tbl->find($args['lid']);
+        $myfile = $this->entityManager->getRepository('Downloads_Entity_Download')->find($args['lid']);
 
         if (stristr($myfile['url'], 'http:') || stristr($myfile['url'], 'ftp:') || stristr($myfile['url'], 'https:')) {
             // increment hit count
-            $tbl->createQuery()
-                    ->update()
-                    ->set('hits', 'hits + 1')
-                    ->where('lid = ?', $args['lid'])
-                    ->execute();
+            $this->entityManager->getRepository('Downloads_Entity_Download')->addHit($myfile);
 
             // redirect to external link 
             $this->redirect($myfile['url']);
@@ -197,11 +190,7 @@ class Downloads_Controller_User extends Zikula_AbstractController
             if ($filepointer && !preg_match('#\.php\s+$#', $filename)) {
 
                 // increment hit count
-                $tbl->createQuery()
-                        ->update()
-                        ->set('hits', 'hits + 1')
-                        ->where('lid = ?', $args['lid'])
-                        ->execute();
+                $this->entityManager->getRepository('Downloads_Entity_Download')->addHit($myfile);
 
                 // get file size
                 $fsize = filesize($myfile['url']);
