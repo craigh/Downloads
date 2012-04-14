@@ -25,9 +25,9 @@ of code retained.
 
 _Unreleased_
 
-Corrections to caching (contributed by nmpetkov)
-Addition of List block (supported by M. Doucha [mdee28])
-Conversion from Doctrine 1.2 to Doctrine 2.1
+    - Corrections to caching (contributed by nmpetkov)
+    - Addition of List block (supported by M. Doucha [mdee28])
+    - Conversion from Doctrine 1.2 to Doctrine 2.1
 
 
 ###Version 3.0.0
