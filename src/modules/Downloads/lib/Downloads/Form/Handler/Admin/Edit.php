@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Downloads
  *
  * @license GNU/LGPLv3 (or at your option, any later version).
  */
-
 class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
 {
 
@@ -42,11 +42,11 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
         }
 
         if (!$view->getStateData('returnurl')) {
-			$editurl = ModUtil::url('Downloads', 'user', 'edit');
+            $editurl = ModUtil::url('Downloads', 'user', 'edit');
             $returnurl = System::serverGetVar('HTTP_REFERER');
             if (strpos($returnurl, $editurl) === 0) {
                 $returnurl = ModUtil::url('Downloads', 'admin', 'main');
-			}
+            }
             $view->setStateData('returnurl', $returnurl);
         }
         $this->view->assign('categories', Downloads_Util::getCatSelectArray(array()));
@@ -81,7 +81,7 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             $file->delete();
             ModUtil::apiFunc('Downloads', 'user', 'clearItemCache', $file->toArray());
             LogUtil::registerStatus($this->__f('Item [id# %s] deleted!', $this->id));
-            return $view->redirect($returnurl);            
+            return $view->redirect($returnurl);
         }
 
         // check for valid form
@@ -134,7 +134,7 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
         }
 
         $file->merge($data);
-        
+
         try {
             $file->save();
         } catch (Zikula_Exception $e) {

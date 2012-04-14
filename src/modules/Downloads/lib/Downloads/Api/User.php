@@ -14,6 +14,7 @@ class Downloads_Api_User extends Zikula_AbstractApi
     /**
      * Download Item status
      */
+
     const STATUS_ALL = -1;
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
@@ -31,7 +32,7 @@ class Downloads_Api_User extends Zikula_AbstractApi
         $orderby = isset($args['orderby']) ? $args['orderby'] : 'title';
         $orderdir = isset($args['orderdir']) ? $args['orderdir'] : 'ASC';
         $limit = isset($args['limit']) ? $args['limit'] : $this->getVar('perpage');
-        $status = isset($args['status']) ? $args['status'] : 1;
+        $status = isset($args['status']) ? $args['status'] : self::STATUS_ACTIVE;
 
         $tbl = Doctrine_Core::getTable('Downloads_Model_Download');
         $q = $tbl->createQuery('d')
@@ -70,20 +71,20 @@ class Downloads_Api_User extends Zikula_AbstractApi
         $items = $this->getall($args);
         return count($items);
     }
-    
+
     public function getSubCategories($args)
     {
         $category = isset($args['category']) ? $args['category'] : 0;
-        
+
         $tbl = Doctrine_Core::getTable('Downloads_Model_Categories');
         $subcategories = $tbl->findBy('pid', $category);
-        
-        foreach($subcategories as $key => $subcategory) {
+
+        foreach ($subcategories as $key => $subcategory) {
             if (!SecurityUtil::checkPermission('Downloads::Category', $subcategory['cid'] . '::', ACCESS_READ)) {
                 unset($subcategories[$key]);
             }
         }
-        
+
         return $subcategories;
     }
 
@@ -103,8 +104,8 @@ class Downloads_Api_User extends Zikula_AbstractApi
         if ($item) {
             // Clear View_cache
             $cache_ids = array();
-            $cache_ids[] = 'display|lid_'.$item['lid'];
-            $cache_ids[] = 'view|cid_'.$item['cid'];
+            $cache_ids[] = 'display|lid_' . $item['lid'];
+            $cache_ids[] = 'view|cid_' . $item['cid'];
             $view = Zikula_View::getInstance('Downloads');
             foreach ($cache_ids as $cache_id) {
                 $view->clear_cache(null, $cache_id);
@@ -112,8 +113,8 @@ class Downloads_Api_User extends Zikula_AbstractApi
 
             // clear Theme_cache
             $cache_ids = array();
-            $cache_ids[] = 'Downloads|user|display|lid_'.$item['lid'];
-            $cache_ids[] = 'Downloads|user|view|category_'.$item['cid']; // view function (item list by category)
+            $cache_ids[] = 'Downloads|user|display|lid_' . $item['lid'];
+            $cache_ids[] = 'Downloads|user|view|category_' . $item['cid']; // view function (item list by category)
             $cache_ids[] = 'homepage'; // for homepage (it can be adjustment in module settings)
             $theme = Zikula_View_Theme::getInstance();
             //if (Zikula_Core::VERSION_NUM > '1.3.2') {
