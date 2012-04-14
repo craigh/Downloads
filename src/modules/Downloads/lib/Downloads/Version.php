@@ -18,7 +18,7 @@ class Downloads_Version extends Zikula_AbstractVersion
         $meta['displayname'] = $this->__('Downloads');
         $meta['url'] = $this->__(/* !used in URL - nospaces, no special chars, lcase */'downloads');
         $meta['description'] = $this->__('Zikula file download manager');
-        $meta['version'] = '3.0.0';
+        $meta['version'] = '3.1.0';
 
         $meta['securityschema'] = array('Downloads::' => '::',
             'Downloads::Category' => 'CategoryID::',
