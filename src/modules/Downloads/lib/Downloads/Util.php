@@ -560,10 +560,10 @@ class Downloads_Util
         $categories = $em->getRepository('Downloads_Entity_Categories')->findBy(array('pid' => $cid));
         $categories_list = "";
         foreach ($categories as $catinfo) {
-            $selected = ($sel == $catinfo['cid']) ? ' selected="selected"' : '';
-            if (SecurityUtil::checkPermission('Downloads::Category', $catinfo['cid'] . '::', ACCESS_READ)) {
-                $categories_list .= "<option value='$catinfo[cid]'$selected>" . self::getCatNavPath(array('cid' => $catinfo['cid'], 'start' => 0, 'links' => 0, 'linkmyself' => 0)) . "</option>\n";
-                $categories_list .= self::getCatSelectList(array('cid' => $catinfo['cid'], 'sel' => $sel));
+            $selected = ($sel == $catinfo->getCid()) ? ' selected="selected"' : '';
+            if (SecurityUtil::checkPermission('Downloads::Category', $catinfo->getCid() . '::', ACCESS_READ)) {
+                $categories_list .= "<option value='{$catinfo->getCid()}'$selected>" . self::getCatNavPath(array('cid' => $catinfo->getCid(), 'start' => 0, 'links' => 0, 'linkmyself' => 0)) . "</option>\n";
+                $categories_list .= self::getCatSelectList(array('cid' => $catinfo->getCid(), 'sel' => $sel));
             }
         }
         if ($includeAll) {
@@ -594,24 +594,24 @@ class Downloads_Util
         $result = $em->getRepository('Downloads_Entity_Categories')->find($cid);
 
         if ($linkmyself) {
-            $cpath = "<a href='" . DataUtil::formatForDisplay(ModUtil::url('Downloads', 'user', 'view', array('cid' => $cid))) . "'>" . DataUtil::formatForDisplay($result['title']) . "</a>";
+            $cpath = "<a href='" . DataUtil::formatForDisplay(ModUtil::url('Downloads', 'user', 'view', array('cid' => $cid))) . "'>" . DataUtil::formatForDisplay($result->getTitle()) . "</a>";
         } else {
-            $cpath = DataUtil::formatForDisplay($result['title']);
+            $cpath = DataUtil::formatForDisplay($result->getTitle());
             $cpath .= $admin ? " (ID = " . DataUtil::formatForDisplay($cid) . ")" : '';
         }
 
-        $pid = $result['pid'];
+        $pid = $result->getPid();
         while ($pid != 0) {
             $resultB = $em->getRepository('Downloads_Entity_Categories')->find($pid);
-            $pid = $resultB['pid'];
+            $pid = $resultB->getPid();
 
             if ($links) {
-                $cpath = "<a href='" . DataUtil::formatForDisplay(ModUtil::url('Downloads', 'user', 'view', array('cid' => $resultB['cid']))) . "'>" . DataUtil::formatForDisplay($resultB['title']) . "</a>{$seperator}{$cpath}";
+                $cpath = "<a href='" . DataUtil::formatForDisplay(ModUtil::url('Downloads', 'user', 'view', array('cid' => $resultB->getCid()))) . "'>" . DataUtil::formatForDisplay($resultB->getTitle()) . "</a>{$seperator}{$cpath}";
             } else {
                 if ($admin) {
-                    $cpath = DataUtil::formatForDisplay($resultB['title']) . " (ID = " . DataUtil::formatForDisplay($resultB['cid']) . ")" . "{$seperator}{$cpath}";
+                    $cpath = DataUtil::formatForDisplay($resultB->getTitle()) . " (ID = " . DataUtil::formatForDisplay($resultB->getCid()) . ")" . "{$seperator}{$cpath}";
                 } else {
-                    $cpath = DataUtil::formatForDisplay($resultB['title']) . "{$seperator}{$cpath}";
+                    $cpath = DataUtil::formatForDisplay($resultB->getTitle()) . "{$seperator}{$cpath}";
                 }
             }
         }
@@ -642,10 +642,10 @@ class Downloads_Util
         $result = array();
         $text = array();
         foreach ($categories as $catinfo) {
-            if (SecurityUtil::checkPermission('Downloads::Category', $catinfo['cid'] . '::', ACCESS_READ)) {
+            if (SecurityUtil::checkPermission('Downloads::Category', $catinfo->getCid() . '::', ACCESS_READ)) {
                 $result[] = array(
-                    'value' => $catinfo['cid'],
-                    'text' => self::getCatNavPathArray(array('cid' => $catinfo['cid']))
+                    'value' => $catinfo->getCid(),
+                    'text' => self::getCatNavPathArray(array('cid' => $catinfo->getCid()))
                 );
             }
         }
@@ -680,18 +680,18 @@ class Downloads_Util
 
         $result = $em->getRepository('Downloads_Entity_Categories')->find($cid);
 
-        $cpath = $result['title'];
+        $cpath = $result->getTitle();
         $cpath .= $admin ? " (ID = $cid)" : '';
 
-        $pid = $result['pid'];
+        $pid = $result->getPid();
         while ($pid != 0) {
             $resultB = $em->getRepository('Downloads_Entity_Categories')->find($pid);
-            $pid = $resultB['pid'];
+            $pid = $resultB->getPid();
 
             if ($admin) {
-                $cpath = $resultB['title'] . " (ID = $resultB[cid])" . "{$seperator}{$cpath}";
+                $cpath = $resultB->getTitle() . " (ID = {$resultB->getCid()})" . "{$seperator}{$cpath}";
             } else {
-                $cpath = $resultB['title'] . "{$seperator}{$cpath}";
+                $cpath = $resultB->getTitle() . "{$seperator}{$cpath}";
             }
         }
 

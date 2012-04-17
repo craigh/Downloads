@@ -109,9 +109,10 @@ class Downloads_Controller_User extends Zikula_AbstractController
         }
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::Item', $lid . '::', ACCESS_READ), LogUtil::getErrorMsgPermission());
         $item = $this->entityManager->getRepository('Downloads_Entity_Download')->find($lid);
-        $item['filesize'] = round((int)$item['filesize'] / 1024, 2);
+        $item->setFilesize(round((int)$item->getFilesize() / 1024, 2));
         //$item['filetype'] = FileUtil::getExtension($item['filename']);
-        $filetype = (!empty($item['filename'])) ? FileUtil::getExtension($item['filename']) : $this->__('unknown');
+        $filename = $item->getFilename();
+        $filetype = (!empty($filename)) ? FileUtil::getExtension($filename) : $this->__('unknown');
 
         $this->view->setCacheId('display|lid_' . $lid);
 
@@ -172,19 +173,19 @@ class Downloads_Controller_User extends Zikula_AbstractController
 
         $myfile = $this->entityManager->getRepository('Downloads_Entity_Download')->find($args['lid']);
 
-        if (stristr($myfile['url'], 'http:') || stristr($myfile['url'], 'ftp:') || stristr($myfile['url'], 'https:')) {
+        if (stristr($myfile->getUrl(), 'http:') || stristr($myfile->getUrl(), 'ftp:') || stristr($myfile->getUrl(), 'https:')) {
             // increment hit count
             $this->entityManager->getRepository('Downloads_Entity_Download')->addHit($myfile);
 
             // redirect to external link 
-            $this->redirect($myfile['url']);
+            $this->redirect($myfile->getUrl());
         } else {
             // file is local
-            $fileinfo = pathinfo($myfile['url']);
+            $fileinfo = pathinfo($myfile->getUrl());
             $filename = $fileinfo['basename'];
 
             // check for existance						
-            $filepointer = is_file($myfile['url']);
+            $filepointer = is_file($myfile->getUrl());
 
             // last file type check
             if ($filepointer && !preg_match('#\.php\s+$#', $filename)) {
@@ -193,7 +194,7 @@ class Downloads_Controller_User extends Zikula_AbstractController
                 $this->entityManager->getRepository('Downloads_Entity_Download')->addHit($myfile);
 
                 // get file size
-                $fsize = filesize($myfile['url']);
+                $fsize = filesize($myfile->getUrl());
 
                 if ($fsize == false) {
                     throw new Zikula_Exception_Fatal($this->__f('Error! Could not determine filesize for %s.', $filename));
@@ -230,7 +231,7 @@ class Downloads_Controller_User extends Zikula_AbstractController
                 // 
                 // prepare file and send it
                 @set_time_limit(0);
-                $fp = @fopen($myfile['url'], "rb");
+                $fp = @fopen($myfile->getUrl(), "rb");
                 ini_set('magic_quotes_runtime', 0);
                 $chunksize = 15 * (512 * 1024);
                 while ($fp && !feof($fp)) {

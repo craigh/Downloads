@@ -39,8 +39,8 @@ class Downloads_Api_User extends Zikula_AbstractApi
 
         $result = array();
         foreach ($downloads as $key => $download) {
-            if ((!SecurityUtil::checkPermission('Downloads::Item', $download['lid'] . '::', ACCESS_READ)) ||
-                    (!SecurityUtil::checkPermission('Downloads::Category', $download['cid'] . '::', ACCESS_READ))) {
+            if ((!SecurityUtil::checkPermission('Downloads::Item', $download->getLid() . '::', ACCESS_READ)) ||
+                    (!SecurityUtil::checkPermission('Downloads::Category', $download->getCategory()->getCid() . '::', ACCESS_READ))) {
                 continue;
             } else {
                 $result[$key] = $download;
@@ -68,7 +68,7 @@ class Downloads_Api_User extends Zikula_AbstractApi
         $subcategories = $this->entityManager->getRepository('Downloads_Entity_Categories')->findBy(array('pid' => $category));
 
         foreach ($subcategories as $key => $subcategory) {
-            if (!SecurityUtil::checkPermission('Downloads::Category', $subcategory['cid'] . '::', ACCESS_READ)) {
+            if (!SecurityUtil::checkPermission('Downloads::Category', $subcategory->getCid() . '::', ACCESS_READ)) {
                 unset($subcategories[$key]);
             }
         }
@@ -81,38 +81,30 @@ class Downloads_Api_User extends Zikula_AbstractApi
      *
      * @param $item - the item: array with data or id of the item
      */
-    public function clearItemCache($item)
+    public function clearItemCache(Downloads_Entity_Download $item)
     {
-        if ($item && !is_array($item)) {
-            $item = $this->entityManager->getRepository('Downloads_Entity_Download')->find($item);
-            if ($item) {
-                $item = $item->toArray();
-            }
+        // Clear View_cache
+        $cache_ids = array();
+        $cache_ids[] = 'display|lid_' . $item->getLid();
+        $cache_ids[] = 'view|cid_' . $item->getCid();
+        $view = Zikula_View::getInstance('Downloads');
+        foreach ($cache_ids as $cache_id) {
+            $view->clear_cache(null, $cache_id);
         }
-        if ($item) {
-            // Clear View_cache
-            $cache_ids = array();
-            $cache_ids[] = 'display|lid_' . $item['lid'];
-            $cache_ids[] = 'view|cid_' . $item['cid'];
-            $view = Zikula_View::getInstance('Downloads');
-            foreach ($cache_ids as $cache_id) {
-                $view->clear_cache(null, $cache_id);
-            }
 
-            // clear Theme_cache
-            $cache_ids = array();
-            $cache_ids[] = 'Downloads|user|display|lid_' . $item['lid'];
-            $cache_ids[] = 'Downloads|user|view|category_' . $item['cid']; // view function (item list by category)
-            $cache_ids[] = 'homepage'; // for homepage (it can be adjustment in module settings)
-            $theme = Zikula_View_Theme::getInstance();
-            //if (Zikula_Core::VERSION_NUM > '1.3.2') {
-            if (method_exists($theme, 'clear_cacheid_allthemes')) {
-                $theme->clear_cacheid_allthemes($cache_ids);
-            } else {
-                // clear cache for current theme only
-                foreach ($cache_ids as $cache_id) {
-                    $theme->clear_cache(null, $cache_id);
-                }
+        // clear Theme_cache
+        $cache_ids = array();
+        $cache_ids[] = 'Downloads|user|display|lid_' . $item->getLid();
+        $cache_ids[] = 'Downloads|user|view|category_' . $item->getCid(); // view function (item list by category)
+        $cache_ids[] = 'homepage'; // for homepage (it can be adjustment in module settings)
+        $theme = Zikula_View_Theme::getInstance();
+        //if (Zikula_Core::VERSION_NUM > '1.3.2') {
+        if (method_exists($theme, 'clear_cacheid_allthemes')) {
+            $theme->clear_cacheid_allthemes($cache_ids);
+        } else {
+            // clear cache for current theme only
+            foreach ($cache_ids as $cache_id) {
+                $theme->clear_cache(null, $cache_id);
             }
         }
     }

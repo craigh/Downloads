@@ -51,10 +51,10 @@ class Downloads_Api_Search extends Zikula_AbstractApi
 
         foreach ($results as $result) {
             $record = array(
-                'title' => $result['title'],
+                'title' => $result->getTitle(),
                 'text' => '',
-                'extra' => serialize(array('lid' => $result['lid'])),
-                'created' => $result['date'],
+                'extra' => serialize(array('lid' => $result->getLid())),
+                'created' => $result->getDate()->format('Y-m-d h:m:s'),
                 'module' => 'Downloads',
                 'session' => $sessionId
             );

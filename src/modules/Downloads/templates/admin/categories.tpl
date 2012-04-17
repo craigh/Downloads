@@ -19,11 +19,11 @@
     <tbody>
         {foreach from=$cats item='c'}
         <tr class="{cycle values="z-odd,z-even"}">
-            <td>{$c.title|safetext}</td>
-            <td>{$c.description|truncate:60|safetext}</td>
-            <td>{$c.pid|getcategorynamefromid|safetext}</td>
+            <td>{$c->getTitle()|safetext}</td>
+            <td>{$c->getDescription()|truncate:60|safetext}</td>
+            <td>{$c->getPid()|getcategorynamefromid|safetext}</td>
             <td class="z-nowrap z-right">
-                <a href="{modurl modname="Downloads" type="admin" func="editCategory" id=$c.cid}">{img modname='core' set='icons/extrasmall' src='xedit.png' __title='Edit' __alt='Edit' class='tooltips'}</a>
+                <a href="{modurl modname="Downloads" type="admin" func="editCategory" id=$c->getCid()}">{img modname='core' set='icons/extrasmall' src='xedit.png' __title='Edit' __alt='Edit' class='tooltips'}</a>
             </td>
         </tr>
         {foreachelse}

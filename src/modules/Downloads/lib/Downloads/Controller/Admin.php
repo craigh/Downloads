@@ -164,13 +164,7 @@ class Downloads_Controller_Admin extends Zikula_AbstractController
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
-        $cats = $this->entityManager->getRepository('Downloads_Entity_Categories')->findAll();
-        // sort array by title
-        $title = array();
-        foreach ($cats as $key => $cat) {
-            $title[$key] = $cat['title'];
-        }
-        array_multisort($title, SORT_ASC, $cats);
+        $cats = $this->entityManager->getRepository('Downloads_Entity_Categories')->getAll();
 
         return $this->view->assign('cats', $cats)
                           ->fetch('admin/categories.tpl');

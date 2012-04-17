@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * Annotations define the entity mappings to database.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Downloads_Entity_Repository_CategoriesRepository")
  * @ORM\Table(name="downloads_categories")
  */
 class Downloads_Entity_Categories extends Zikula_EntityAccess

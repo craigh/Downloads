@@ -266,14 +266,14 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
         $rows = $this->entityManager->getRepository('Downloads_Entity_Download')->findAll();
         $count = 0;
         foreach ($rows as $row) {
-            $parts = explode('.', $row['url']);
-            if (is_numeric($parts[0]) && ((int)$parts[0] == (int)$row['lid'])) {
+            $parts = explode('.', $row->getUrl());
+            if (is_numeric($parts[0]) && ((int)$parts[0] == (int)$row->getLid())) {
                 // this section renames numeric filenames to strings and attempts to
                 // rename the actual file it also corrects the url for local files
-                $filenameParts = explode('.', $row['filename']);
+                $filenameParts = explode('.', $row->getFilename());
                 $newname = DataUtil::formatForURL($filenameParts[0]) . '.' . array_pop($filenameParts);
                 $newurl = "$path/$newname";
-                $oldurl = $path . '/' . $row['url'];
+                $oldurl = $path . '/' . $row->getUrl();
                 if (@rename(DataUtil::formatForOS($oldurl), DataUtil::formatForOS($newurl))) {
                     // update DB
                     $row->setUrl($newurl);
@@ -281,12 +281,12 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
                 } else {
                     // update DB
                     $row->setUrl($oldurl);
-                    $row->setFilname($newname);
+                    $row->setFilename($newname);
                 }
             } else {
                 // this section simply renames filenames to only have one extension
                 // old versions of the module somehow added double extensions
-                $filenameParts = explode('.', $row['filename']);
+                $filenameParts = explode('.', $row->getFilename());
                 if (count($filenameParts) > 2) {
                     $newname = DataUtil::formatForURL($filenameParts[0]) . '.' . array_pop($filenameParts);
                     // update DB

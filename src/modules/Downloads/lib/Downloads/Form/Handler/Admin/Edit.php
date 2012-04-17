@@ -76,7 +76,7 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
 
         if ($args['commandName'] == 'delete') {
             $file = $this->entityManager->getRepository('Downloads_Entity_Download')->find($this->id);
-            $oldname = $file->get('filename');
+            $oldname = $file->getFilename();
             $fullpath = DataUtil::formatForOS("$storage/$oldname");
             @unlink($fullpath);
             $this->entityManager->remove($file);

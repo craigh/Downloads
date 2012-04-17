@@ -14,5 +14,5 @@ function smarty_modifier_getcategorynamefromid($id)
     }
     $em = ServiceUtil::getService('doctrine.entitymanager');
     $category = $em->getRepository('Downloads_Entity_Categories')->find($id);
-    return $category['title'];
+    return $category->getTitle();
 }

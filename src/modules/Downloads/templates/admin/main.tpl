@@ -41,16 +41,16 @@
     <tbody>
         {foreach from=$downloads item='d'}
         <tr class="{cycle values="z-odd,z-even"}">
-            <td>{$d.title|safetext}</td>
-            <td>{if $d.status}{img src='greenled.png' modname='core' set='icons/extrasmall' __title="Active" __alt="Active" class="tooltips"}{else}{img src='redled.png' modname='core' set='icons/extrasmall' __title="Inactive" __alt="Inactive" class="tooltips"}{/if}</td>
-            <td>{$d.version|safetext}</td>
-            <td>{$d.description|truncate:60|safetext}</td>
-            <td>{$d.submitter|safetext}</td>
-            <td>{$d.category.title|safetext}</td>
+            <td>{$d->getTitle()|safetext}</td>
+            <td>{if $d->getStatus()}{img src='greenled.png' modname='core' set='icons/extrasmall' __title="Active" __alt="Active" class="tooltips"}{else}{img src='redled.png' modname='core' set='icons/extrasmall' __title="Inactive" __alt="Inactive" class="tooltips"}{/if}</td>
+            <td>{$d->getVersion()|safetext}</td>
+            <td>{$d->getDescription()|truncate:60|safetext}</td>
+            <td>{$d->getSubmitter()|safetext}</td>
+            <td>{assign var='category' value=$d->getCategory()}{$category->getTitle()|safetext}</td>
             <td class="z-nowrap z-right">
-                <a href="{modurl modname="Downloads" type="user" func="display" lid=$d.lid}">{img modname='core' set='icons/extrasmall' src='14_layer_visible.png' __title='View' __alt='View' class='tooltips'}</a>
-                <a href="{modurl modname="Downloads" type="user" func="prepHandOut" lid=$d.lid}">{img modname='core' set='icons/extrasmall' src='download.png' __title='Download' __alt='Download' class='tooltips'}</a>
-                <a href="{modurl modname="Downloads" type="admin" func="edit" id=$d.lid}">{img modname='core' set='icons/extrasmall' src='xedit.png' __title='Edit' __alt='Edit' class='tooltips'}</a>
+                <a href="{modurl modname="Downloads" type="user" func="display" lid=$d->getLid()}">{img modname='core' set='icons/extrasmall' src='14_layer_visible.png' __title='View' __alt='View' class='tooltips'}</a>
+                <a href="{modurl modname="Downloads" type="user" func="prepHandOut" lid=$d->getLid()}">{img modname='core' set='icons/extrasmall' src='download.png' __title='Download' __alt='Download' class='tooltips'}</a>
+                <a href="{modurl modname="Downloads" type="admin" func="edit" id=$d->getLid()}">{img modname='core' set='icons/extrasmall' src='xedit.png' __title='Edit' __alt='Edit' class='tooltips'}</a>
             </td>
         </tr>
         {foreachelse}
