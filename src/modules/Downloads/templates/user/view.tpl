@@ -10,10 +10,10 @@
             <td colspan='2'><a href="{modurl modname="Downloads" type="user" func="view" category=0}">{gt text='Back to'} <strong>{gt text='Root'}</strong></a></td>
         </tr>
         {/if}
-        {if (isset($categoryinfo.0)) && ($categoryinfo.0->getPid() <> 0)}
+        {if (isset($categoryinfo)) && ($categoryinfo->getPid() <> 0)}
         <tr class='downloads-parent'>
-            <td><a href="{modurl modname="Downloads" type="user" func="view" category=$categoryinfo.0->getPid()}">{img modname='core' set='icons/medium' src='folder_blue.png' __title='View parent category' __alt='View parent category' class='tooltips'}</a></td>
-            <td colspan='2'><a href="{modurl modname="Downloads" type="user" func="view" category=$categoryinfo.0->getPid()}">{gt text='Back to parent: '} <strong>{$categoryinfo.0->getPid()|getcategorynamefromid|safetext}</strong></a></td>
+            <td><a href="{modurl modname="Downloads" type="user" func="view" category=$categoryinfo->getPid()}">{img modname='core' set='icons/medium' src='folder_blue.png' __title='View parent category' __alt='View parent category' class='tooltips'}</a></td>
+            <td colspan='2'><a href="{modurl modname="Downloads" type="user" func="view" category=$categoryinfo->getPid()}">{gt text='Back to parent: '} <strong>{$categoryinfo->getName()|safetext}</strong></a></td>
         </tr>
         {/if}
         {foreach from=$subcategories item='sc'}
