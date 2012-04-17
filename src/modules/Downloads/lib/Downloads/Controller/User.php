@@ -88,7 +88,7 @@ class Downloads_Controller_User extends Zikula_AbstractController
         }
 
         return $this->view
-                        ->assign('categoryinfo', $this->entityManager->getRepository('Downloads_Entity_Categories')->findBy(array('cid' => $category)))
+                        ->assign('categoryinfo', $this->entityManager->getRepository('Downloads_Entity_Categories')->find($category))
                         ->assign('subcategories', ModUtil::apiFunc('Downloads', 'user', 'getSubCategories', array('category' => $category)))
                         ->assign('downloads', $downloads)
                         ->assign('rowcount', $rowcount)
