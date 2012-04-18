@@ -1,4 +1,4 @@
-{zdebug}{ajaxheader modname='Downloads' ui=true}
+{ajaxheader modname='Downloads' ui=true}
 <h3>{gt text='Download Items'} :: {gt text='Category'}: {$cid|getcategorynamefromid|safetext}</h3>
 
 {insert name="getstatusmsg"}
@@ -13,7 +13,7 @@
         {if (isset($categoryinfo)) && ($categoryinfo->getPid() <> 0)}
         <tr class='downloads-parent'>
             <td><a href="{modurl modname="Downloads" type="user" func="view" category=$categoryinfo->getPid()}">{img modname='core' set='icons/medium' src='folder_blue.png' __title='View parent category' __alt='View parent category' class='tooltips'}</a></td>
-            <td colspan='2'><a href="{modurl modname="Downloads" type="user" func="view" category=$categoryinfo->getPid()}">{gt text='Back to parent: '} <strong>{$categoryinfo->getName()|safetext}</strong></a></td>
+            <td colspan='2'><a href="{modurl modname="Downloads" type="user" func="view" category=$categoryinfo->getPid()}">{gt text='Back to parent: '} <strong>{$categoryinfo->getTitle()|safetext}</strong></a></td>
         </tr>
         {/if}
         {foreach from=$subcategories item='sc'}
