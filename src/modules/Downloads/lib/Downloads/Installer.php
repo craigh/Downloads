@@ -34,8 +34,8 @@ class Downloads_Installer extends Zikula_AbstractInstaller
         // Set up config variables
         $this->setVars(Downloads_Util::getModuleDefaults());
         $this->createUploadDir();
-        $cid = $this->createSampleCategory();
-        $this->createSampleDownload($cid);
+        $category = $this->createSampleCategory();
+        $this->createSampleDownload($category);
 
         HookUtil::registerSubscriberBundles($this->version->getHookSubscriberBundles());
 
@@ -219,42 +219,32 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
      */
     private function createSampleCategory()
     {
-        $data = array(
-            "title" => $this->__("SampleCategory"),
-            "description" => $this->__("This category is provided as a sample and can be safely deleted."),
-            "pid" => 0
-        );
-
-        $cat = new Downloads_Model_Categories();
-        $cat->merge($data);
-        $cat->save();
-        return $cat['cid'];
+        $cat = new Downloads_Entity_Categories();
+        $cat->setTitle($this->__("SampleCategory"));
+        $cat->setDescription($this->__("This category is provided as a sample and can be safely deleted."));
+        $cat->setPid(0);
+        $this->entityManager->persist($cat);
+        $this->entityManager->flush();
+        return $cat;
     }
 
     /**
      * Create a sample download
      * @param type $cid 
      */
-    private function createSampleDownload($cid)
+    private function createSampleDownload($category)
     {
-        $data = array(
-            "title" => $this->__("Sample download"),
-            "filename" => "",
-            "status" => 1,
-            "url" => "modules/Downloads/docs/en/sampledownload.txt",
-            "description" => $this->__("This file is provided as a sample and this entry can be safely deleted."),
-            "submitter" => "admin",
-            "email" => "",
-            "homepage" => "",
-            "version" => "1",
-            "cid" => $cid,
-            "update" => date("Y-m-d H:i:s"),
-            "date" => date("Y-m-d H:i:s"),
-        );
-
-        $file = new Downloads_Model_Download();
-        $file->merge($data);
-        $file->save();
+        $file = new Downloads_Entity_Download();
+        $file->setTitle($this->__("Sample download"));
+        $file->setFilename("");
+        $file->setStatus(1);
+        $file->setUrl("modules/Downloads/docs/en/sampledownload.txt");
+        $file->setDescription($this->__("This file is provided as a sample and this entry can be safely deleted."));
+        $file->setSubmitter("admin");
+        $file->setVersion("1");
+        $file->setCategory($category);
+        $this->entityManager->persist($file);
+        $this->entityManager->flush();
     }
 
     /**
