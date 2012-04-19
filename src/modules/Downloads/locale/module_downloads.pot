@@ -8,31 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Zikula 1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-21 21:07+0000\n"
+"POT-Creation-Date: 2012-04-18 21:42-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: templates/plugins/modifier.getcategorynamefromid.php:12
-#: lib/Downloads/Util.php:647 templates/user/view.tpl:10
-msgid "Root"
-msgstr ""
-
-#: lib/Downloads/Util.php:569
-msgid "All Categories"
-msgstr ""
-
-#: lib/Downloads/Util.php:581 lib/Downloads/Util.php:666
-#, php-format
-msgid "Error! Missing required argument [%s]."
-msgstr ""
-
-#: lib/Downloads/Util.php:616
-msgid "Main"
-msgstr ""
 
 #: lib/Downloads/Api/Admin.php:27
 msgid "File List"
@@ -59,44 +41,52 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: lib/Downloads/Api/Search.php:58
+#: lib/Downloads/Api/Search.php:63
 msgid "Error! Could not save the search results."
 msgstr ""
 
-#: lib/Downloads/Installer.php:181
+#: lib/Downloads/Block/List.php:27
+msgid "Downloads list Block"
+msgstr ""
+
+#: lib/Downloads/Controller/Admin.php:146
+msgid "Done! Updated the Downloads configuration."
+msgstr ""
+
+#: lib/Downloads/Controller/User.php:108
 #, php-format
-msgid ""
-"Created the file storage directory successfully at [%s]. Be sure that this "
-"directory is accessible via web and writable by the webserver."
+msgid "Error! Could not find download for ID #%s."
 msgstr ""
 
-#: lib/Downloads/Installer.php:217
-msgid "SampleCategory"
+#: lib/Downloads/Controller/User.php:115
+msgid "unknown"
 msgstr ""
 
-#: lib/Downloads/Installer.php:218
-msgid "This category is provided as a sample and can be safely deleted."
+#: lib/Downloads/Controller/User.php:200
+#, php-format
+msgid "Error! Could not determine filesize for %s."
 msgstr ""
 
-#: lib/Downloads/Installer.php:235
-msgid "Sample download"
+#: lib/Downloads/Controller/User.php:248
+#, php-format
+msgid "Error! Could not read file %s."
 msgstr ""
 
-#: lib/Downloads/Form/Handler/Admin/Edit.php:40
+#: lib/Downloads/Form/Handler/Admin/Edit.php:41
 #, php-format
 msgid "File with id %s not found"
 msgstr ""
 
-#: lib/Downloads/Form/Handler/Admin/Edit.php:82
+#: lib/Downloads/Form/Handler/Admin/Edit.php:85
 #, php-format
 msgid "Item [id# %s] deleted!"
 msgstr ""
 
-#: lib/Downloads/Form/Handler/Admin/Edit.php:97
+#: lib/Downloads/Form/Handler/Admin/Edit.php:100
 msgid "You must upload a filename"
 msgstr ""
 
-#: lib/Downloads/Form/Handler/Admin/Edit.php:99
+#: lib/Downloads/Form/Handler/Admin/Edit.php:102
 msgid "OR specify a download url."
 msgstr ""
 
@@ -105,36 +95,55 @@ msgstr ""
 msgid "Category with id %s not found"
 msgstr ""
 
-#: lib/Downloads/Form/Handler/Admin/EditCategory.php:77
+#: lib/Downloads/Form/Handler/Admin/EditCategory.php:79
 #, php-format
 msgid "Category [id# %s] deleted!"
 msgstr ""
 
-#: lib/Downloads/Controller/User.php:108
+#: lib/Downloads/Installer.php:187
 #, php-format
-msgid "Error! Could not find download for ID #%s."
+msgid ""
+"Created the file storage directory successfully at [%s]. Be sure that this "
+"directory is accessible via web and writable by the webserver."
 msgstr ""
 
-#: lib/Downloads/Controller/User.php:114
-msgid "unknown"
+#: lib/Downloads/Installer.php:223
+msgid "SampleCategory"
 msgstr ""
 
-#: lib/Downloads/Controller/User.php:205
+#: lib/Downloads/Installer.php:224
+msgid "This category is provided as a sample and can be safely deleted."
+msgstr ""
+
+#: lib/Downloads/Installer.php:238
+msgid "Sample download"
+msgstr ""
+
+#: lib/Downloads/Installer.php:242
+msgid "This file is provided as a sample and this entry can be safely deleted."
+msgstr ""
+
+#: lib/Downloads/Util.php:571
+msgid "All Categories"
+msgstr ""
+
+#: lib/Downloads/Util.php:585 lib/Downloads/Util.php:675
 #, php-format
-msgid "Error! Could not determine filesize for %s."
+msgid "Error! Missing required argument [%s]."
 msgstr ""
 
-#: lib/Downloads/Controller/User.php:253
-#, php-format
-msgid "Error! Could not read file %s."
+#: lib/Downloads/Util.php:620
+msgid "Main"
 msgstr ""
 
-#: lib/Downloads/Controller/Admin.php:146
-msgid "Done! Updated the Downloads configuration."
+#: lib/Downloads/Util.php:653
+#: templates/plugins/modifier.getcategorynamefromid.php:13
+#: templates/user/view.tpl:10
+msgid "Root"
 msgstr ""
 
-#: lib/Downloads/Version.php:18 templates/user/view.tpl:36
-#: templates/search/options.tpl:3
+#: lib/Downloads/Version.php:18 templates/search/options.tpl:3
+#: templates/user/view.tpl:36
 msgid "Downloads"
 msgstr ""
 
@@ -228,7 +237,7 @@ msgid "Version"
 msgstr ""
 
 #: templates/admin/edit.tpl:64 templates/user/display.tpl:10
-#: templates/user/display.tpl:27 templates/user/view.tpl:2
+#: templates/user/display.tpl:33 templates/user/view.tpl:2
 msgid "Category"
 msgstr ""
 
@@ -310,7 +319,8 @@ msgstr ""
 msgid "Inactive"
 msgstr ""
 
-#: templates/admin/main.tpl:51 templates/user/view.tpl:53
+#: templates/admin/main.tpl:51 templates/blocks/list.tpl:5
+#: templates/user/view.tpl:53
 msgid "View"
 msgstr ""
 
@@ -501,6 +511,18 @@ msgstr ""
 msgid "importfrommod"
 msgstr ""
 
+#: templates/blocks/list.tpl:15
+msgid "No downloads available"
+msgstr ""
+
+#: templates/blocks/list_modify.tpl:2
+msgid "Select a category"
+msgstr ""
+
+#: templates/blocks/list_modify.tpl:8
+msgid "Maximum items to display"
+msgstr ""
+
 #: templates/user/display.tpl:2 templates/user/view.tpl:2
 msgid "Download Items"
 msgstr ""
@@ -521,23 +543,23 @@ msgstr ""
 msgid "Creation date"
 msgstr ""
 
-#: templates/user/display.tpl:20
+#: templates/user/display.tpl:22
 msgid "Email"
 msgstr ""
 
-#: templates/user/display.tpl:21
+#: templates/user/display.tpl:25
 msgid "homepage"
 msgstr ""
 
-#: templates/user/display.tpl:26
+#: templates/user/display.tpl:32
 msgid "Root category"
 msgstr ""
 
-#: templates/user/display.tpl:26
+#: templates/user/display.tpl:32
 msgid "Back to Root category"
 msgstr ""
 
-#: templates/user/display.tpl:27
+#: templates/user/display.tpl:33
 #, php-format
 msgid "Back to category '%s'"
 msgstr ""
