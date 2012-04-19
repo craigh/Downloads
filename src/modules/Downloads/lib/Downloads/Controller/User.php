@@ -39,10 +39,10 @@ class Downloads_Controller_User extends Zikula_AbstractController
         }
 
         // Get parameters from whatever input we need.
-        $startnum = (int)$this->request->getGet()->get('startnum', isset($args['startnum']) ? $args['startnum'] : null);
-        $orderby = $this->request->getGet()->get('orderby', isset($args['orderby']) ? $args['orderby'] : 'title');
-        $original_sdir = $this->request->getGet()->get('sdir', isset($args['sdir']) ? $args['sdir'] : 0);
-        $category = $this->request->getGet()->get('category', isset($args['category']) ? $args['category'] : 0);
+        $startnum = (int)$this->request->query->get('startnum', isset($args['startnum']) ? $args['startnum'] : null);
+        $orderby = $this->request->query->get('orderby', isset($args['orderby']) ? $args['orderby'] : 'title');
+        $original_sdir = $this->request->query->get('sdir', isset($args['sdir']) ? $args['sdir'] : 0);
+        $category = $this->request->query->get('category', isset($args['category']) ? $args['category'] : 0);
 
         // check  category permissions
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::Category', "$category::", ACCESS_READ), LogUtil::getErrorMsgPermission());
@@ -103,7 +103,7 @@ class Downloads_Controller_User extends Zikula_AbstractController
     public function display($args)
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_READ), LogUtil::getErrorMsgPermission());
-        $lid = isset($args['lid']) ? $args['lid'] : (int)$this->request->getGet()->get('lid', null);
+        $lid = isset($args['lid']) ? $args['lid'] : (int)$this->request->query->get('lid', null);
         if (!isset($lid)) {
             throw new Zikula_Exception_Fatal($this->__f('Error! Could not find download for ID #%s.', $lid));
         }
@@ -131,7 +131,7 @@ class Downloads_Controller_User extends Zikula_AbstractController
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_READ), LogUtil::getErrorMsgPermission());
 
-        $lid = (int)$this->request->getGet()->get('lid', null);
+        $lid = (int)$this->request->query->get('lid', null);
 
         // if admin limits session downloads, enforce
         if ($this->getVar('sessionlimit')) {

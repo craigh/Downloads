@@ -28,10 +28,10 @@ class Downloads_Controller_Admin extends Zikula_AbstractController
         }
 
         // Get parameters from whatever input we need.
-        $startnum = (int)$this->request->getGet()->get('startnum', $this->request->getPost()->get('startnum', isset($args['startnum']) ? $args['startnum'] : null));
-        $orderby = $this->request->getGet()->get('orderby', $this->request->getPost()->get('orderby', isset($args['orderby']) ? $args['orderby'] : 'title'));
-        $original_sdir = $this->request->getGet()->get('sdir', $this->request->getPost()->get('sdir', isset($args['sdir']) ? $args['sdir'] : 0));
-        $category = $this->request->getPost()->get('category', $this->request->getGet()->get('category', isset($args['category']) ? $args['category'] : 0));
+        $startnum = (int)$this->request->query->get('startnum', $this->request->request->get('startnum', isset($args['startnum']) ? $args['startnum'] : null));
+        $orderby = $this->request->query->get('orderby', $this->request->request->get('orderby', isset($args['orderby']) ? $args['orderby'] : 'title'));
+        $original_sdir = $this->request->query->get('sdir', $this->request->request->get('sdir', isset($args['sdir']) ? $args['sdir'] : 0));
+        $category = $this->request->request->get('category', $this->request->query->get('category', isset($args['category']) ? $args['category'] : 0));
 
         $this->view->assign('startnum', $startnum);
         $this->view->assign('orderby', $orderby);
@@ -99,41 +99,41 @@ class Downloads_Controller_Admin extends Zikula_AbstractController
         $defaults = array_merge($defaults, $currentModVars);
 
         $modvars = array(
-            'perpage' => $this->request->getPost()->get('perpage', $defaults['perpage']),
-            'newdownloads' => $this->request->getPost()->get('newdownloads', $defaults['newdownloads']),
-            'topdownloads' => $this->request->getPost()->get('topdownloads', $defaults['topdownloads']),
-            'ratexdlsamount' => $this->request->getPost()->get('ratexdlsamount', $defaults['ratexdlsamount']),
-            'topxdlsamount' => $this->request->getPost()->get('topxdlsamount', $defaults['topxdlsamount']),
-            'lastxdlsamount' => $this->request->getPost()->get('lastxdlsamount', $defaults['lastxdlsamount']),
-            'ratexdlsactive' => $this->request->getPost()->get('ratexdlsactive', $defaults['ratexdlsactive']),
-            'topxdlsactive' => $this->request->getPost()->get('topxdlsactive', $defaults['topxdlsactive']),
-            'lastxdlsactive' => $this->request->getPost()->get('lastxdlsactive', $defaults['lastxdlsactive']),
-            'allowupload' => $this->request->getPost()->get('allowupload', $defaults['allowupload']),
-            'securedownload' => $this->request->getPost()->get('securedownload', $defaults['securedownload']),
-            'sizelimit' => $this->request->getPost()->get('sizelimit', $defaults['sizelimit']),
-            'limitsize' => $this->request->getPost()->get('limitsize', $defaults['limitsize']),
-            'showscreenshot' => $this->request->getPost()->get('showscreenshot', $defaults['showscreenshot']),
-            'thumbnailwidth' => $this->request->getPost()->get('thumbnailwidth', $defaults['thumbnailwidth']),
-            'thumbnailheight' => $this->request->getPost()->get('thumbnailheight', $defaults['thumbnailheight']),
-            'screenshotmaxsize' => $this->request->getPost()->get('screenshotmaxsize', $defaults['screenshotmaxsize']),
-            'thumbnailmaxsize' => $this->request->getPost()->get('thumbnailmaxsize', $defaults['thumbnailmaxsize']),
-            'limit_extension' => $this->request->getPost()->get('limit_extension', $defaults['limit_extension']),
-            'allowscreenshotupload' => $this->request->getPost()->get('allowscreenshotupload', $defaults['allowscreenshotupload']),
-            'importfrommod' => $this->request->getPost()->get('importfrommod', $defaults['importfrommod']),
-            'sessionlimit' => $this->request->getPost()->get('sessionlimit', $defaults['sessionlimit']),
-            'sessiondownloadlimit' => $this->request->getPost()->get('sessiondownloadlimit', $defaults['sessiondownloadlimit']),
-            'captchacharacters' => $this->request->getPost()->get('captchacharacters', $defaults['captchacharacters']),
-            'notifymail' => $this->request->getPost()->get('notifymail', $defaults['notifymail']),
-            'inform_user' => $this->request->getPost()->get('inform_user', $defaults['inform_user']),
-            'fulltext' => $this->request->getPost()->get('fulltext', $defaults['fulltext']),
-            'sortby' => $this->request->getPost()->get('sortby', $defaults['sortby']),
-            'cclause' => $this->request->getPost()->get('cclause', $defaults['cclause']),
-            'popular' => $this->request->getPost()->get('popular', $defaults['popular']),
-            'torrent' => $this->request->getPost()->get('torrent', $defaults['torrent']),
-            'upload_folder' => $this->request->getPost()->get('upload_folder', $defaults['upload_folder']),
-            'screenshot_folder' => $this->request->getPost()->get('screenshot_folder', $defaults['screenshot_folder']),
-            'cache_folder' => $this->request->getPost()->get('cache_folder', $defaults['cache_folder']),
-            'treeview' => $this->request->getPost()->get('treeview', $defaults['treeview']),
+            'perpage' => $this->request->request->get('perpage', $defaults['perpage']),
+            'newdownloads' => $this->request->request->get('newdownloads', $defaults['newdownloads']),
+            'topdownloads' => $this->request->request->get('topdownloads', $defaults['topdownloads']),
+            'ratexdlsamount' => $this->request->request->get('ratexdlsamount', $defaults['ratexdlsamount']),
+            'topxdlsamount' => $this->request->request->get('topxdlsamount', $defaults['topxdlsamount']),
+            'lastxdlsamount' => $this->request->request->get('lastxdlsamount', $defaults['lastxdlsamount']),
+            'ratexdlsactive' => $this->request->request->get('ratexdlsactive', $defaults['ratexdlsactive']),
+            'topxdlsactive' => $this->request->request->get('topxdlsactive', $defaults['topxdlsactive']),
+            'lastxdlsactive' => $this->request->request->get('lastxdlsactive', $defaults['lastxdlsactive']),
+            'allowupload' => $this->request->request->get('allowupload', $defaults['allowupload']),
+            'securedownload' => $this->request->request->get('securedownload', $defaults['securedownload']),
+            'sizelimit' => $this->request->request->get('sizelimit', $defaults['sizelimit']),
+            'limitsize' => $this->request->request->get('limitsize', $defaults['limitsize']),
+            'showscreenshot' => $this->request->request->get('showscreenshot', $defaults['showscreenshot']),
+            'thumbnailwidth' => $this->request->request->get('thumbnailwidth', $defaults['thumbnailwidth']),
+            'thumbnailheight' => $this->request->request->get('thumbnailheight', $defaults['thumbnailheight']),
+            'screenshotmaxsize' => $this->request->request->get('screenshotmaxsize', $defaults['screenshotmaxsize']),
+            'thumbnailmaxsize' => $this->request->request->get('thumbnailmaxsize', $defaults['thumbnailmaxsize']),
+            'limit_extension' => $this->request->request->get('limit_extension', $defaults['limit_extension']),
+            'allowscreenshotupload' => $this->request->request->get('allowscreenshotupload', $defaults['allowscreenshotupload']),
+            'importfrommod' => $this->request->request->get('importfrommod', $defaults['importfrommod']),
+            'sessionlimit' => $this->request->request->get('sessionlimit', $defaults['sessionlimit']),
+            'sessiondownloadlimit' => $this->request->request->get('sessiondownloadlimit', $defaults['sessiondownloadlimit']),
+            'captchacharacters' => $this->request->request->get('captchacharacters', $defaults['captchacharacters']),
+            'notifymail' => $this->request->request->get('notifymail', $defaults['notifymail']),
+            'inform_user' => $this->request->request->get('inform_user', $defaults['inform_user']),
+            'fulltext' => $this->request->request->get('fulltext', $defaults['fulltext']),
+            'sortby' => $this->request->request->get('sortby', $defaults['sortby']),
+            'cclause' => $this->request->request->get('cclause', $defaults['cclause']),
+            'popular' => $this->request->request->get('popular', $defaults['popular']),
+            'torrent' => $this->request->request->get('torrent', $defaults['torrent']),
+            'upload_folder' => $this->request->request->get('upload_folder', $defaults['upload_folder']),
+            'screenshot_folder' => $this->request->request->get('screenshot_folder', $defaults['screenshot_folder']),
+            'cache_folder' => $this->request->request->get('cache_folder', $defaults['cache_folder']),
+            'treeview' => $this->request->request->get('treeview', $defaults['treeview']),
         );
 
 
