@@ -23,7 +23,7 @@ of code retained.
 
 ###Version 3.1.0
 
-_Unreleased_
+_22 April 2012_
 
     - Corrections to caching (contributed by nmpetkov)
     - Addition of List block (supported by M. Doucha [mdee28])
