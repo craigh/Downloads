@@ -140,8 +140,10 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
                 HookUtil::registerSubscriberBundles($this->version->getHookSubscriberBundles());
 
             case '3.0.0':
-            // no changes
+                // no changes
             case '3.1.0':
+                // no changes
+            case '3.1.1':
             //future development
         }
 

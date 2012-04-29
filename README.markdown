@@ -1,6 +1,8 @@
 Downloads
 =========
 
+**__REQUIRES Core 1.3.3+__**
+
 Upgrade of original (PostNuke) Downloads module for Zikula 1.3.x with
 significantly reduced functionality.
 
@@ -19,6 +21,11 @@ Zikula 1.3.x
 
 *The original license is upgraded from LGPLv2 to LGPLv3+ as there is a few bits
 of code retained.
+
+###Version 3.1.1
+_29 April 2012_
+
+Adds enforcement of higher core version requirement.
 
 
 ###Version 3.1.0
