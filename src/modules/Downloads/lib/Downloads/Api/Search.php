@@ -35,17 +35,18 @@ class Downloads_Api_Search extends Zikula_AbstractApi
 
         $sessionId = session_id();
 
-        $whereArray = $this->constructDoctrineWhere($args, array('title', 'description'));
+        // this is a bit of a hacky way to ustilize this API for Doctrine calls.
+        $where = Search_Api_User::construct_where($args, array(
+                    'a.title',
+                    'a.description'), null);
+        if (!empty($where)) {
+            $where = trim(substr(trim($where), 1, -1));
+        }
 
         $qb = $this->entityManager->createQueryBuilder();
         $qb->select('a')
-            ->from('Downloads_Entity_Download');
-        $s = 1;
-        foreach ($whereArray as $where) {
-            $qb->$where['method']("a.{$where['field']}", "?$s");
-            $qb->setParameter($s, $where['value']);
-            $s++;
-        }
+            ->from('Downloads_Entity_Download', 'a')
+            ->where($where);
         $query = $qb->getQuery();
         $results = $query->getResult();
 
@@ -81,45 +82,6 @@ class Downloads_Api_Search extends Zikula_AbstractApi
         $datarow['url'] = ModUtil::url('downloads', 'user', 'display', array('lid' => $extra['lid']));
 
         return true;
-    }
-
-    /**
-     * Contruct array of values suitable for Doctrine processing
-     */
-    public static function constructDoctrineWhere($args, $fields)
-    {
-        $where = array();
-
-        if (!isset($args) || empty($args) || !isset($fields) || empty($fields)) {
-            return $where;
-        }
-
-        if (!empty($args['q'])) {
-            $q = DataUtil::formatForStore($args['q']);
-            $q = str_replace('%', '\\%', $q);  // Don't allow user input % as wildcard
-            if ($args['searchtype'] !== 'EXACT') {
-                $searchwords = Search_Api_User::split_query($q);
-                $method = $args['searchtype'] == 'AND' ? 'andWhere' : 'orWhere';
-            } else {
-                $searchwords = array("%{$q}%");
-                $method = 'where';
-            }
-            foreach ($searchwords as $word) {
-                $fieldstrings = array();
-                $valueArray = array();
-                foreach ($fields as $field) {
-                    $fieldstrings[] = "$field LIKE ?";
-                    $valueArray[] = $word;
-                }
-                $fieldstring = '(' . implode(' OR ', $fieldstrings) . ')';
-                $where[] = array(
-                    'method' => $method,
-                    'field' => $fieldstring,
-                    'value' => $valueArray);
-            }
-        }
-
-        return $where;
     }
 
 }
