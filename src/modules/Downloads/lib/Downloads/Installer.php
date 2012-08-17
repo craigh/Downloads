@@ -144,6 +144,8 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
             case '3.1.0':
                 // no changes
             case '3.1.1':
+                // no changes
+            case '3.1.2':
             //future development
         }
 

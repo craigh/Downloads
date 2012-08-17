@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Zikula 1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-18 21:42-0400\n"
+"POT-Creation-Date: 2012-08-17 14:48-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: lib/Downloads/Api/Search.php:63
+#: lib/Downloads/Api/Search.php:64
 msgid "Error! Could not save the search results."
 msgstr ""
 
@@ -100,26 +100,26 @@ msgstr ""
 msgid "Category [id# %s] deleted!"
 msgstr ""
 
-#: lib/Downloads/Installer.php:187
+#: lib/Downloads/Installer.php:191
 #, php-format
 msgid ""
 "Created the file storage directory successfully at [%s]. Be sure that this "
 "directory is accessible via web and writable by the webserver."
 msgstr ""
 
-#: lib/Downloads/Installer.php:223
+#: lib/Downloads/Installer.php:227
 msgid "SampleCategory"
 msgstr ""
 
-#: lib/Downloads/Installer.php:224
+#: lib/Downloads/Installer.php:228
 msgid "This category is provided as a sample and can be safely deleted."
 msgstr ""
 
-#: lib/Downloads/Installer.php:238
+#: lib/Downloads/Installer.php:242
 msgid "Sample download"
 msgstr ""
 
-#: lib/Downloads/Installer.php:242
+#: lib/Downloads/Installer.php:246
 msgid "This file is provided as a sample and this entry can be safely deleted."
 msgstr ""
 
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Zikula file download manager"
 msgstr ""
 
-#: lib/Downloads/Version.php:34
+#: lib/Downloads/Version.php:35
 msgid "Downloads Hooks"
 msgstr ""
 
