@@ -110,7 +110,10 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
 
         if ((is_array($data['filename'])) && ($data['filename']['size'] > 0)) {
             $data['filesize'] = $data['filename']['size'];
-            FileUtil::uploadFile('filename', $storage, $data['filename']['name']);
+            $result = FileUtil::uploadFile('filename', $storage, $data['filename']['name'], true);
+            if (!$result) {
+                return LogUtil::registerError($result);
+            }
             $name = $data['filename']['name'];
             unset($data['filename']);
             $data['filename'] = $name;
