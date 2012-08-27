@@ -146,6 +146,9 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
             case '3.1.1':
                 // no changes
             case '3.1.2':
+                // run the update rows routine again because some rows were not properly updated in the 3.0.0 routine
+                $this->updateRows();
+            case '3.1.3':
             //future development
         }
 
@@ -295,6 +298,8 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
                 $count++;
             }
         }
+        // clean up leftovers
+        $this->entityManager->flush();
     }
 
 }
