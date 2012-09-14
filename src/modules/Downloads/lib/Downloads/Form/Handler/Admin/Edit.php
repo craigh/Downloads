@@ -103,6 +103,7 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             return false;
         }
 
+        $newFileUploadedFlag = false;
         $data['update'] = new DateTime();
         $data['date'] = new DateTime();
         $data['status'] = (int)$data['status'];
@@ -110,10 +111,11 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
 
         if ((is_array($data['filename'])) && ($data['filename']['size'] > 0)) {
             $data['filesize'] = $data['filename']['size'];
-            $result = FileUtil::uploadFile('filename', $storage, $data['filename']['name']);
+            $result = Downloads_Util::uploadFile('filename', $storage, $data['filename']['name']);
             if (!$result) {
                 return LogUtil::registerError($result);
             }
+            $newFileUploadedFlag = true;
             $name = $data['filename']['name'];
             unset($data['filename']);
             $data['filename'] = $name;
@@ -127,9 +129,11 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             $file = $this->entityManager->getRepository('Downloads_Entity_Download')->find($this->id);
             // if file is new, delete old one
             $oldname = $file->getFilename();
-            if ($oldname <> $data['filename']) {
-                $fullpath = DataUtil::formatForOS("$storage/$oldname");
+            if ($newFileUploadedFlag) {
+                $fullpath = "$storage/$oldname";
                 @unlink($fullpath);
+            } else {
+                $data['filename'] = $file->getFilename();
             }
         } else {
             $file = new Downloads_Entity_Download();
