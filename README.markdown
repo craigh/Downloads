@@ -22,6 +22,22 @@ Zikula 1.3.x
 *The original license is upgraded from LGPLv2 to LGPLv3+ as there is a few bits
 of code retained.
 
+###Version 3.1.3
+_Unreleased_
+
+- correct bugs
+    - download deleted on editing entry
+    - cannot use storage directory above doc root
+    - problems in upgrade routine (to 3.1.0) that some items didn't get upgraded
+    - redirect on saving admin settings caused problem
+    - cache issue when fetching CID
+- Added check to prevent overwrite of same filenames
+
+###Version 3.1.2
+_17 August 2012_
+
+Fix search function
+
 ###Version 3.1.1
 _29 April 2012_
 
