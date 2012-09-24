@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Zikula 1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-17 14:48-0400\n"
+"POT-Creation-Date: 2012-09-24 16:05-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,16 +77,16 @@ msgstr ""
 msgid "File with id %s not found"
 msgstr ""
 
-#: lib/Downloads/Form/Handler/Admin/Edit.php:85
+#: lib/Downloads/Form/Handler/Admin/Edit.php:79
 #, php-format
 msgid "Item [id# %s] deleted!"
 msgstr ""
 
-#: lib/Downloads/Form/Handler/Admin/Edit.php:100
+#: lib/Downloads/Form/Handler/Admin/Edit.php:94
 msgid "You must upload a filename"
 msgstr ""
 
-#: lib/Downloads/Form/Handler/Admin/Edit.php:102
+#: lib/Downloads/Form/Handler/Admin/Edit.php:96
 msgid "OR specify a download url."
 msgstr ""
 
@@ -100,26 +100,26 @@ msgstr ""
 msgid "Category [id# %s] deleted!"
 msgstr ""
 
-#: lib/Downloads/Installer.php:191
+#: lib/Downloads/Installer.php:194
 #, php-format
 msgid ""
 "Created the file storage directory successfully at [%s]. Be sure that this "
 "directory is accessible via web and writable by the webserver."
 msgstr ""
 
-#: lib/Downloads/Installer.php:227
+#: lib/Downloads/Installer.php:230
 msgid "SampleCategory"
 msgstr ""
 
-#: lib/Downloads/Installer.php:228
+#: lib/Downloads/Installer.php:231
 msgid "This category is provided as a sample and can be safely deleted."
 msgstr ""
 
-#: lib/Downloads/Installer.php:242
+#: lib/Downloads/Installer.php:245
 msgid "Sample download"
 msgstr ""
 
-#: lib/Downloads/Installer.php:246
+#: lib/Downloads/Installer.php:249
 msgid "This file is provided as a sample and this entry can be safely deleted."
 msgstr ""
 
@@ -140,6 +140,24 @@ msgstr ""
 #: templates/plugins/modifier.getcategorynamefromid.php:13
 #: templates/user/view.tpl:10
 msgid "Root"
+msgstr ""
+
+#: lib/Downloads/Util.php:719 lib/Downloads/Util.php:723
+#, php-format
+msgid "%s: called with invalid %s."
+msgstr ""
+
+#: lib/Downloads/Util.php:729
+#, php-format
+msgid "The destination path [%s] does not exist or is not writable"
+msgstr ""
+
+#: lib/Downloads/Util.php:731
+msgid "The destination path does not exist or is not writable"
+msgstr ""
+
+#: lib/Downloads/Util.php:745
+msgid "That filename already exists. Please choose a different name."
 msgstr ""
 
 #: lib/Downloads/Version.php:18 templates/search/options.tpl:3
