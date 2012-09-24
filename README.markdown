@@ -23,7 +23,7 @@ Zikula 1.3.x
 of code retained.
 
 ###Version 3.1.3
-_Unreleased_
+_24 September 2012_
 
 - correct bugs
     - download deleted on editing entry
