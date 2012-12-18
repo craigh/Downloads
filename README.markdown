@@ -1,7 +1,7 @@
 Downloads
 =========
 
-**__REQUIRES Core 1.3.3+__**
+**__REQUIRES Core 1.3.3+ in the 1.3.x series__**
 
 Upgrade of original (PostNuke) Downloads module for Zikula 1.3.x with
 significantly reduced functionality.
