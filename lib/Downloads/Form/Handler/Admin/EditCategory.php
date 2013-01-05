@@ -9,7 +9,7 @@ class Downloads_Form_Handler_Admin_EditCategory extends Zikula_Form_AbstractHand
 {
 
     /**
-     * download id.
+     * category id.
      *
      * When set this handler is in edit mode.
      *
@@ -90,6 +90,11 @@ class Downloads_Form_Handler_Admin_EditCategory extends Zikula_Form_AbstractHand
 
         // load form values
         $data = $view->getValues();
+        
+        if ($this->id == $data['pid']) {
+            // user trying to set parent to self
+            return $view->setPluginErrorMsg('pid', 'Cannot select self as parent!');
+        }
 
         // switch between edit and create mode
         if ($this->id) {
@@ -97,7 +102,7 @@ class Downloads_Form_Handler_Admin_EditCategory extends Zikula_Form_AbstractHand
         } else {
             $cat = new Downloads_Entity_Categories();
         }
-
+        
         try {
             $cat->merge($data);
             $this->entityManager->persist($cat);
