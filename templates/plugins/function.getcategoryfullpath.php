@@ -7,7 +7,10 @@
  */
 function smarty_function_getcategoryfullpath($params, Zikula_View $view)
 {
-    $cid = isset($params['cid']) ? (int)$params['cid'] : 0;
+    $cid = isset($params['cid']) ? $params['cid'] : 0;
+    if (is_object($cid)) {
+        $cid = $cid->getCid();
+    }
     $dom = ZLanguage::getModuleDomain('Downloads');
     $em = ServiceUtil::getService('doctrine.entitymanager');
     $categoryPath = array();
