@@ -22,7 +22,6 @@ function smarty_function_getcategoryfullpath($params, Zikula_View $view)
         $i--;
     }
     $categoryPath[0] = array('cid' => 0, 'title' => __('Root', $dom));
-//    echo "<pre>"; var_dump($categoryPath); die;
     ksort($categoryPath);
     $fullpath = '';
     foreach ($categoryPath as $path) {
