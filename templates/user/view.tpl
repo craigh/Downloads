@@ -1,5 +1,6 @@
 {ajaxheader modname='Downloads' ui=true}
-<h3>{gt text='Download Items'} :: {gt text='Category'}: {$cid|getcategorynamefromid|safetext}</h3>
+<h2>{gt text='Download Items'}</h2>
+<h3>{gt text='Category'}: / {getcategoryfullpath cid=$cid}</h3>
 
 {insert name="getstatusmsg"}
 <table class="z-datatable">

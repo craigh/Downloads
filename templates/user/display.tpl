@@ -7,7 +7,7 @@
     &nbsp;&nbsp;{$item->getTitle()|safetext}</a></h3>
 </div>
 <div id='downloads_item_details'>
-    <h4>{gt text='Category'}{assign var='category' value=$item->getCategory()}: <a href="{modurl modname="Downloads" type="user" func="view" cid=$category->getCid()}">{$category->getTitle()|safetext}</a></h4>
+    <h4>{gt text='Category'}: {getcategoryfullpath cid=$item->getCategory()}</h4>
     <p><strong>{gt text='Description'}</strong>: {$item->getDescription()|safehtml}</p>
     <ul>
         <li><strong>{gt text='Filetype'}</strong>: {$filetype}</li>
@@ -28,9 +28,6 @@
             {/if}
         </li>
     </ul>
-    <br />
-    <a href="{modurl modname="Downloads" type="user" func="view"}">{img modname='core' set='icons/medium' src='folder_red.png' __title='Root category' __alt='Root category' class='z-middle tooltips'}&nbsp;&nbsp;{gt text='Back to Root category'}</a>
-    <a href="{modurl modname="Downloads" type="user" func="view" category=$category->getCid()}">{img modname='core' set='icons/medium' src='folder_blue.png' __title='Category' __alt='Category' class='z-middle tooltips'}&nbsp;&nbsp;{gt text="Back to category '%s'" tag1=$category->getCid()|getcategorynamefromid|safetext}</a>
 </div>
 {notifydisplayhooks eventname='downloads.ui_hooks.downloads.display_view' id=$item->getLid()}
 <script type="text/javascript">
