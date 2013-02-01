@@ -42,10 +42,11 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             }
         }
         
-        if(!SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN))
+        if(!SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN)) {
             $view->setStateData('returnurl', ModUtil::url('Downloads', 'user', 'main'));
-        else
+        } else {
             $view->setStateData('returnurl', ModUtil::url('Downloads', 'admin', 'main'));
+        }
 
         $view->assign('categories', Downloads_Util::getCatSelectArray(array()));
 
