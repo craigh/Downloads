@@ -12,7 +12,7 @@ Downloads to quickly upgrade to Zikula 1.3 while we all await the monolithic
 
 This only has basic functionality including:
     - upgrade from v2.4 
-    - admin (only) creation of new entries including upload of files
+    - admin (and moderators) creation of new entries including upload of files, editing and removing
     - user and admin view with filter by category
 
 This is a 'blind' rewrite with no actual base in the old code*. It just begins
@@ -21,6 +21,13 @@ Zikula 1.3.x
 
 *The original license is upgraded from LGPLv2 to LGPLv3+ as there is a few bits
 of code retained.
+
+###Version 3.1.4
+_1 Februaray 2013_
+- Added features
+    - Improved security stuff for managing files
+    - Added downloads-link to the user account board
+    - Added user menu bar
 
 ###Version 3.1.3
 _24 September 2012_
