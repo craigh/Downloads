@@ -41,8 +41,11 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
                 return LogUtil::registerError($this->__f('File with id %s not found', $id));
             }
         }
-
-        $view->setStateData('returnurl', ModUtil::url('Downloads', 'admin', 'main'));
+        
+        if(!SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN))
+            $view->setStateData('returnurl', ModUtil::url('Downloads', 'user', 'main'));
+        else
+            $view->setStateData('returnurl', ModUtil::url('Downloads', 'admin', 'main'));
 
         $view->assign('categories', Downloads_Util::getCatSelectArray(array()));
 
@@ -69,15 +72,20 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
         $storage = $this->getVar('upload_folder');
 
         if ($args['commandName'] == 'delete') {
-            $file = $this->entityManager->getRepository('Downloads_Entity_Download')->find($this->id);
-            $oldname = $file->getFilename();
-            $fullpath = DataUtil::formatForOS("$storage/$oldname");
-            @unlink($fullpath);
-            $this->entityManager->remove($file);
-            $this->entityManager->flush();
-            ModUtil::apiFunc('Downloads', 'user', 'clearItemCache', $file);
-            LogUtil::registerStatus($this->__f('Item [id# %s] deleted!', $this->id));
-            return $view->redirect($returnurl);
+            if(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_DELETE)) {
+                $file = $this->entityManager->getRepository('Downloads_Entity_Download')->find($this->id);
+                $oldname = $file->getFilename();
+                $fullpath = DataUtil::formatForOS("$storage/$oldname");
+                @unlink($fullpath);
+                $this->entityManager->remove($file);
+                $this->entityManager->flush();
+                ModUtil::apiFunc('Downloads', 'user', 'clearItemCache', $file);
+                LogUtil::registerStatus($this->__f('Item [id# %s] deleted!', $this->id));
+                return $view->redirect($returnurl);
+            } else {
+                $view->setPluginErrorMsg('title', $this->__('You are not authorized to delete this entry!'));
+                return false;
+            }
         }
 
         // check for valid form
@@ -120,14 +128,19 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
 
         // switch between edit and create mode
         if ($this->id) {
-            $file = $this->entityManager->getRepository('Downloads_Entity_Download')->find($this->id);
-            // if file is new, delete old one
-            $oldname = $file->getFilename();
-            if ($newFileUploadedFlag) {
-                $fullpath = "$storage/$oldname";
-                @unlink($fullpath);
+            if(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_EDIT)) {
+                $file = $this->entityManager->getRepository('Downloads_Entity_Download')->find($this->id);
+                // if file is new, delete old one
+                $oldname = $file->getFilename();
+                if ($newFileUploadedFlag) {
+                    $fullpath = "$storage/$oldname";
+                    @unlink($fullpath);
+                } else {
+                    $data['filename'] = $file->getFilename();
+                }
             } else {
-                $data['filename'] = $file->getFilename();
+                $view->setPluginErrorMsg('title', $this->__('You are not authorized to edit this entry!'));
+                return false;
             }
         } else {
             $file = new Downloads_Entity_Download();
