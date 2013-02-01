@@ -69,7 +69,11 @@
     <div class="z-buttons z-formbuttons">
         {formbutton class='z-bt-ok' commandName='create' __text='Save'}
         {formbutton class='z-bt-cancel' commandName='cancel' __text='Cancel'}
-        {if isset($lid)}{formbutton class="z-bt-delete z-btred" commandName="delete" __text="Delete" __confirmMessage='Delete'}{/if}
+        {checkpermissionblock component='Downloads::' instance='::' level='ACCESS_DELETE'}
+            {if isset($lid)}
+                {formbutton class="z-bt-delete z-btred" commandName="delete" __text="Delete" __confirmMessage='Delete'}
+            {/if}
+        {/checkpermissionblock}
     </div>
 {/form}
 {adminfooter}
