@@ -162,7 +162,7 @@ class Downloads_Controller_Admin extends Zikula_AbstractController
 
     public function categoryList()
     {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::ManageCategories', '::', ACCESS_DELETE), LogUtil::getErrorMsgPermission());
 
         $cats = $this->entityManager->getRepository('Downloads_Entity_Categories')->getAll();
 
@@ -172,7 +172,7 @@ class Downloads_Controller_Admin extends Zikula_AbstractController
 
     public function editCategory()
     {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Downloads::ManageCategories', '::', ACCESS_DELETE), LogUtil::getErrorMsgPermission());
 
         $form = FormUtil::newForm('Downloads', $this);
         return $form->execute('admin/editcategory.tpl', new Downloads_Form_Handler_Admin_EditCategory());

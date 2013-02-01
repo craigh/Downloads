@@ -20,6 +20,36 @@ class Downloads_Api_User extends Zikula_AbstractApi
     const STATUS_ACTIVE = 1;
 
     /**
+     * get download control objects
+     * @return array of objects
+     */
+    public function getlinks()
+    {
+        $links = array ();
+
+        if (SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADD)) {
+            $links[] = array(
+                'url' => ModUtil::url('Downloads', 'user', 'edit'),
+                'text' => $this->__('New download'),
+                'class' => 'z-icon-es-new');
+        }
+
+        if (SecurityUtil::checkPermission('Downloads::ManageCategories', '::', ACCESS_DELETE)) {
+            $links[] = array(
+                'url' => ModUtil::url('Downloads', 'admin', 'categoryList'),
+                'text' => $this->__('Categories'),
+                'class' => 'z-icon-es-cubes',
+                'links' => array(
+                    array('url' => ModUtil::url('Downloads', 'admin', 'categoryList'),
+                        'text' => $this->__('View/edit Categories')),
+                    array('url' => ModUtil::url('Downloads', 'admin', 'editCategory'),
+                        'text' => $this->__('New category')),
+                ));
+        }
+		return $links;
+    }
+    
+    /**
      * get downloads filtered as requested
      * @param type $args
      * @return array of objects

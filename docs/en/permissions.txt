@@ -10,6 +10,7 @@ General:
     by default, all users can access all downloads.
   - To deny groups access to the entire module do:
     <groupname> | Downloads:: | .* | Overview Access (or no access)
+  - You can allow users to upload files by set their access to the entire Downloads module to Add (only add files and edit files) or Delete (full access to all files)
 
 Item Specific:
 --------------
@@ -31,5 +32,3 @@ Notes:
 The following components were listed as available in Downloads 2.4 and are no longer available.
   - Downloads::Add
   - Downloads::Modify
-
-In version 3.0.0 of Downloads only Admins have permission to add downloads.

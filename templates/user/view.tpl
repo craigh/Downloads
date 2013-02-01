@@ -3,6 +3,7 @@
 <h3>{gt text='Category'}: / {getcategoryfullpath cid=$cid}</h3>
 
 {insert name="getstatusmsg"}
+{modulelinks type='User'}
 <table class="z-datatable">
     <tbody>
         {if ($cid <> 0)}

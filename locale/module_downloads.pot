@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Zikula 1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-24 16:05-0400\n"
+"POT-Creation-Date: 2013-02-01 08:06-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,37 +16,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Downloads/Api/Admin.php:27
-msgid "File List"
+#: lib/Downloads/Form/Handler/Admin/Edit.php:41
+#, php-format
+msgid "File with id %s not found"
 msgstr ""
 
-#: lib/Downloads/Api/Admin.php:34
-msgid "New download"
+#: lib/Downloads/Form/Handler/Admin/Edit.php:83
+#, php-format
+msgid "Item [id# %s] deleted!"
 msgstr ""
 
-#: lib/Downloads/Api/Admin.php:41 templates/admin/main.tpl:37
-#: templates/user/view.tpl:39
-msgid "Categories"
+#: lib/Downloads/Form/Handler/Admin/Edit.php:86
+msgid "You are not authorized to delete this entry!"
 msgstr ""
 
-#: lib/Downloads/Api/Admin.php:45
-msgid "View/edit Categories"
+#: lib/Downloads/Form/Handler/Admin/Edit.php:102
+msgid "You must upload a filename"
 msgstr ""
 
-#: lib/Downloads/Api/Admin.php:47
-msgid "New category"
+#: lib/Downloads/Form/Handler/Admin/Edit.php:104
+msgid "OR specify a download url."
 msgstr ""
 
-#: lib/Downloads/Api/Admin.php:54
-msgid "Settings"
+#: lib/Downloads/Form/Handler/Admin/Edit.php:142
+msgid "You are not authorized to edit this entry!"
 msgstr ""
 
-#: lib/Downloads/Api/Search.php:64
-msgid "Error! Could not save the search results."
+#: lib/Downloads/Form/Handler/Admin/EditCategory.php:40
+#, php-format
+msgid "Category with id %s not found"
 msgstr ""
 
-#: lib/Downloads/Block/List.php:27
-msgid "Downloads list Block"
+#: lib/Downloads/Form/Handler/Admin/EditCategory.php:79
+#, php-format
+msgid "Category [id# %s] deleted!"
 msgstr ""
 
 #: lib/Downloads/Controller/Admin.php:146
@@ -72,32 +75,97 @@ msgstr ""
 msgid "Error! Could not read file %s."
 msgstr ""
 
-#: lib/Downloads/Form/Handler/Admin/Edit.php:41
+#: lib/Downloads/Api/Account.php:29 lib/Downloads/Version.php:18
+#: templates/search/options.tpl:3 templates/user/view.tpl:38
+msgid "Downloads"
+msgstr ""
+
+#: lib/Downloads/Api/Search.php:64
+msgid "Error! Could not save the search results."
+msgstr ""
+
+#: lib/Downloads/Api/User.php:33 lib/Downloads/Api/Admin.php:39
+msgid "New download"
+msgstr ""
+
+#: lib/Downloads/Api/User.php:40 lib/Downloads/Api/Admin.php:46
+#: templates/admin/main.tpl:37 templates/user/view.tpl:41
+msgid "Categories"
+msgstr ""
+
+#: lib/Downloads/Api/User.php:44 lib/Downloads/Api/Admin.php:50
+msgid "View/edit Categories"
+msgstr ""
+
+#: lib/Downloads/Api/User.php:46 lib/Downloads/Api/Admin.php:52
+msgid "New category"
+msgstr ""
+
+#: lib/Downloads/Api/Admin.php:27
+msgid "File List"
+msgstr ""
+
+#: lib/Downloads/Api/Admin.php:32
+msgid "Back to the user view"
+msgstr ""
+
+#: lib/Downloads/Api/Admin.php:59
+msgid "Settings"
+msgstr ""
+
+#: lib/Downloads/Block/List.php:27
+msgid "Downloads list Block"
+msgstr ""
+
+#: lib/Downloads/Util.php:571
+msgid "All Categories"
+msgstr ""
+
+#: lib/Downloads/Util.php:585 lib/Downloads/Util.php:675
 #, php-format
-msgid "File with id %s not found"
+msgid "Error! Missing required argument [%s]."
 msgstr ""
 
-#: lib/Downloads/Form/Handler/Admin/Edit.php:79
+#: lib/Downloads/Util.php:620
+msgid "Main"
+msgstr ""
+
+#: lib/Downloads/Util.php:653
+#: templates/plugins/function.getcategoryfullpath.php:24
+#: templates/plugins/modifier.getcategorynamefromid.php:13
+#: templates/user/view.tpl:12
+msgid "Root"
+msgstr ""
+
+#: lib/Downloads/Util.php:719 lib/Downloads/Util.php:723
 #, php-format
-msgid "Item [id# %s] deleted!"
+msgid "%s: called with invalid %s."
 msgstr ""
 
-#: lib/Downloads/Form/Handler/Admin/Edit.php:94
-msgid "You must upload a filename"
-msgstr ""
-
-#: lib/Downloads/Form/Handler/Admin/Edit.php:96
-msgid "OR specify a download url."
-msgstr ""
-
-#: lib/Downloads/Form/Handler/Admin/EditCategory.php:40
+#: lib/Downloads/Util.php:729
 #, php-format
-msgid "Category with id %s not found"
+msgid "The destination path [%s] does not exist or is not writable"
 msgstr ""
 
-#: lib/Downloads/Form/Handler/Admin/EditCategory.php:79
-#, php-format
-msgid "Category [id# %s] deleted!"
+#: lib/Downloads/Util.php:731
+msgid "The destination path does not exist or is not writable"
+msgstr ""
+
+#: lib/Downloads/Util.php:745
+msgid "That filename already exists. Please choose a different name."
+msgstr ""
+
+#. !used in URL - nospaces, no special chars, lcase
+#: lib/Downloads/Version.php:19
+msgid "downloads"
+msgstr ""
+
+#: lib/Downloads/Version.php:20
+msgid "Zikula file download manager"
+msgstr ""
+
+#: lib/Downloads/Version.php:36
+msgid "Downloads Hooks"
 msgstr ""
 
 #: lib/Downloads/Installer.php:194
@@ -121,92 +189,6 @@ msgstr ""
 
 #: lib/Downloads/Installer.php:249
 msgid "This file is provided as a sample and this entry can be safely deleted."
-msgstr ""
-
-#: lib/Downloads/Util.php:571
-msgid "All Categories"
-msgstr ""
-
-#: lib/Downloads/Util.php:585 lib/Downloads/Util.php:675
-#, php-format
-msgid "Error! Missing required argument [%s]."
-msgstr ""
-
-#: lib/Downloads/Util.php:620
-msgid "Main"
-msgstr ""
-
-#: lib/Downloads/Util.php:653
-#: templates/plugins/modifier.getcategorynamefromid.php:13
-#: templates/user/view.tpl:10
-msgid "Root"
-msgstr ""
-
-#: lib/Downloads/Util.php:719 lib/Downloads/Util.php:723
-#, php-format
-msgid "%s: called with invalid %s."
-msgstr ""
-
-#: lib/Downloads/Util.php:729
-#, php-format
-msgid "The destination path [%s] does not exist or is not writable"
-msgstr ""
-
-#: lib/Downloads/Util.php:731
-msgid "The destination path does not exist or is not writable"
-msgstr ""
-
-#: lib/Downloads/Util.php:745
-msgid "That filename already exists. Please choose a different name."
-msgstr ""
-
-#: lib/Downloads/Version.php:18 templates/search/options.tpl:3
-#: templates/user/view.tpl:36
-msgid "Downloads"
-msgstr ""
-
-#. !used in URL - nospaces, no special chars, lcase
-#: lib/Downloads/Version.php:19
-msgid "downloads"
-msgstr ""
-
-#: lib/Downloads/Version.php:20
-msgid "Zikula file download manager"
-msgstr ""
-
-#: lib/Downloads/Version.php:35
-msgid "Downloads Hooks"
-msgstr ""
-
-#: templates/admin/categories.tpl:5
-msgid "Downloads category list"
-msgstr ""
-
-#: templates/admin/categories.tpl:13 templates/admin/main.tpl:32
-#: templates/admin/modifyconfig.tpl:22 templates/user/view.tpl:34
-msgid "Title"
-msgstr ""
-
-#: templates/admin/categories.tpl:14 templates/admin/edit.tpl:39
-#: templates/admin/editcategory.tpl:20 templates/admin/main.tpl:35
-#: templates/user/display.tpl:11 templates/user/view.tpl:37
-msgid "Description"
-msgstr ""
-
-#: templates/admin/categories.tpl:15
-msgid "Parent"
-msgstr ""
-
-#: templates/admin/categories.tpl:16
-msgid "Action"
-msgstr ""
-
-#: templates/admin/categories.tpl:26 templates/admin/main.tpl:53
-msgid "Edit"
-msgstr ""
-
-#: templates/admin/categories.tpl:31
-msgid "There are no categories to display."
 msgstr ""
 
 #: templates/admin/edit.tpl:5 templates/admin/edit.tpl:10
@@ -237,6 +219,12 @@ msgstr ""
 msgid "Download link"
 msgstr ""
 
+#: templates/admin/edit.tpl:39 templates/admin/editcategory.tpl:20
+#: templates/admin/categories.tpl:14 templates/admin/main.tpl:35
+#: templates/user/view.tpl:39 templates/user/display.tpl:12
+msgid "Description"
+msgstr ""
+
 #: templates/admin/edit.tpl:44
 msgid "Submitted by"
 msgstr ""
@@ -250,12 +238,12 @@ msgid "Homepage"
 msgstr ""
 
 #: templates/admin/edit.tpl:59 templates/admin/main.tpl:34
-#: templates/user/display.tpl:15 templates/user/view.tpl:35
+#: templates/user/view.tpl:37 templates/user/display.tpl:16
 msgid "Version"
 msgstr ""
 
-#: templates/admin/edit.tpl:64 templates/user/display.tpl:10
-#: templates/user/display.tpl:33 templates/user/view.tpl:2
+#: templates/admin/edit.tpl:64 templates/user/view.tpl:3
+#: templates/user/display.tpl:11
 msgid "Category"
 msgstr ""
 
@@ -269,7 +257,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: templates/admin/edit.tpl:72 templates/admin/editcategory.tpl:34
+#: templates/admin/edit.tpl:74 templates/admin/editcategory.tpl:34
 msgid "Delete"
 msgstr ""
 
@@ -289,70 +277,6 @@ msgstr ""
 msgid "Child of:"
 msgstr ""
 
-#: templates/admin/main.tpl:5
-msgid "Downloads main"
-msgstr ""
-
-#: templates/admin/main.tpl:11
-msgid "active"
-msgstr ""
-
-#: templates/admin/main.tpl:11
-msgid "inactive"
-msgstr ""
-
-#: templates/admin/main.tpl:12
-#, php-format
-msgid "Filter %1$s, %2$s item listed"
-msgid_plural "Filter %1$s, %2$s items listed"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/admin/main.tpl:23
-msgid "Filter"
-msgstr ""
-
-#: templates/admin/main.tpl:24
-msgid "Clear"
-msgstr ""
-
-#: templates/admin/main.tpl:33
-msgid "Status"
-msgstr ""
-
-#: templates/admin/main.tpl:36 templates/user/display.tpl:18
-#: templates/user/view.tpl:38
-msgid "Submitter"
-msgstr ""
-
-#: templates/admin/main.tpl:38 templates/user/view.tpl:40
-msgid "Actions"
-msgstr ""
-
-#: templates/admin/main.tpl:45
-msgid "Active"
-msgstr ""
-
-#: templates/admin/main.tpl:45
-msgid "Inactive"
-msgstr ""
-
-#: templates/admin/main.tpl:51 templates/blocks/list.tpl:5
-#: templates/user/view.tpl:53
-msgid "View"
-msgstr ""
-
-#: templates/admin/main.tpl:52 templates/user/display.tpl:6
-#: templates/user/view.tpl:54
-msgid "Download"
-msgstr ""
-
-#: templates/admin/main.tpl:57 templates/user/view.tpl:58
-#, php-format
-msgid ""
-"No records in category \"%1$s\". Try a sub-category, or a different category."
-msgstr ""
-
 #: templates/admin/modifyconfig.tpl:4
 msgid "Downloads settings"
 msgstr ""
@@ -369,7 +293,12 @@ msgstr ""
 msgid "Sort downloads by"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:23 templates/user/display.tpl:17
+#: templates/admin/modifyconfig.tpl:22 templates/admin/categories.tpl:13
+#: templates/admin/main.tpl:32 templates/user/view.tpl:36
+msgid "Title"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:23 templates/user/display.tpl:18
 msgid "Hits"
 msgstr ""
 
@@ -529,6 +458,91 @@ msgstr ""
 msgid "importfrommod"
 msgstr ""
 
+#: templates/admin/categories.tpl:5
+msgid "Downloads category list"
+msgstr ""
+
+#: templates/admin/categories.tpl:15
+msgid "Parent"
+msgstr ""
+
+#: templates/admin/categories.tpl:16
+msgid "Action"
+msgstr ""
+
+#: templates/admin/categories.tpl:26 templates/admin/main.tpl:53
+#: templates/user/display.tpl:34
+msgid "Edit"
+msgstr ""
+
+#: templates/admin/categories.tpl:31
+msgid "There are no categories to display."
+msgstr ""
+
+#: templates/admin/main.tpl:5
+msgid "Downloads main"
+msgstr ""
+
+#: templates/admin/main.tpl:11
+msgid "active"
+msgstr ""
+
+#: templates/admin/main.tpl:11
+msgid "inactive"
+msgstr ""
+
+#: templates/admin/main.tpl:12
+#, php-format
+msgid "Filter %1$s, %2$s item listed"
+msgid_plural "Filter %1$s, %2$s items listed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/main.tpl:23
+msgid "Filter"
+msgstr ""
+
+#: templates/admin/main.tpl:24
+msgid "Clear"
+msgstr ""
+
+#: templates/admin/main.tpl:33
+msgid "Status"
+msgstr ""
+
+#: templates/admin/main.tpl:36 templates/user/view.tpl:40
+#: templates/user/display.tpl:19
+msgid "Submitter"
+msgstr ""
+
+#: templates/admin/main.tpl:38 templates/user/view.tpl:42
+msgid "Actions"
+msgstr ""
+
+#: templates/admin/main.tpl:45
+msgid "Active"
+msgstr ""
+
+#: templates/admin/main.tpl:45
+msgid "Inactive"
+msgstr ""
+
+#: templates/admin/main.tpl:51 templates/blocks/list.tpl:5
+#: templates/user/view.tpl:55
+msgid "View"
+msgstr ""
+
+#: templates/admin/main.tpl:52 templates/user/view.tpl:56
+#: templates/user/display.tpl:7
+msgid "Download"
+msgstr ""
+
+#: templates/admin/main.tpl:57 templates/user/view.tpl:60
+#, php-format
+msgid ""
+"No records in category \"%1$s\". Try a sub-category, or a different category."
+msgstr ""
+
 #: templates/blocks/list.tpl:15
 msgid "No downloads available"
 msgstr ""
@@ -541,68 +555,59 @@ msgstr ""
 msgid "Maximum items to display"
 msgstr ""
 
-#: templates/user/display.tpl:2 templates/user/view.tpl:2
+#: templates/user/view.tpl:2 templates/user/display.tpl:2
 msgid "Download Items"
 msgstr ""
 
-#: templates/user/display.tpl:13
-msgid "Filetype"
-msgstr ""
-
-#: templates/user/display.tpl:14
-msgid "Filesize"
-msgstr ""
-
-#: templates/user/display.tpl:14
-msgid "Kilobytes (Kb)"
-msgstr ""
-
-#: templates/user/display.tpl:16
-msgid "Creation date"
-msgstr ""
-
-#: templates/user/display.tpl:22
-msgid "Email"
-msgstr ""
-
-#: templates/user/display.tpl:25
-msgid "homepage"
-msgstr ""
-
-#: templates/user/display.tpl:32
-msgid "Root category"
-msgstr ""
-
-#: templates/user/display.tpl:32
-msgid "Back to Root category"
-msgstr ""
-
-#: templates/user/display.tpl:33
-#, php-format
-msgid "Back to category '%s'"
-msgstr ""
-
-#: templates/user/view.tpl:9
+#: templates/user/view.tpl:11
 msgid "View root category"
 msgstr ""
 
-#: templates/user/view.tpl:10
+#: templates/user/view.tpl:12
 msgid "Back to"
 msgstr ""
 
-#: templates/user/view.tpl:15
+#: templates/user/view.tpl:17
 msgid "View parent category"
 msgstr ""
 
-#: templates/user/view.tpl:16
+#: templates/user/view.tpl:18
 msgid "Back to parent: "
 msgstr ""
 
-#: templates/user/view.tpl:21
+#: templates/user/view.tpl:23
 msgid "View subcategory"
 msgstr ""
 
-#: templates/user/view.tpl:26
+#: templates/user/view.tpl:28
 #, php-format
 msgid "No subcategories in category \"%1$s\"."
+msgstr ""
+
+#: templates/user/display.tpl:14
+msgid "Filetype"
+msgstr ""
+
+#: templates/user/display.tpl:15
+msgid "Filesize"
+msgstr ""
+
+#: templates/user/display.tpl:15
+msgid "Kilobytes (Kb)"
+msgstr ""
+
+#: templates/user/display.tpl:17
+msgid "Creation date"
+msgstr ""
+
+#: templates/user/display.tpl:23
+msgid "Email"
+msgstr ""
+
+#: templates/user/display.tpl:26
+msgid "homepage"
+msgstr ""
+
+#: templates/user/display.tpl:34
+msgid "Edit this download"
 msgstr ""
