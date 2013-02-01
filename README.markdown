@@ -23,7 +23,7 @@ Zikula 1.3.x
 of code retained.
 
 ###Version 3.1.4
-_1 Februaray 2013_
+_UNRELEASED_
 - Added features
     - Improved security stuff for managing files
     - Added downloads-link to the user account board
