@@ -29,7 +29,7 @@ class Downloads_Api_User extends Zikula_AbstractApi
 
         if (SecurityUtil::checkPermission('Downloads::', '::', ACCESS_ADD)) {
             $links[] = array(
-                'url' => ModUtil::url('Downloads', 'user', 'edit'),
+                'url' => ModUtil::url('Downloads', 'admin', 'edit'),
                 'text' => $this->__('New download'),
                 'class' => 'z-icon-es-new');
         }
