@@ -77,11 +77,11 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             if(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_DELETE)) {
                 $file = $this->entityManager->getRepository('Downloads_Entity_Download')->find($this->id);
                 // file
-				$oldname = $file->getFilename();
+                $oldname = $file->getFilename();
                 $fullpath = DataUtil::formatForOS("$storage/$oldname");
                 @unlink($fullpath);
-				// screenshot
-				$oldssname = $file->getScreenshot();
+                // screenshot
+                $oldssname = $file->getScreenshot();
                 $fullsspath = DataUtil::formatForOS("$screens_folder/$oldssname");
                 @unlink($fullsspath);
                 $this->entityManager->remove($file);
@@ -111,11 +111,11 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             $plugin->setError($this->__('OR specify a download url.'));
             return false;
         }
-		// validate the max file size for screenshot
-		$screenshotmaxsize = $this->getVar('screenshotmaxsize');
-		if ($data['screenshot']['size'] > $screenshotmaxsize){
-			return LogUtil::registerError($this->__f('Screenshot file is bigger that the max. file size:', $screenshotmaxsize));
-		}
+        // validate the max file size for screenshot
+        $screenshotmaxsize = $this->getVar('screenshotmaxsize');
+        if ($data['screenshot']['size'] > $screenshotmaxsize){
+            return LogUtil::registerError($this->__f('Screenshot file is bigger that the max. file size:', $screenshotmaxsize));
+        }
 
         $newFileUploadedFlag = false;
         $data['update'] = new DateTime();
@@ -138,9 +138,9 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             $data['filename'] = '';
         }
 
-		// screenshot
-		if ((is_array($data['screenshot'])) && ($data['screenshot']['size'] > 0)) {
-			$result = Downloads_Util::uploadFile('screenshot', $screens_folder, $data['screenshot']['name']);
+        // screenshot
+        if ((is_array($data['screenshot'])) && ($data['screenshot']['size'] > 0)) {
+            $result = Downloads_Util::uploadFile('screenshot', $screens_folder, $data['screenshot']['name']);
             if (!$result) {
                 return LogUtil::registerError($result);
             }
@@ -164,8 +164,8 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
                 } else {
                     $data['filename'] = $file->getFilename();
                 }
-				// screenshot
-				$oldssname = $file->getScreenshot();
+                // screenshot
+                $oldssname = $file->getScreenshot();
                 if ($newSSUploadedFlag) {
                     $fullpath = "$screens_folder/$oldssname";
                     @unlink($fullpath);

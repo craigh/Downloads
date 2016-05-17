@@ -194,7 +194,7 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
             LogUtil::registerStatus($this->__f('Created the file storage directory successfully at [%s]. Be sure that this directory is accessible via web and writable by the webserver.', $uploaddir));
         }
 
-		// upload dir creation
+        // screenshot dir creation
         $screenshotdir = $this->getVar('screenshot_folder');
 
         if (mkdir($screenshotdir, System::getVar('system.chmod_dir', 0777), true)) {

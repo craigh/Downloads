@@ -343,7 +343,7 @@ class Downloads_Entity_Download extends Zikula_EntityAccess
         $this->objectid = $objectid;
     }
 
-	public function getScreenshot()
+    public function getScreenshot()
     {
         return $this->screenshot;
     }

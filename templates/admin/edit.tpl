@@ -45,7 +45,7 @@
             {formuploadinput id="screenshot"}
         </div>
 
-		<div class="z-formrow">
+        <div class="z-formrow">
             {formlabel mandatorysym=true for="submitter" __text="Submitted by"}
             {formtextinput id="submitter" mandatory=true maxLength=60}
         </div>
