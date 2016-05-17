@@ -152,6 +152,13 @@ class Downloads_Entity_Download extends Zikula_EntityAccess
      */
     private $objectid = '';
 
+		/**
+     * item screenshot
+     * 
+     * @ORM\Column(nullable=true)
+     */
+    private $screenshot;
+
     /**
      * Constructor 
      */
@@ -334,6 +341,16 @@ class Downloads_Entity_Download extends Zikula_EntityAccess
     public function setObjectid($objectid)
     {
         $this->objectid = $objectid;
+    }
+
+	public function getScreenshot()
+    {
+        return $this->screenshot;
+    }
+
+    public function setScreenshot($screenshot)
+    {
+        $this->screenshot = $screenshot;
     }
 
 }

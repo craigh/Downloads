@@ -27,7 +27,7 @@ class Downloads_Util
             'showscreenshot' => true,
             'thumbnailwidth' => 100,
             'thumbnailheight' => 100,
-            'screenshotmaxsize' => '2-Mb',
+            'screenshotmaxsize' => '2097152',
             'thumbnailmaxsize' => '1-Mb',
             'limit_extension' => true,
             'allowscreenshotupload' => true,

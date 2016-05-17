@@ -28,6 +28,10 @@
             </ul>
             {/if}
         </li>
+		{if $item->getScreenshot()}
+			<li><strong>{gt text='Screenshot'}:</strong></li>
+			<center><img src="{$baseurl}{$ssPath}{$item->getScreenshot()}"></center>
+		{/if}
     </ul>
 </div>
 {checkpermissionblock component='Downloads::' instance='::' level=ACCESS_EDIT}
