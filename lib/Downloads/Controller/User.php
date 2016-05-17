@@ -113,12 +113,15 @@ class Downloads_Controller_User extends Zikula_AbstractController
         //$item['filetype'] = FileUtil::getExtension($item['filename']);
         $filename = $item->getFilename();
         $filetype = (!empty($filename)) ? FileUtil::getExtension($filename) : $this->__('unknown');
+        // screenshot path
+        $ssPath = $this->getVar('screenshot_folder'). "/";
 
         $this->view->setCacheId('display|lid_' . $lid);
 
         return $this->view
                         ->assign('item', $item)
                         ->assign('filetype', $filetype)
+                        ->assign('ssPath', $ssPath)
                         ->fetch('user/display.tpl');
     }
 

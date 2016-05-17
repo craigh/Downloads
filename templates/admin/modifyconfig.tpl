@@ -57,7 +57,7 @@
 
             <div class="z-formrow">
                 <label for="screenshotmaxsize">{gt text='Maximum filesize for screenshots'}</label>
-                <input disabled="disabled" id="screenshotmaxsize" type="text" name="screenshotmaxsize" value="{$modvars.Downloads.screenshotmaxsize|safetext}" size="40" maxlength="80" />
+                <input id="screenshotmaxsize" type="text" name="screenshotmaxsize" value="{$modvars.Downloads.screenshotmaxsize|safetext}" size="40" maxlength="80" />
             </div>
 
             <div class="z-formrow">

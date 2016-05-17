@@ -71,13 +71,19 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
         }
 
         $storage = $this->getVar('upload_folder');
+		$screens_folder = $this->getVar('screenshot_folder');
 
         if ($args['commandName'] == 'delete') {
             if(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_DELETE)) {
                 $file = $this->entityManager->getRepository('Downloads_Entity_Download')->find($this->id);
+                // file
                 $oldname = $file->getFilename();
                 $fullpath = DataUtil::formatForOS("$storage/$oldname");
                 @unlink($fullpath);
+                // screenshot
+                $oldssname = $file->getScreenshot();
+                $fullsspath = DataUtil::formatForOS("$screens_folder/$oldssname");
+                @unlink($fullsspath);
                 $this->entityManager->remove($file);
                 $this->entityManager->flush();
                 ModUtil::apiFunc('Downloads', 'user', 'clearItemCache', $file);
@@ -105,6 +111,11 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             $plugin->setError($this->__('OR specify a download url.'));
             return false;
         }
+        // validate the max file size for screenshot
+        $screenshotmaxsize = $this->getVar('screenshotmaxsize');
+        if ($data['screenshot']['size'] > $screenshotmaxsize){
+            return LogUtil::registerError($this->__f('Screenshot file is bigger that the max. file size:', $screenshotmaxsize));
+        }
 
         $newFileUploadedFlag = false;
         $data['update'] = new DateTime();
@@ -127,6 +138,20 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
             $data['filename'] = '';
         }
 
+        // screenshot
+        if ((is_array($data['screenshot'])) && ($data['screenshot']['size'] > 0)) {
+            $result = Downloads_Util::uploadFile('screenshot', $screens_folder, $data['screenshot']['name']);
+            if (!$result) {
+                return LogUtil::registerError($result);
+            }
+            $newSSUploadedFlag = true;
+            $screenshot = $data['screenshot']['name'];
+            unset($data['screenshot']);
+            $data['screenshot'] = $screenshot;
+        } else if (((is_array($data['filename'])) && (!$data['filename']['size'] > 0)) || (!isset($data['filename']))) {
+            $data['screenshot'] = '';
+        }
+
         // switch between edit and create mode
         if ($this->id) {
             if(SecurityUtil::checkPermission('Downloads::', '::', ACCESS_EDIT)) {
@@ -138,6 +163,14 @@ class Downloads_Form_Handler_Admin_Edit extends Zikula_Form_AbstractHandler
                     @unlink($fullpath);
                 } else {
                     $data['filename'] = $file->getFilename();
+                }
+                // screenshot
+                $oldssname = $file->getScreenshot();
+                if ($newSSUploadedFlag) {
+                    $fullpath = "$screens_folder/$oldssname";
+                    @unlink($fullpath);
+                } else {
+                    $data['screenshot'] = $file->getScreenshot();
                 }
             } else {
                 $view->setPluginErrorMsg('title', $this->__('You are not authorized to edit this entry!'));
