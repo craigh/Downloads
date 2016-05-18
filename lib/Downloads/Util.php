@@ -45,7 +45,7 @@ class Downloads_Util
             'popular' => 10,
             'torrent' => false,
             'upload_folder' => FileUtil::getDataDirectory() . '/Downloads',
-            'screenshot_folder' => '',
+            'screenshot_folder' => FileUtil::getDataDirectory() . '/Downloads/screenshots',
             'cache_folder' => '',
             'treeview' => false,
         );
