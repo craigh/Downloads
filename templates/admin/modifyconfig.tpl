@@ -132,7 +132,7 @@
 
             <div class="z-formrow">
                 <label for="screenshot_folder">{gt text='Screenshot folder path'}</label>
-                <input disabled="disabled" id="screenshot_folder" type="text" name="screenshot_folder" value="{$modvars.Downloads.screenshot_folder|safetext}" size="40" maxlength="80" />
+                <input id="screenshot_folder" type="text" name="screenshot_folder" value="{$modvars.Downloads.screenshot_folder|safetext}" size="40" maxlength="80" />
             </div>
 
             <div class="z-formrow">

@@ -149,7 +149,10 @@ CHANGE `pn_description` `description` VARCHAR( 254 ) CHARACTER SET utf8 COLLATE 
                 // run the update rows routine again because some rows were not properly updated in the 3.0.0 routine
                 $this->updateRows();
             case '3.1.3':
-            //future development
+                // upgrade entity with screenshot column
+                DoctrineHelper::updateSchema($this->entityManager, array('Downloads_Entity_Download'));
+            case '3.1.4':
+                //future developments
         }
 
         return true;
